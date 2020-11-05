@@ -185,31 +185,31 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/quitButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Quit" />
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/doneButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Done" />
 
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/pullButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Pull Card" />
 
                 <Button
-                    android:id="@+id/button4"
+                    android:id="@+id/discardButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Discard" />
 
                 <Button
-                    android:id="@+id/button5"
+                    android:id="@+id/knockButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Knock" />
