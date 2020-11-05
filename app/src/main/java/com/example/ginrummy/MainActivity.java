@@ -2,12 +2,11 @@ package com.example.ginrummy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -17,25 +16,63 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.start_screen);
 
         RummyGameState player = new RummyGameState();
-        RummyGameState dumbAI = new RummyGameState(player);
+        //I dont think the dumbAI is a new gameState.
+        //RummyGameState dumbAI = new RummyGameState(player);
 
-        Controller controller = new Controller();
+        Controller controller = new Controller(player);
 
         /** Assigning button listeners */
+        Button startButton = findViewById(R.id.startButton);
+        startButton.setOnClickListener(this);
+
         Button quitButton = findViewById(R.id.quitButton);
         quitButton.setOnClickListener(this);
 
         Button knockButton = findViewById(R.id.knockButton);
-        knockButton.setOnClickListener(this);
+        knockButton.setOnClickListener(controller);
 
-        Button knock = findViewById(R.id.knockButton);
-
-
-        ImageButton discardButton = findViewById(R.id.discardedCard);
+        Button discardButton = findViewById(R.id.discardButton);
         discardButton.setOnClickListener(controller);
+
+        ImageButton discardedCard = findViewById(R.id.discardedCard);
+        discardedCard.setOnClickListener(controller);
 
         ImageButton drawPile = findViewById(R.id.drawPile);
         drawPile.setOnClickListener(controller);
+
+        //Card Listeners
+        ImageView card1 = findViewById(R.id.card1);
+        card1.setOnClickListener(controller);
+
+        ImageView card2 = findViewById(R.id.card2);
+        card2.setOnClickListener(controller);
+
+        ImageView card3 = findViewById(R.id.card3);
+        card3.setOnClickListener(controller);
+
+        ImageView card4 = findViewById(R.id.card4);
+        card4.setOnClickListener(controller);
+
+        ImageView card5 = findViewById(R.id.card5);
+        card5.setOnClickListener(controller);
+
+        ImageView card6 = findViewById(R.id.card6);
+        card6.setOnClickListener(controller);
+
+        ImageView card7 = findViewById(R.id.card7);
+        card7.setOnClickListener(controller);
+
+        ImageView card8 = findViewById(R.id.card8);
+        card8.setOnClickListener(controller);
+
+        ImageView card9 = findViewById(R.id.card9);
+        card9.setOnClickListener(controller);
+
+        ImageView card10 = findViewById(R.id.card10);
+        card10.setOnClickListener(controller);
+
+        ImageView card11 = findViewById(R.id.card0);
+        card11.setOnClickListener(controller);
     }
 
     @Override

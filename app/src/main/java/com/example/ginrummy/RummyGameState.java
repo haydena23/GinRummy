@@ -40,6 +40,57 @@ public class RummyGameState {
         this.turn = true;
     }
 
+    //Getters and Setters (Important for Testing)
+    //We still need to add a check to see if the correct person can call it.
+
+    //To test the createPlayerHand method
+    public Card[] getPlayer1Cards () {
+        return this.player1Cards;
+    }
+
+    public void setPlayer1Cards (Card[] player1Cards) {
+        this.player1Cards = player1Cards;
+    }
+
+    public Card[] getPlayer2Cards () {
+        return this.player2Cards;
+    }
+
+    public void setPlayer2Cards (Card[] player2Cards) {
+        this.player2Cards = player2Cards;
+    }
+
+    //To test the createDrawPile method
+    public Card[] getDrawPile () {
+        return this.drawPile;
+    }
+
+    //To test the createDiscardPile method
+    public Card getDiscardedCard () {
+        return this.discardedCard;
+    }
+
+    public void setDiscardedCard (Card discardedCard) {
+        this.discardedCard = discardedCard;
+    }
+
+    //Both the setter and getter method for the current stage can test the possible player moves.
+    public String getCurrentStage() {
+        return this.currentStage;
+    }
+
+    public void setCurrentStage (String currentStage) {
+        this.currentStage = currentStage;
+    }
+
+    public boolean getTurn () {
+        return this.turn;
+    }
+
+    public void toggleTurn () {
+        this.turn = !this.turn;
+    }
+
     //Player methods
     //Method for drawing a card from draw pile
     public Card drawDraw() {
@@ -124,10 +175,6 @@ public class RummyGameState {
         }
 
         return returnThis;
-    }
-
-    public String getCurrentStage() {
-        return this.currentStage;
     }
 
     //@Override
