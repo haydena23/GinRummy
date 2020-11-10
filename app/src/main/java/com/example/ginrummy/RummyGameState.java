@@ -15,7 +15,7 @@ public class RummyGameState {
     private int P1Points;
     private int totalofP2;
     private int P2Points;
-    private int amountOfDrawn;
+    private int amountDrawn;
 
     //Similar to a toggle, this will be true for P1 and false for P2.
     private boolean turn;
@@ -32,7 +32,7 @@ public class RummyGameState {
 
         this.currentStage = "drawingStage";
 
-        this.amountOfDrawn = 0;
+        this.amountDrawn = 0;
         this.totalOfP1 = 0;
         this.totalofP2 = 0;
         this.P1Points = 0;
@@ -101,27 +101,34 @@ public class RummyGameState {
     //Method for drawing a card from draw pile
     public Card drawDraw() {
 
+        if (this.amountDrawn >= 32) {
+            return null;
+        }
         if (this.currentStage != "drawingStage") {
             return null;
-        }
-        if (this.amountOfDrawn >= 32) {
-            return null;
-        }
-
-        Random random = new Random();
-        int chosenCard;
-
-
-        while (true) { //repeat until it has returned a card.
-            chosenCard = random.nextInt(this.drawPile.length);
-            if (this.drawPile[chosenCard] != null) {
-                Card returnThis = new Card(this.drawPile[chosenCard].getNumber(), this.drawPile[chosenCard].getSuit());
-                this.drawPile[chosenCard] = null;
-                this.currentStage = "discardStage";
-                return returnThis;
-            }
+        } else {
+            Card returnThis = this.drawPile[amountDrawn];
+            this.drawPile[amountDrawn] = null;
+            amountDrawn++;
+            this.currentStage = "discardStage";
+            return returnThis;
         }
 
+//
+//        Random random = new Random();
+//        int chosenCard;
+//
+//
+//        while (true) { //repeat until it has returned a card.
+//            chosenCard = random.nextInt(this.drawPile.length);
+//            if (this.drawPile[chosenCard] != null) {
+//                Card returnThis = new Card(this.drawPile[chosenCard].getNumber(), this.drawPile[chosenCard].getSuit());
+//                this.drawPile[chosenCard] = null;
+//                this.currentStage = "discardStage";
+//                return returnThis;
+//            }
+//        }
+//
 
     }
     //Method for drawing the discarded card
@@ -174,7 +181,7 @@ public class RummyGameState {
         this.P2Points = gameState.P2Points;
         this.turn = gameState.turn;
         this.currentStage = gameState.currentStage;
-        this.amountOfDrawn= gameState.amountOfDrawn;
+        this.amountDrawn= gameState.amountDrawn;
     }
 
     //Our String methods
