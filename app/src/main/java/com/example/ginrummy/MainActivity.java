@@ -2,6 +2,7 @@ package com.example.ginrummy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +14,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.start_screen);
+        setContentView(R.layout.activity_main);
 
         RummyGameState player = new RummyGameState();
         //I dont think the dumbAI is a new gameState.
@@ -22,8 +23,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Controller controller = new Controller(player);
 
         /** Assigning button listeners */
-        Button startButton = findViewById(R.id.startButton);
-        startButton.setOnClickListener(this);
+        //Button startButton = findViewById(R.id.startButton);
+        //startButton.setOnClickListener(this);
 
         Button quitButton = findViewById(R.id.quitButton);
         quitButton.setOnClickListener(this);

@@ -1,6 +1,7 @@
 package com.example.ginrummy;
 
 import android.view.View;
+import android.widget.Button;
 
 public class Controller implements View.OnClickListener{
     private boolean discardOn = false;
@@ -17,7 +18,7 @@ public class Controller implements View.OnClickListener{
     //DOTHIS : Current Issues - we have to check what player called it, then change based on that.
     public void discardThisCard(int x) {
         //switch ifs
-        this.player1Cards[10] = new Card(100, "Trash");
+        //this.player1Cards[10] = new Card(100, "Trash");
         rummyGameState.setPlayer1Cards(this.player1Cards);
 
         if (rummyGameState.getTurn()) {
@@ -25,7 +26,7 @@ public class Controller implements View.OnClickListener{
 
                 if(x == 10) {
                     rummyGameState.setDiscardedCard(this.player1Cards[10]);
-                    this.player1Cards[10] = new Card (100, "Trash");
+                    //this.player1Cards[10] = new Card (99, "Trash");
                     return;
                 }
 
@@ -37,6 +38,7 @@ public class Controller implements View.OnClickListener{
                 rummyGameState.setPlayer1Cards(player1Cards);
                 rummyGameState.setCurrentStage("drawingStage");
                 rummyGameState.toggleTurn();
+                discardOn = !discardOn;
             }
         } else {
             if (discardOn) {
@@ -48,6 +50,7 @@ public class Controller implements View.OnClickListener{
                 rummyGameState.setPlayer2Cards(player2Cards);
                 rummyGameState.setCurrentStage("drawingStage");
                 rummyGameState.toggleTurn();
+                discardOn = !discardOn;
             }
         }
     }
@@ -60,10 +63,23 @@ public class Controller implements View.OnClickListener{
             case R.id.discardButton:
                 if (rummyGameState.getCurrentStage() == "discardStage") {
                     discardOn = !discardOn;
+                    if(discardOn) {
+                        //Button discardButton =
+                    }
                 } else {
                     //DOTHIS : Say something like wait until your turn!
                 }
                 break;
+            case R.id.discardedCard:
+                if (rummyGameState.getCurrentStage() == "drawingStage") {
+                    if(rummyGameState.getTurn()) {
+                        player1Cards[10] = rummyGameState.drawDiscard();
+                    }
+                    else {
+                        player2Cards[10] = rummyGameState.drawDiscard();
+                    }
+                    rummyGameState.setCurrentStage("discardStage");
+                }
             case R.id.knockButton:
                     //DOTHIS : Not sure how to do this yet.
                 break;
@@ -71,16 +87,13 @@ public class Controller implements View.OnClickListener{
                 if (rummyGameState.getCurrentStage() == "drawingStage") {
                     if(rummyGameState.getTurn()) {
                         player1Cards[10] = rummyGameState.drawDraw();
-                        rummyGameState.setCurrentStage("discardStage");
                     } else {
                         player2Cards[10] = rummyGameState.drawDraw();
-                        rummyGameState.setCurrentStage("discardStage");
                     }
+                    rummyGameState.setCurrentStage("discardStage");
                 } else {
                     //DOTHIS : Say something like wait until your turn!
                 }
-                break;
-            case R.id.discardedCard:
                 break;
             case R.id.card0:
                 discardThisCard(0);
