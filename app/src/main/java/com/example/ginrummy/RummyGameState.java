@@ -97,13 +97,21 @@ public class RummyGameState {
         this.drawPile = cards;
     }
 
+    public int getAmountDrawn() {
+        return this.amountDrawn;
+    }
+
+    public void setAmountDrawn(int amountDrawn) {
+        this.amountDrawn = amountDrawn;
+    }
+
     //Player methods
     //Method for drawing a card from draw pile
     public Card drawDraw() {
-
         if (this.amountDrawn >= 32) {
             return null;
         }
+
         if (this.currentStage != "drawingStage") {
             return null;
         } else {

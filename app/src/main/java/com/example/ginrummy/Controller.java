@@ -69,7 +69,13 @@ public class Controller implements View.OnClickListener{
                 break;
             case R.id.drawPile:
                 if (rummyGameState.getCurrentStage() == "drawingStage") {
-
+                    if(rummyGameState.getTurn()) {
+                        player1Cards[10] = rummyGameState.drawDraw();
+                        rummyGameState.setCurrentStage("discardStage");
+                    } else {
+                        player2Cards[10] = rummyGameState.drawDraw();
+                        rummyGameState.setCurrentStage("discardStage");
+                    }
                 } else {
                     //DOTHIS : Say something like wait until your turn!
                 }
