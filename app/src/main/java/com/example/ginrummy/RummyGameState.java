@@ -15,7 +15,7 @@ public class RummyGameState {
     private int P1Points;
     private int totalofP2;
     private int P2Points;
-    private int amountOfDiscards;
+    private int amountOfDrawn;
 
     //Similar to a toggle, this will be true for P1 and false for P2.
     private boolean turn;
@@ -32,7 +32,7 @@ public class RummyGameState {
 
         this.currentStage = "drawingStage";
 
-        this.amountOfDiscards = 0;
+        this.amountOfDrawn = 0;
         this.totalOfP1 = 0;
         this.totalofP2 = 0;
         this.P1Points = 0;
@@ -104,7 +104,7 @@ public class RummyGameState {
         if (this.currentStage != "drawingStage") {
             return null;
         }
-        if (this.amountOfDiscards >= 32) {
+        if (this.amountOfDrawn >= 32) {
             return null;
         }
 
@@ -174,7 +174,7 @@ public class RummyGameState {
         this.P2Points = gameState.P2Points;
         this.turn = gameState.turn;
         this.currentStage = gameState.currentStage;
-        this.amountOfDiscards = gameState.amountOfDiscards;
+        this.amountOfDrawn= gameState.amountOfDrawn;
     }
 
     //Our String methods
@@ -289,6 +289,8 @@ public class RummyGameState {
         return returnThis;
     }
 
+    
+
     public Card createDiscardPile() {
 
         //Random random = new Random();
@@ -296,7 +298,6 @@ public class RummyGameState {
         //int getThisCard = random.nextInt(32);
         Card returnMe = new Card(this.drawPile[31].getNumber(), this.drawPile[31].getSuit());
         this.drawPile[31] = null;
-        this.amountOfDiscards++;
 
         return returnMe;
     }
