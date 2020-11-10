@@ -28,8 +28,8 @@ public class ScoreView extends SurfaceView {
     }
 
     public void drawScore(Canvas canvas) {
-        canvas.drawText("Player 2 Score: 66", 120f,70f,playerTwoScore);
-        canvas.drawText("Player 1 Score: 20", 120f,500f,playerOneScore);
+        canvas.drawText("Player 2 Score: 0", 120f,70f,playerTwoScore);
+        canvas.drawText("Player 1 Score: 0", 120f,500f,playerOneScore);
     }
 
 }
