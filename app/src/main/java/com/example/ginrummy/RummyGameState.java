@@ -119,6 +119,50 @@ public class RummyGameState {
         this.currentStage = "drawingStage";
     }
 
+    public Card[] createPlayerHand() {
+        Random random = new Random();
+        Card[] returnThis = new Card[11];
+        int handCount = 0;
+
+        while (handCount < 10) {
+            int getThisCard = random.nextInt(52);
+            if (this.startingDeck[getThisCard] != null) {
+                returnThis[handCount] = startingDeck[getThisCard];
+                this.startingDeck[getThisCard]=null;
+                handCount++;
+            }
+        }
+        return returnThis;
+    }
+
+    public Card createDiscardPile() {
+
+        //Random random = new Random();
+
+        //int getThisCard = random.nextInt(32);
+        Card returnMe = new Card(this.drawPile[31].getNumber(), this.drawPile[31].getSuit());
+        this.drawPile[31] = null;
+
+        return returnMe;
+    }
+
+    public Card[] createDrawPile() {
+        Random random = new Random();
+        Card[] returnThis = new Card[32];
+        int pileAmount = 0;
+
+        while (pileAmount < 32) {
+            int getThisCard = random.nextInt(52);
+            if (this.startingDeck[getThisCard] != null) {
+                returnThis[pileAmount] = this.startingDeck[getThisCard];
+                this.startingDeck[getThisCard] = null;
+                pileAmount++;
+            }
+        }
+
+        return returnThis;
+    }
+
     //Our String methods
     public String writeHand(Card[] cardSet) {
         String returnThis = "";
@@ -213,52 +257,6 @@ public class RummyGameState {
         startingDeck[51] = new Card(13, "Clubs");
 
         return startingDeck;
-    }
-
-    public Card[] createPlayerHand() {
-        Random random = new Random();
-        Card[] returnThis = new Card[11];
-        int handCount = 0;
-
-        while (handCount < 10) {
-            int getThisCard = random.nextInt(52);
-            if (this.startingDeck[getThisCard] != null) {
-                returnThis[handCount] = startingDeck[getThisCard];
-                this.startingDeck[getThisCard]=null;
-                handCount++;
-            }
-        }
-        return returnThis;
-    }
-
-
-
-    public Card createDiscardPile() {
-
-        //Random random = new Random();
-
-        //int getThisCard = random.nextInt(32);
-        Card returnMe = new Card(this.drawPile[31].getNumber(), this.drawPile[31].getSuit());
-        this.drawPile[31] = null;
-
-        return returnMe;
-    }
-
-    public Card[] createDrawPile() {
-        Random random = new Random();
-        Card[] returnThis = new Card[32];
-        int pileAmount = 0;
-
-        while (pileAmount < 32) {
-            int getThisCard = random.nextInt(52);
-            if (this.startingDeck[getThisCard] != null) {
-                returnThis[pileAmount] = this.startingDeck[getThisCard];
-                this.startingDeck[getThisCard] = null;
-                pileAmount++;
-            }
-        }
-
-        return returnThis;
     }
 
     //These methods can only be taken in the drawing stage//

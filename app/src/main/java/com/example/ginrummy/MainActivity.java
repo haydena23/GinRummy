@@ -22,9 +22,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button discardButton = findViewById(R.id.discardButton);
 
+        ImageView card0 = findViewById(R.id.card0);
         ImageView card1 = findViewById(R.id.card1);
+        ImageView card2 = findViewById(R.id.card2);
+        ImageView card3 = findViewById(R.id.card3);
+        ImageView card4 = findViewById(R.id.card4);
+        ImageView card5 = findViewById(R.id.card5);
+        ImageView card6 = findViewById(R.id.card6);
+        ImageView card7 = findViewById(R.id.card7);
+        ImageView card8 = findViewById(R.id.card8);
+        ImageView card9 = findViewById(R.id.card9);
+        ImageView card10 = findViewById(R.id.card10);
 
-        Controller controller = new Controller(player, discardButton, card1);
+        Controller controller = new Controller(player, discardButton, card0, card1, card2, card3, card4, card5, card6, card7, card8, card9, card10);
 
         /** Assigning button listeners */
         //Button startButton = findViewById(R.id.startButton);
@@ -47,35 +57,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Card Listeners
         card1.setOnClickListener(controller);
 
-        ImageView card2 = findViewById(R.id.card2);
         card2.setOnClickListener(controller);
 
-        ImageView card3 = findViewById(R.id.card3);
         card3.setOnClickListener(controller);
 
-        ImageView card4 = findViewById(R.id.card4);
         card4.setOnClickListener(controller);
 
-        ImageView card5 = findViewById(R.id.card5);
         card5.setOnClickListener(controller);
 
-        ImageView card6 = findViewById(R.id.card6);
         card6.setOnClickListener(controller);
 
-        ImageView card7 = findViewById(R.id.card7);
         card7.setOnClickListener(controller);
 
-        ImageView card8 = findViewById(R.id.card8);
         card8.setOnClickListener(controller);
 
-        ImageView card9 = findViewById(R.id.card9);
         card9.setOnClickListener(controller);
 
-        ImageView card10 = findViewById(R.id.card10);
         card10.setOnClickListener(controller);
 
-        ImageView card11 = findViewById(R.id.card0);
-        card11.setOnClickListener(controller);
+        card0.setOnClickListener(controller);
+
+
     }
 
     @Override
