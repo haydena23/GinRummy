@@ -17,11 +17,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         RummyGameState player = new RummyGameState();
-        //I dont think the dumbAI is a new gameState.
-        //RummyGameState dumbAI = new RummyGameState(player);
 
         Button discardButton = findViewById(R.id.discardButton);
-        ImageButton discardedCard = findViewById(R.id.discardedCard);
+        Button quitButton = findViewById(R.id.quitButton);
+        Button knockButton = findViewById(R.id.knockButton);
+
+        ImageView discardedCard = findViewById(R.id.discardedCard);
+        ImageView drawPile = findViewById(R.id.drawPile);
 
         ImageView card0 = findViewById(R.id.card0);
         ImageView card1 = findViewById(R.id.card1);
@@ -35,27 +37,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ImageView card9 = findViewById(R.id.card9);
         ImageView card10 = findViewById(R.id.card10);
 
-        Controller controller = new Controller(player, discardButton, card0, card1, card2, card3, card4, card5, card6, card7, card8, card9, card10, discardedCard);
+        Controller controller = new Controller(player, discardButton, card0, card1, card2, card3, card4, card5, card6, card7, card8, card9, card10, drawPile, discardedCard);
 
-        /** Assigning button listeners */
-        //Button startButton = findViewById(R.id.startButton);
-        //startButton.setOnClickListener(this);
-
-        Button quitButton = findViewById(R.id.quitButton);
         quitButton.setOnClickListener(this);
 
-        Button knockButton = findViewById(R.id.knockButton);
         knockButton.setOnClickListener(controller);
 
         discardButton.setOnClickListener(controller);
 
-        //ImageButton discardedCard = findViewById(R.id.discardedCard);
         discardedCard.setOnClickListener(controller);
 
-        ImageButton drawPile = findViewById(R.id.drawPile);
         drawPile.setOnClickListener(controller);
 
-        //Card Listeners
         card1.setOnClickListener(controller);
         card2.setOnClickListener(controller);
         card3.setOnClickListener(controller);
@@ -67,8 +60,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         card9.setOnClickListener(controller);
         card10.setOnClickListener(controller);
         card0.setOnClickListener(controller);
-
-
     }
 
     @Override
@@ -76,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.startButton:
                 setContentView(R.layout.activity_main);
-                //Some kind of code to make new instance of gameState
             case R.id.quitButton:
                 setContentView(R.layout.start_screen);
                 break;

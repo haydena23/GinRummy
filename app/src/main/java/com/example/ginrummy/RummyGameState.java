@@ -71,17 +71,17 @@ public class RummyGameState {
     //Player methods
     //Method for drawing a card from draw pile
     public Card drawDraw() {
-        if (this.amountDrawn >= 32) {
+        if (this.amountDrawn > 31) {
             return null;
         }
-        if (this.currentStage != "drawingStage") {
-            return null;
-        } else {
+        if (this.currentStage == "drawingStage") {
             Card returnThis = this.drawPile[amountDrawn];
             this.drawPile[amountDrawn] = null;
             amountDrawn++;
             this.currentStage = "discardStage";
             return returnThis;
+        } else {
+            return null;
         }
     }
 
@@ -335,7 +335,6 @@ public class RummyGameState {
         return false;
     }
 
-    //Player can organize anytime
     public boolean organizeHand() {
         if (this.currentStage == "drawingStage" || this.currentStage == "discardStage" || this.currentStage == "endStage") {
             return true;
@@ -351,10 +350,6 @@ public class RummyGameState {
     }
     ////////////////////////////////////////////////////////
 
-    //Getters and Setters (Important for Testing)
-    //We still need to add a check to see if the correct person can call it.
-
-    //To test the createPlayerHand method
     public Card[] getPlayer1Cards () {
         return this.player1Cards;
     }
@@ -371,21 +366,16 @@ public class RummyGameState {
         this.player2Cards = player2Cards;
     }
 
-    //To test the createDrawPile method
     public Card[] getDrawPile () {
         return this.drawPile;
     }
 
-    //To test the createDiscardPile method
-    public Card getDiscardedCard () {
-        return this.discardedCard;
-    }
+    public Card getDiscardedCard () { return this.discardedCard; }
 
     public void setDiscardedCard (Card discardedCard) {
         this.discardedCard = discardedCard;
     }
 
-    //Both the setter and getter method for the current stage can test the possible player moves.
     public String getCurrentStage() {
         return this.currentStage;
     }

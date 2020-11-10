@@ -1,10 +1,9 @@
 package com.example.ginrummy;
 
-import android.media.Image;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ImageButton;
 
 public class Controller implements View.OnClickListener{
     private boolean discardOn = false;
@@ -25,12 +24,14 @@ public class Controller implements View.OnClickListener{
     ImageView card8;
     ImageView card9;
     ImageView card10;
+
     ImageView drawPileCard;
+    ImageView discardedCard;
 
     public Controller(RummyGameState rummyGameState, Button discardButton,
                       ImageView card0, ImageView card1, ImageView card2, ImageView card3,
                       ImageView card4, ImageView card5, ImageView card6, ImageView card7,
-                      ImageView card8, ImageView card9, ImageView card10, ImageView drawPileCard) {
+                      ImageView card8, ImageView card9, ImageView card10, ImageView drawPileCard, ImageView discardedCard) {
         this.rummyGameState = rummyGameState;
         this.player1Cards = rummyGameState.getPlayer1Cards();
         this.player2Cards = rummyGameState.getPlayer2Cards();
@@ -47,79 +48,12 @@ public class Controller implements View.OnClickListener{
         this.card8 = card8;
         this.card9 = card9;
         this.card10 = card10;
+
         this.drawPileCard = drawPileCard;
+        this.discardedCard = discardedCard;
 
         updateCards();
     }
-
-    public void updateCards() {
-        updateCard(player1Cards[0], card0);
-        updateCard(player1Cards[1], card1);
-        updateCard(player1Cards[2], card2);
-        updateCard(player1Cards[3], card3);
-        updateCard(player1Cards[4], card4);
-        updateCard(player1Cards[5], card5);
-        updateCard(player1Cards[6], card6);
-        updateCard(player1Cards[7], card7);
-        updateCard(player1Cards[8], card8);
-        updateCard(player1Cards[9], card9);
-        if(player1Cards[10] == null) {
-            setBlank();
-        }
-        else {
-            updateCard(player1Cards[10], card10);
-        }
-    }
-
-    public void setBlank() {
-        card10.setImageResource(R.drawable.blue_back);
-    }
-
-    //DOTHIS : Current Issues - we have to check what player called it, then change based on that.
-    public void discardThisCard(int x) {
-        //switch ifs
-        //this.player1Cards[10] = new Card(100, "Trash");
-        rummyGameState.setPlayer1Cards(this.player1Cards);
-
-        if (rummyGameState.getTurn()) {
-            if (discardOn) {
-
-                /*if(x == 10) {
-                    rummyGameState.setDiscardedCard(this.player1Cards[10]);
-                    //this.player1Cards[10] = new Card (99, "Trash");
-                    return;
-                }*/
-
-                rummyGameState.setDiscardedCard(player1Cards[x]);
-                for(int i = x; i < 10; i++) {
-                    player1Cards[i] = player1Cards[i+1];
-                    //updateCards();
-                }
-                player1Cards[10] = null;
-                rummyGameState.setPlayer1Cards(player1Cards);
-                rummyGameState.setCurrentStage("drawingStage");
-                rummyGameState.toggleTurn();
-                discardOn = !discardOn;
-                //updateCards();
-            }
-        } else {
-            if (discardOn) {
-                rummyGameState.setDiscardedCard(player2Cards[x]);
-                for(int i = x; i < 10; i++) {
-                    player2Cards[i] = player2Cards[i+1];
-                }
-                player2Cards[10] = null;
-                rummyGameState.setPlayer2Cards(player2Cards);
-                rummyGameState.setCurrentStage("drawingStage");
-                rummyGameState.toggleTurn();
-                discardOn = !discardOn;
-            }
-        }
-        updateCards();
-        //discardButton.invalidate();
-    }
-
-    //DOTHIS : Make a command that prompts the user to wait until its their turn
 
     @Override
     public void onClick(View view) {
@@ -143,6 +77,7 @@ public class Controller implements View.OnClickListener{
                     if(rummyGameState.getTurn()) {
                         player1Cards[10] = rummyGameState.drawDiscard();
                         updateCard(player1Cards[10], card10);
+                        updateCard(rummyGameState.getDiscardedCard(), discardedCard);
                     }
                     else {
                         player2Cards[10] = rummyGameState.drawDiscard();
@@ -210,6 +145,67 @@ public class Controller implements View.OnClickListener{
                 updateCard(player1Cards[10], card10);
                 break;
         }
+    }
+
+    public void updateCards() {
+        updateCard(player1Cards[0], card0);
+        updateCard(player1Cards[1], card1);
+        updateCard(player1Cards[2], card2);
+        updateCard(player1Cards[3], card3);
+        updateCard(player1Cards[4], card4);
+        updateCard(player1Cards[5], card5);
+        updateCard(player1Cards[6], card6);
+        updateCard(player1Cards[7], card7);
+        updateCard(player1Cards[8], card8);
+        updateCard(player1Cards[9], card9);
+        if (player1Cards[10].getSuit() == "Trash") {
+            setBlank();
+        }
+        else {
+            updateCard(player1Cards[10], card10);
+        }
+        if (rummyGameState.getDiscardedCard().getSuit() != "Trash") {
+            updateCard(rummyGameState.getDiscardedCard(), discardedCard);
+        }
+    }
+
+    public void setBlank() {
+        card10.setImageResource(R.drawable.blue_back);
+    }
+
+    public void discardThisCard(int x) {
+        rummyGameState.setPlayer1Cards(this.player1Cards);
+
+        if (rummyGameState.getTurn()) {
+            if (discardOn) {
+
+                rummyGameState.setDiscardedCard(player1Cards[x]);
+                for(int i = x; i < 10; i++) {
+                    player1Cards[i] = player1Cards[i+1];
+                    //updateCards();
+                }
+                player1Cards[10] = null;
+                rummyGameState.setPlayer1Cards(player1Cards);
+                rummyGameState.setCurrentStage("drawingStage");
+                rummyGameState.toggleTurn();
+                discardOn = !discardOn;
+                //updateCards();
+            }
+        } else {
+            if (discardOn) {
+                rummyGameState.setDiscardedCard(player2Cards[x]);
+                for(int i = x; i < 10; i++) {
+                    player2Cards[i] = player2Cards[i+1];
+                }
+                player2Cards[10] = null;
+                rummyGameState.setPlayer2Cards(player2Cards);
+                rummyGameState.setCurrentStage("drawingStage");
+                rummyGameState.toggleTurn();
+                discardOn = !discardOn;
+            }
+        }
+        updateCards();
+        //discardButton.invalidate();
     }
 
     public void updateCard(Card card, ImageView cardView) {
