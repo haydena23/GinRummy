@@ -31,6 +31,7 @@ public class Controller implements View.OnClickListener{
         this.player1Cards = rummyGameState.getPlayer1Cards();
         this.player2Cards = rummyGameState.getPlayer2Cards();
         this.discardButton = discardButton;
+
         this.card0 = card0;
         this.card1 = card1;
         this.card2 = card2;
@@ -120,6 +121,7 @@ public class Controller implements View.OnClickListener{
                 if (rummyGameState.getCurrentStage() == "drawingStage") {
                     if(rummyGameState.getTurn()) {
                         player1Cards[10] = rummyGameState.drawDraw();
+                        updateCard(player1Cards[10], card10);
                     } else {
                         player2Cards[10] = rummyGameState.drawDraw();
                     }
@@ -372,6 +374,8 @@ public class Controller implements View.OnClickListener{
                     cardView.invalidate();
                 }
                 break;
+            case 100:
+                cardView.setImageResource(R.drawable.blue_back);
         }
     }
 }

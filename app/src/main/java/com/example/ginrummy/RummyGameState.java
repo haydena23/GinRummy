@@ -132,6 +132,7 @@ public class RummyGameState {
                 handCount++;
             }
         }
+        returnThis[10] = new Card(100, "Trash") ;
         return returnThis;
     }
 
