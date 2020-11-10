@@ -22,7 +22,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button discardButton = findViewById(R.id.discardButton);
 
-        Controller controller = new Controller(player, discardButton);
+        ImageView card1 = findViewById(R.id.card1);
+
+        Controller controller = new Controller(player, discardButton, card1);
 
         /** Assigning button listeners */
         //Button startButton = findViewById(R.id.startButton);
@@ -43,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawPile.setOnClickListener(controller);
 
         //Card Listeners
-        ImageView card1 = findViewById(R.id.card1);
         card1.setOnClickListener(controller);
 
         ImageView card2 = findViewById(R.id.card2);

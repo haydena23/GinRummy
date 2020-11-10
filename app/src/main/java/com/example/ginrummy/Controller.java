@@ -1,7 +1,10 @@
 package com.example.ginrummy;
 
+import android.media.Image;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class Controller implements View.OnClickListener{
     private boolean discardOn = false;
@@ -11,13 +14,55 @@ public class Controller implements View.OnClickListener{
 
     Button discardButton;
 
-    public Controller(RummyGameState rummyGameState, Button discardButton) {
+    ImageView card1;
+
+    public Controller(RummyGameState rummyGameState, Button discardButton, ImageView card1) {
         this.rummyGameState = rummyGameState;
         this.player1Cards = rummyGameState.getPlayer1Cards();
         this.player2Cards = rummyGameState.getPlayer2Cards();
         this.discardButton = discardButton;
+        this.card1 = card1;
     }
 
+    public void updateCard(Card card) {
+        switch (card.getNumber()) {
+            case 1:
+                if (card.getSuit() == "Diamonds") {
+                    card1.setImageDrawable(R.drawable.acediamond);
+                } else if (card.getSuit() == "Hearts" ) {
+
+                } else if (card.getSuit() == "Spades") {
+
+                } else if (card.getSuit() == "Clubs") {
+
+                }
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+            case 9:
+                break;
+            case 10:
+                break;
+            case 11:
+                break;
+            case 12:
+                break;
+            case 13:
+                break;
+        }
+    }
     //DOTHIS : Current Issues - we have to check what player called it, then change based on that.
     public void discardThisCard(int x) {
         //switch ifs
