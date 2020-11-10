@@ -189,7 +189,8 @@
                     android:id="@+id/discardButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Discard (Off)" />
+                    android:editable="false"
+                    android:text="Discard Off" />
 
             </LinearLayout>
 

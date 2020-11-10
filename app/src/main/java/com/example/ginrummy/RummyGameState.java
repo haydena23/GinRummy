@@ -40,128 +40,6 @@ public class RummyGameState {
         this.turn = true;
     }
 
-    //Getters and Setters (Important for Testing)
-    //We still need to add a check to see if the correct person can call it.
-
-    //To test the createPlayerHand method
-    public Card[] getPlayer1Cards () {
-        return this.player1Cards;
-    }
-
-    public void setPlayer1Cards (Card[] player1Cards) {
-        this.player1Cards = player1Cards;
-    }
-
-    public Card[] getPlayer2Cards () {
-        return this.player2Cards;
-    }
-
-    public void setPlayer2Cards (Card[] player2Cards) {
-        this.player2Cards = player2Cards;
-    }
-
-    //To test the createDrawPile method
-    public Card[] getDrawPile () {
-        return this.drawPile;
-    }
-
-    //To test the createDiscardPile method
-    public Card getDiscardedCard () {
-        return this.discardedCard;
-    }
-
-    public void setDiscardedCard (Card discardedCard) {
-        this.discardedCard = discardedCard;
-    }
-
-    //Both the setter and getter method for the current stage can test the possible player moves.
-    public String getCurrentStage() {
-        return this.currentStage;
-    }
-
-    public void setCurrentStage (String currentStage) {
-        this.currentStage = currentStage;
-    }
-
-    public boolean getTurn () {
-        return this.turn;
-    }
-
-    public void toggleTurn () { this.turn = !this.turn; }
-
-    public void setStartingDeck(Card[] cards) { this.startingDeck = cards; }
-
-    public Card[] getStartingDeck () { return this.startingDeck; }
-
-    public void setDrawPile(Card[] cards) {
-        this.drawPile = cards;
-    }
-
-    public int getAmountDrawn() {
-        return this.amountDrawn;
-    }
-
-    public void setAmountDrawn(int amountDrawn) {
-        this.amountDrawn = amountDrawn;
-    }
-
-    //Player methods
-    //Method for drawing a card from draw pile
-    public Card drawDraw() {
-        if (this.amountDrawn >= 32) {
-            return null;
-        }
-
-        if (this.currentStage != "drawingStage") {
-            return null;
-        } else {
-            Card returnThis = this.drawPile[amountDrawn];
-            this.drawPile[amountDrawn] = null;
-            amountDrawn++;
-            this.currentStage = "discardStage";
-            return returnThis;
-        }
-
-//
-//        Random random = new Random();
-//        int chosenCard;
-//
-//
-//        while (true) { //repeat until it has returned a card.
-//            chosenCard = random.nextInt(this.drawPile.length);
-//            if (this.drawPile[chosenCard] != null) {
-//                Card returnThis = new Card(this.drawPile[chosenCard].getNumber(), this.drawPile[chosenCard].getSuit());
-//                this.drawPile[chosenCard] = null;
-//                this.currentStage = "discardStage";
-//                return returnThis;
-//            }
-//        }
-//
-
-    }
-    //Method for drawing the discarded card
-    public Card drawDiscard() {
-        if (this.currentStage == "drawingStage") {
-            Card returnThis = this.discardedCard;
-            this.discardedCard = null;
-            this.currentStage = "discardStage";
-            return returnThis;
-        } else {
-            return null;
-        }
-    }
-
-    public void discardCard(Card[] cardPile, int toRemove) {
-        if (this.currentStage == "discardStage") {
-            this.discardedCard = cardPile[toRemove];
-            cardPile[toRemove] = null;
-            for (int i = toRemove; i < 11; i++) {
-                cardPile[toRemove] = cardPile[toRemove+1];
-            }
-            cardPile[11] = null; // sets last card to null after sorting
-        }
-    }
-
     //Deep Copy Constructor
     public RummyGameState (RummyGameState gameState) {
         if (gameState.turn) {
@@ -180,16 +58,65 @@ public class RummyGameState {
         for (int i = 0; i < gameState.drawPile.length-1; i++) {
             this.drawPile[i] = new Card(gameState.drawPile[i].getNumber(), gameState.drawPile[i].getSuit());
         }
-
-        //do currentPhase deep copy style later
+        this.currentStage = gameState.getCurrentStage();
 
         this.discardedCard = new Card(gameState.discardedCard.getNumber(), gameState.discardedCard.getSuit());
         this.totalOfP1 = gameState.totalOfP1;
         this.P1Points = gameState.P1Points;
         this.P2Points = gameState.P2Points;
         this.turn = gameState.turn;
-        this.currentStage = gameState.currentStage;
         this.amountDrawn= gameState.amountDrawn;
+    }
+
+    //Player methods
+    //Method for drawing a card from draw pile
+    public Card drawDraw() {
+        if (this.amountDrawn >= 32) {
+            return null;
+        }
+        if (this.currentStage != "drawingStage") {
+            return null;
+        } else {
+            Card returnThis = this.drawPile[amountDrawn];
+            this.drawPile[amountDrawn] = null;
+            amountDrawn++;
+            this.currentStage = "discardStage";
+            return returnThis;
+        }
+    }
+
+    //Method for drawing the discarded card
+    public Card drawDiscard() {
+        if (this.currentStage == "drawingStage") {
+            Card returnThis = this.discardedCard;
+            this.discardedCard = new Card(100, "Trash");
+            this.currentStage = "discardStage";
+            return returnThis;
+        } else {
+            return null;
+        }
+    }
+
+    public void discardCard(Card[] cardPile, int toRemove) {
+        if(toRemove == 10) {
+            this.discardedCard = cardPile[10];
+            this.player1Cards[10] = new Card (100, "Trash");
+            return;
+        }
+
+        this.discardedCard = cardPile[toRemove];
+
+        for(int i = toRemove; i < 10; i++) {
+            cardPile[i] = cardPile[i+1];
+        }
+
+        cardPile[10] = new Card(100, "Trash");
+        if(this.turn) {
+            this.player1Cards = cardPile;
+        } else {
+            this.player2Cards = cardPile;
+        }
+        this.currentStage = "drawingStage";
     }
 
     //Our String methods
@@ -424,4 +351,69 @@ public class RummyGameState {
         return false;
     }
     ////////////////////////////////////////////////////////
+
+    //Getters and Setters (Important for Testing)
+    //We still need to add a check to see if the correct person can call it.
+
+    //To test the createPlayerHand method
+    public Card[] getPlayer1Cards () {
+        return this.player1Cards;
+    }
+
+    public void setPlayer1Cards (Card[] player1Cards) {
+        this.player1Cards = player1Cards;
+    }
+
+    public Card[] getPlayer2Cards () {
+        return this.player2Cards;
+    }
+
+    public void setPlayer2Cards (Card[] player2Cards) {
+        this.player2Cards = player2Cards;
+    }
+
+    //To test the createDrawPile method
+    public Card[] getDrawPile () {
+        return this.drawPile;
+    }
+
+    //To test the createDiscardPile method
+    public Card getDiscardedCard () {
+        return this.discardedCard;
+    }
+
+    public void setDiscardedCard (Card discardedCard) {
+        this.discardedCard = discardedCard;
+    }
+
+    //Both the setter and getter method for the current stage can test the possible player moves.
+    public String getCurrentStage() {
+        return this.currentStage;
+    }
+
+    public void setCurrentStage (String currentStage) {
+        this.currentStage = currentStage;
+    }
+
+    public boolean getTurn () {
+        return this.turn;
+    }
+
+    public void toggleTurn () { this.turn = !this.turn; }
+
+    public void setStartingDeck(Card[] cards) { this.startingDeck = cards; }
+
+    public Card[] getStartingDeck () { return this.startingDeck; }
+
+    public void setDrawPile(Card[] cards) {
+        this.drawPile = cards;
+    }
+
+    public int getAmountDrawn() {
+        return this.amountDrawn;
+    }
+
+    public void setAmountDrawn(int amountDrawn) {
+        this.amountDrawn = amountDrawn;
+    }
 }

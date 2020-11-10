@@ -20,7 +20,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //I dont think the dumbAI is a new gameState.
         //RummyGameState dumbAI = new RummyGameState(player);
 
-        Controller controller = new Controller(player);
+        Button discardButton = findViewById(R.id.discardButton);
+
+        Controller controller = new Controller(player, discardButton);
 
         /** Assigning button listeners */
         //Button startButton = findViewById(R.id.startButton);
@@ -32,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button knockButton = findViewById(R.id.knockButton);
         knockButton.setOnClickListener(controller);
 
-        Button discardButton = findViewById(R.id.discardButton);
         discardButton.setOnClickListener(controller);
 
         ImageButton discardedCard = findViewById(R.id.discardedCard);

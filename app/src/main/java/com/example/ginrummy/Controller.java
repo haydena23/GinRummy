@@ -9,10 +9,13 @@ public class Controller implements View.OnClickListener{
     private Card[] player1Cards;
     private Card[] player2Cards;
 
-    public Controller(RummyGameState rummyGameState) {
+    Button discardButton;
+
+    public Controller(RummyGameState rummyGameState, Button discardButton) {
         this.rummyGameState = rummyGameState;
         this.player1Cards = rummyGameState.getPlayer1Cards();
         this.player2Cards = rummyGameState.getPlayer2Cards();
+        this.discardButton = discardButton;
     }
 
     //DOTHIS : Current Issues - we have to check what player called it, then change based on that.
@@ -64,7 +67,11 @@ public class Controller implements View.OnClickListener{
                 if (rummyGameState.getCurrentStage() == "discardStage") {
                     discardOn = !discardOn;
                     if(discardOn) {
-                        //Button discardButton =
+                        discardButton.setText("Discard On");
+                        discardButton.invalidate();
+                    } else {
+                        discardButton.setText("Discard Off");
+                        discardButton.invalidate();
                     }
                 } else {
                     //DOTHIS : Say something like wait until your turn!
