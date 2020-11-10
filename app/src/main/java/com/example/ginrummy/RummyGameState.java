@@ -104,13 +104,12 @@ public class RummyGameState {
         if (this.currentStage != "drawingStage") {
             return null;
         }
-        if (this.amountOfDiscards >= 32) {
+        if (this.amountOfDiscards >= 32) { //amount of Drawn
             return null;
         }
 
         Random random = new Random();
         int chosenCard;
-
 
         while (true) { //repeat until it has returned a card.
             chosenCard = random.nextInt(this.drawPile.length);
@@ -128,7 +127,7 @@ public class RummyGameState {
     public Card drawDiscard() {
         if (this.currentStage == "drawingStage") {
             Card returnThis = this.discardedCard;
-            this.discardedCard = null;
+            this.discardedCard = new Card(100, "Empty");
             this.currentStage = "discardStage";
             return returnThis;
         } else {
@@ -139,11 +138,11 @@ public class RummyGameState {
     public void discardCard(Card[] cardPile, int toRemove) {
         if (this.currentStage == "discardStage") {
             this.discardedCard = cardPile[toRemove];
-            cardPile[toRemove] = null;
+            cardPile[toRemove] = null; //TODO empty
             for (int i = toRemove; i < 11; i++) {
                 cardPile[toRemove] = cardPile[toRemove+1];
             }
-            cardPile[11] = null; // sets last card to null after sorting
+            cardPile[10] = null; // sets last card to null after sorting
         }
     }
 
