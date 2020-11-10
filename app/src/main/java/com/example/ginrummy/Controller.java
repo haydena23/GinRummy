@@ -17,10 +17,20 @@ public class Controller implements View.OnClickListener{
     //DOTHIS : Current Issues - we have to check what player called it, then change based on that.
     public void discardThisCard(int x) {
         //switch ifs
+        this.player1Cards[10] = new Card(100, "Trash");
+        rummyGameState.setPlayer1Cards(this.player1Cards);
+
         if (rummyGameState.getTurn()) {
             if (discardOn) {
+
+                if(x == 10) {
+                    rummyGameState.setDiscardedCard(this.player1Cards[10]);
+                    this.player1Cards[10] = new Card (100, "Trash");
+                    return;
+                }
+
                 rummyGameState.setDiscardedCard(player1Cards[x]);
-                for(int i = x; i < 11; i++) {
+                for(int i = x; i < 10; i++) {
                     player1Cards[i] = player1Cards[i+1];
                 }
                 player1Cards[10] = null;
@@ -31,7 +41,7 @@ public class Controller implements View.OnClickListener{
         } else {
             if (discardOn) {
                 rummyGameState.setDiscardedCard(player2Cards[x]);
-                for(int i = x; i < 11; i++) {
+                for(int i = x; i < 10; i++) {
                     player2Cards[i] = player2Cards[i+1];
                 }
                 player2Cards[10] = null;
