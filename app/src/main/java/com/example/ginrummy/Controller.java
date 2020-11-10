@@ -23,7 +23,7 @@ public class Controller implements View.OnClickListener{
                 for(int i = x; i < 11; i++) {
                     player1Cards[i] = player1Cards[i+1];
                 }
-                player1Cards[11] = null;
+                player1Cards[10] = null;
                 rummyGameState.setPlayer1Cards(player1Cards);
                 rummyGameState.setCurrentStage("drawingStage");
                 rummyGameState.toggleTurn();
@@ -34,7 +34,7 @@ public class Controller implements View.OnClickListener{
                 for(int i = x; i < 11; i++) {
                     player2Cards[i] = player2Cards[i+1];
                 }
-                player2Cards[11] = null;
+                player2Cards[10] = null;
                 rummyGameState.setPlayer2Cards(player2Cards);
                 rummyGameState.setCurrentStage("drawingStage");
                 rummyGameState.toggleTurn();

@@ -87,15 +87,21 @@ public class RummyGameState {
         return this.turn;
     }
 
-    public void toggleTurn () {
-        this.turn = !this.turn;
+    public void toggleTurn () { this.turn = !this.turn; }
+
+    public void setStartingDeck(Card[] cards) { this.startingDeck = cards; }
+
+    public Card[] getStartingDeck () { return this.startingDeck; }
+
+    public void setDrawPile(Card[] cards) {
+        this.drawPile = cards;
     }
 
     //Player methods
     //Method for drawing a card from draw pile
     public Card drawDraw() {
 
-        if (this.currentStage != "discardStage") {
+        if (this.currentStage != "drawingStage") {
             return null;
         }
         if (this.amountOfDiscards >= 32) {
@@ -111,6 +117,7 @@ public class RummyGameState {
             if (this.drawPile[chosenCard] != null) {
                 Card returnThis = new Card(this.drawPile[chosenCard].getNumber(), this.drawPile[chosenCard].getSuit());
                 this.drawPile[chosenCard] = null;
+                this.currentStage = "discardStage";
                 return returnThis;
             }
         }
@@ -120,7 +127,10 @@ public class RummyGameState {
     //Method for drawing the discarded card
     public Card drawDiscard() {
         if (this.currentStage == "drawingStage") {
-            return this.discardedCard;
+            Card returnThis = this.discardedCard;
+            this.discardedCard = null;
+            this.currentStage = "discardStage";
+            return returnThis;
         } else {
             return null;
         }
