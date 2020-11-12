@@ -129,6 +129,8 @@ public class Controller implements View.OnClickListener{
                 discardButton.setText("Discard Off");
                 if (rummyGameState.getAmountDrawn() < 31) {
                     dumbAI.act();
+                } else {
+                    rummyGameState.endGame(this.groupTotal);
                 }
             }
         } else {
