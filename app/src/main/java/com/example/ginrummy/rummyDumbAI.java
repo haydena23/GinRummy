@@ -1,3 +1,11 @@
+/**
+ * rummyDumbAI.java - utilized to display attributes and operations
+ * with regards how a dumb computer player works
+ *
+ * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
+ * @version 12 Nov 2020
+ */
+
 package com.example.ginrummy;
 
 import java.util.*;

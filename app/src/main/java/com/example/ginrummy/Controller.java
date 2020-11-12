@@ -1,3 +1,10 @@
+/**
+ * Controller.java - utilized to all user interaction responses
+ * and changes model to reflect commands
+ *
+ * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
+ * @version 12 Nov 2020
+ */
 package com.example.ginrummy;
 
 import android.view.View;

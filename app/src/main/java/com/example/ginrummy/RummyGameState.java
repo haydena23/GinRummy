@@ -1,3 +1,10 @@
+/**
+ * RummyGameState.java - utilized to contain the building block
+ * information necessary for the game to function
+ *
+ * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
+ * @version 12 Nov 2020
+ */
 package com.example.ginrummy;
 
 import java.util.Random;

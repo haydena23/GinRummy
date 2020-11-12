@@ -1,3 +1,11 @@
+/**
+ * MainActivity.java - utilized to create all listeners
+ * and particularly launches Gin Rummy Android application
+ *
+ * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
+ * @version 12 Nov 2020
+ */
+
 package com.example.ginrummy;
 
 import androidx.appcompat.app.AppCompatActivity;
