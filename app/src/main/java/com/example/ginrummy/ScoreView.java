@@ -15,12 +15,18 @@ import android.view.SurfaceView;
 
 public class ScoreView extends SurfaceView {
 
+    //Instance variables
     Paint playerOneScore = new Paint();
     Paint playerTwoScore = new Paint();
-
     String player1;
     String player2;
 
+    /**
+     * Creation of the score view for the surfaceview
+     *
+     * @param context
+     * @param attrs
+     */
     public ScoreView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setWillNotDraw(false);
@@ -29,6 +35,11 @@ public class ScoreView extends SurfaceView {
         player2 = "Player 1 Score: 0";
     }
 
+    /**
+     * Simple on draw method to draw to the screen
+     *
+     * @param canvas Reference to the canvas
+     */
     public void onDraw(Canvas canvas) {
         playerOneScore.setColor(Color.RED);
         playerTwoScore.setColor(Color.RED);
@@ -38,14 +49,29 @@ public class ScoreView extends SurfaceView {
         drawScore(canvas);
     }
 
+    /**
+     * Reference to player 1
+     *
+     * @param player1 Takes in player name
+     */
     public void setPlayer1(String player1) {
         this.player1 = player1;
     }
 
+    /**
+     * Reference to player 2
+     *
+     * @param player2 Takes in player name
+     */
     public void setPlayer2(String player2) {
         this.player2 = player2;
     }
 
+    /**
+     * Draws on a surface view the correct player score
+     *
+     * @param canvas Reference to the canvas
+     */
     public void drawScore(Canvas canvas) {
         canvas.drawText(player1, 120f,70f,playerTwoScore);
         canvas.drawText(player2, 120f,500f,playerOneScore);
