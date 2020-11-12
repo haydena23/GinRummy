@@ -22,6 +22,56 @@ public class rummyDumbAI {
         }
     }
 
+    public Card[] sort(Card[] cardList) {
+        Card[] fullySorted = new Card[11];
+
+        int amountOfCards = cardList.length;
+
+        //Used code in https://www.geeksforgeeks.org/java-program-for-selection-sort/
+        for (int i = 0; i < amountOfCards-1; i++)
+        {
+            // Find the minimum element in unsorted array
+            int min_idx = i;
+            for (int j = i+1; j < amountOfCards; j++)
+                if (cardList[j].getNumber() < cardList[min_idx].getNumber())
+                    min_idx = j;
+
+            // Swap the found minimum element with the first
+            // element
+            int temp = cardList[min_idx].getNumber();
+            cardList[min_idx] = cardList[i];
+            cardList[i].setNumber(temp);
+        }
+
+        int counter = 0;
+        //Do this second
+        for (Card c : cardList ) {
+            if (c.getSuit().equals("Hearts")) {
+                fullySorted[counter] = c;
+                counter++;
+            }
+        }
+        for (Card c : cardList ) {
+            if (c.getSuit().equals("Diamonds")) {
+                fullySorted[counter] = c;
+                counter++;
+            }
+        }
+        for (Card c : cardList ) {
+            if (c.getSuit().equals("Spades")) {
+                fullySorted[counter] = c;
+                counter++;
+            }
+        }
+        for (Card c : cardList ) {
+            if (c.getSuit().equals("Clubs")) {
+                fullySorted[counter] = c;
+                counter++;
+            }
+        }
+        return fullySorted;
+    }
+
     public void attemptKnock() {
         int clubCounter = 0;
         int heartCounter = 0;
