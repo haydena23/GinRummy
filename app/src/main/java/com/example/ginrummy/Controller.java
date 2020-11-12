@@ -237,18 +237,25 @@ public class Controller implements View.OnClickListener{
                     rummyGameState.setCurrentStage("discardStage");
                 }
             case R.id.knockButton:
-                    //DOTHIS : Not sure how to do this yet.
+                    int i = 0;
+                    for (Card c : player1Cards) {
+                        i = i + c.getNumber();
+                    }
+                    i = i - groupTotal;
+                    if (i < 10) {
+                        scoreView.setPlayer1("Player 1 Score : 10");
+                    }
                 break;
             case R.id.drawPile:
                 //Amount drawn was 30, and i drew its 31.
                 if (rummyGameState.getAmountDrawn() == 31) {
                     int whoWon = rummyGameState.endGame(this.groupTotal);
-                    if (whoWon < 0) {
-                        scoreView.setPlayer1("Player 2 Score : " + Integer.toString(-whoWon));
+                    if (whoWon > 0) {
+                        scoreView.setPlayer1("Player 2 Score : " + Integer.toString(whoWon));
                         scoreView.setPlayer2("Player 1 Score : 0");
                     } else {
                         scoreView.setPlayer1("Player 2 Score : 0");
-                        scoreView.setPlayer2("Player 1 Score : " + Integer.toString(whoWon));
+                        scoreView.setPlayer2("Player 1 Score : " + Integer.toString(-whoWon));
                     }
                     drawPileCard.setImageResource(R.drawable.gray_back);
                     scoreView.invalidate();
