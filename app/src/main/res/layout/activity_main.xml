@@ -194,6 +194,13 @@
                     android:editable="false"
                     android:text="Discard Off" />
 
+                <Button
+                    android:id="@+id/groupButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="Group Off" />
+
             </LinearLayout>
 
             <LinearLayout

@@ -45,7 +45,7 @@ public class rummyDumbAI {
     public Card[] sort(Card[] cardList) {
         Card[] fullySorted = new Card[11];
 
-        int amountOfCards = cardList.length-1;
+        int amountOfCards = cardList.length-1;//last element null
 
         //Used code in https://www.geeksforgeeks.org/java-program-for-selection-sort/
         for (int i = 0; i < amountOfCards-1; i++)
@@ -90,6 +90,7 @@ public class rummyDumbAI {
                 counter++;
             }
         }
+
         fullySorted[10] = cardList[10];
         return fullySorted;
     }
