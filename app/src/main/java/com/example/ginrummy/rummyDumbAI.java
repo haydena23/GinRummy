@@ -14,8 +14,27 @@ public class rummyDumbAI {
         this.player2Cards = sort(this.player2Cards);
     }
 
-    public int discardRandom() {
+    public int discardLow() {
         if(!rummyGameState.getTurn() && rummyGameState.getCurrentStage() == "drawingStage") {
+            int clubCounter2 = 0;
+            int heartCounter2 = 0;
+            int spadeCounter2 = 0;
+            int diamondCounter2 = 0;
+            Arrays.sort(player2Cards);
+            for(int i = 0; i < 11; i++) {
+                if(player2Cards[i].getSuit() == "Clubs") {
+                    clubCounter2++;
+                }
+                if(player2Cards[i].getSuit() == "Hearts") {
+                    heartCounter2++;
+                }
+                if(player2Cards[i].getSuit() == "Spades") {
+                    spadeCounter2++;
+                }
+                if(player2Cards[i].getSuit() == "Diamonds") {
+                    diamondCounter2++;
+                }
+            }
             return rand.nextInt(12);
         }
         else {
