@@ -416,4 +416,8 @@ public class Controller implements View.OnClickListener{
                 break;
         }
     }
+
+    public void autoGin() {
+
+    }
 }

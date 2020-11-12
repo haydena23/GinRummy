@@ -14,7 +14,7 @@ public class rummyDumbAI {
     }
 
     public int discardRandom() {
-        if(!rummyGameState.getTurn() && rummyGameState.getCurrentStage() == "discardStage") {
+        if(!rummyGameState.getTurn() && rummyGameState.getCurrentStage() == "drawingStage") {
             return rand.nextInt(12);
         }
         else {
@@ -29,7 +29,7 @@ public class rummyDumbAI {
         int diamondCounter = 0;
         ArrayList<Integer> knockValues = new ArrayList<>();
 
-        if(!rummyGameState.getTurn() && rummyGameState.getCurrentStage() == "discardStage") {
+        if(!rummyGameState.getTurn() && rummyGameState.getCurrentStage() == "drawingStage") {
             Arrays.sort(player2Cards);
             for(int i = 0; i < 11; i++) {
                 if(player2Cards[i].getSuit() == "Clubs") {
@@ -72,6 +72,9 @@ public class rummyDumbAI {
                         knockValues.add(player2Cards[i].getNumber());
                     }
                 }
+            }
+            if(clubCounter + heartCounter + spadeCounter + diamondCounter == 10) {
+                rummyGameState.autoGin(player2Cards);
             }
         }
     }

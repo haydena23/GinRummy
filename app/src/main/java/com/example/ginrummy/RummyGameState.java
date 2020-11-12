@@ -279,12 +279,10 @@ public class RummyGameState {
         }
     }
 
-    public boolean autoGin() {
+    public void autoGin(Card[] playerCards) {
         if (this.currentStage == "drawingStage") {
             this.currentStage = "endStage";
-            return true;
         } else {
-            return false;
         }
     }
     ////////////////////////////////////////////////////////
