@@ -9,9 +9,17 @@
 package com.example.ginrummy;
 
 public class Card {
+
+    //instance variables stored for each card
     private int number;
     private String suit;
 
+    /**
+     * constructor for objects of  card class
+     *
+     * @param number number value of a card
+     * @param suit suit value of a card
+     */
     public Card (int number, String suit) {
         this.number = number;
         this.suit = suit;

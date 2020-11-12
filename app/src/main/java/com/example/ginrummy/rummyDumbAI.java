@@ -22,6 +22,10 @@ public class rummyDumbAI {
         //this.player2Cards = sort(this.player2Cards);
     }
 
+    /**
+     * Method that allows computer player to make decisions
+     * decision on its own hand
+     */
     public void act() {
         Random random = new Random();
         //Randomly decides to draw from draw pile or draw from discard pile.
@@ -35,6 +39,7 @@ public class rummyDumbAI {
         rummyGameState.toggleTurn();
     }
 
+    //Currently deprecated method
     public int discardLow() {
         if(!rummyGameState.getTurn() && rummyGameState.getCurrentStage() == "drawingStage") {
             int clubCounter2 = 0;
@@ -63,6 +68,7 @@ public class rummyDumbAI {
         }
     }
 
+    //Currently deprecated method
     public Card[] sort(Card[] cardList) {
         Card[] fullySorted = new Card[11];
 
@@ -72,7 +78,8 @@ public class rummyDumbAI {
         for (int i = 0; i < amountOfCards-1; i++)
         {
             // Find the minimum element in unsorted array
-            int min_idx = i; // this sorting algorithm will start at the minimum value based on repeated sorting amount.
+
+            int min_idx = i; // sorting algorithm will start at min val based on repeated sort amt
 
             for (int j = i+1; j < amountOfCards; j++) {
                 if (cardList[j].getNumber() < cardList[min_idx].getNumber()) {

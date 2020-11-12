@@ -1,5 +1,5 @@
 /**
- * rummyDumbAI.java - utilized to display the current score of the game
+ * ScoreView.java - utilized to display the current score of the game
  *
  * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
  * @version 12 Nov 2020

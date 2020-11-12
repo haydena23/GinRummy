@@ -4,7 +4,11 @@
  *
  * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
  * @version 12 Nov 2020
+ *
+ * KEY: PLACEHOLDER FOR FUTURE DEVELOPMENT PAST ALPHA RELEASE!
  */
+
+
 package com.example.ginrummy;
 
 import java.util.*;
@@ -47,28 +51,32 @@ public class rummySmartAI {
             if(clubCounter > 3) {
                 //Out of bounds error
                 for(int i = 0; i < player2Cards.length - 1; i++) {
-                    if(player2Cards[i].getNumber()+1 == player2Cards[i+1].getNumber() && (player2Cards[i].getSuit()+1 == player2Cards[i+1].getSuit())) {
+                    if(player2Cards[i].getNumber()+1 == player2Cards[i+1].getNumber()
+                            && (player2Cards[i].getSuit()+1 == player2Cards[i+1].getSuit())) {
                         knockValues.add(player2Cards[i].getNumber());
                     }
                 }
             }
             if(heartCounter > 3) {
                 for(int i = 0; i < player2Cards.length - 1; i++) {
-                    if((player2Cards[i].getNumber()+1 == player2Cards[i+1].getNumber()) && (player2Cards[i].getSuit()+1 == player2Cards[i+1].getSuit())) {
+                    if((player2Cards[i].getNumber()+1 == player2Cards[i+1].getNumber())
+                            && (player2Cards[i].getSuit()+1 == player2Cards[i+1].getSuit())) {
                         knockValues.add(player2Cards[i].getNumber());
                     }
                 }
             }
             if(spadeCounter > 3) {
                 for(int i = 0; i < player2Cards.length - 1; i++) {
-                    if(player2Cards[i].getNumber()+1 == player2Cards[i+1].getNumber() && (player2Cards[i].getSuit()+1 == player2Cards[i+1].getSuit())) {
+                    if(player2Cards[i].getNumber()+1 == player2Cards[i+1].getNumber()
+                            && (player2Cards[i].getSuit()+1 == player2Cards[i+1].getSuit())) {
                         knockValues.add(player2Cards[i].getNumber());
                     }
                 }
             }
             if(diamondCounter > 3) {
                 for(int i = 0; i < player2Cards.length - 1; i++) {
-                    if(player2Cards[i].getNumber()+1 == player2Cards[i+1].getNumber() && (player2Cards[i].getSuit()+1 == player2Cards[i+1].getSuit())) {
+                    if(player2Cards[i].getNumber()+1 == player2Cards[i+1].getNumber()
+                            && (player2Cards[i].getSuit()+1 == player2Cards[i+1].getSuit())) {
                         knockValues.add(player2Cards[i].getNumber());
                     }
                 }
@@ -86,7 +94,7 @@ public class rummySmartAI {
 
         /**
          * External Citation
-         *    Date: 3 November 2020
+         *    Date: 12 November 2020
          *    Problem: Needed a solution to simply sort the cards
          *    Resource:
          *         https://www.geeksforgeeks.org/java-program-for-selection-sort/
@@ -95,7 +103,7 @@ public class rummySmartAI {
         for (int i = 0; i < amountOfCards-1; i++)
         {
             // Find the minimum element in unsorted array
-            int min_idx = i; // this sorting algorithm will start at the minimum value based on repeated sorting amount.
+            int min_idx = i; // sorting alg will start at the min val based on repeated sort amt.
 
             for (int j = i+1; j < amountOfCards; j++) {
                 if (cardList[j].getNumber() < cardList[min_idx].getNumber()) {

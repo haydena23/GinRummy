@@ -12,21 +12,25 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 public class Controller implements View.OnClickListener{
+    //instance variables including button & game state information
     private boolean discardOn = false;
     private boolean groupOn = false;
     private RummyGameState rummyGameState;
     private Card[] player1Cards;
     private Card[] player2Cards;
     private rummyDumbAI dumbAI;
+    ScoreView scoreView;
 
-
+    //variables for grouped card logging
     private int groupAmount;
     private int groupTotal; //value of grouped cards
     private Card[] groupCards;
 
+    //actions that user can use with their 10 card hand
     Button discardButton;
     Button groupButton;
 
+    //specifies card views
     ImageView card0;
     ImageView card1;
     ImageView card2;
@@ -41,12 +45,14 @@ public class Controller implements View.OnClickListener{
     ImageView drawPileCard;
     ImageView discardedCard;
 
-    ScoreView scoreView;
-
+    /**
+     * constructor for Controller
+     */
     public Controller(RummyGameState rummyGameState, Button discardButton,
-                      ImageView card0, ImageView card1, ImageView card2, ImageView card3,
-                      ImageView card4, ImageView card5, ImageView card6, ImageView card7,
-                      ImageView card8, ImageView card9, ImageView card10, ImageView drawPileCard,
+                      ImageView card0, ImageView card1, ImageView card2,
+                      ImageView card3, ImageView card4, ImageView card5,
+                      ImageView card6, ImageView card7, ImageView card8,
+                      ImageView card9, ImageView card10, ImageView drawPileCard,
                       Button groupButton, ImageView discardedCard, ScoreView scoreView) {
 
         this.rummyGameState = rummyGameState;
@@ -80,14 +86,16 @@ public class Controller implements View.OnClickListener{
 
         this.scoreView = scoreView;
 
-/*        player1Cards[0].setNumber(8);
+/*      player1Cards[0].setNumber(8);
         player1Cards[1].setNumber(9);
         player1Cards[2].setNumber(10);
         player1Cards[0].setSuit("Clubs");
         player1Cards[1].setSuit("Clubs");
         player1Cards[2].setSuit("Clubs");*/
     }
-
+    /**
+     * sends updated game state to user player
+     */
     public void updateCards() {
         updateCard(rummyGameState.getDiscardedCard(), discardedCard);
         updateCard(player1Cards[0], card0);
@@ -112,7 +120,12 @@ public class Controller implements View.OnClickListener{
         card10.setImageResource(R.drawable.blue_back);
     }
 
-    //DOTHIS : Current Issues - we have to check what player called it, then change based on that.
+    /**
+     * sends updated game state to user player
+     * after choosing a discard card move
+     */
+    //DOTHIS : Current Issues - we have to check what player
+    // called it, then change based on that.
     public void discardThisCard(int x) {
         //switch ifs
         //this.player1Cards[10] = new Card(100, "Trash");
@@ -162,12 +175,22 @@ public class Controller implements View.OnClickListener{
         //discardButton.invalidate();
     }
 
+    /**
+     * Method that checks cards if they can
+     * be grouped or discarded
+     *
+     * @param cardList Holds information of the cards that user has
+     * @param amountOfCards Checks number of cards user has when
+     *                      making a discard or group card move
+     */
     public boolean checkCards(Card[] cardList, int amountOfCards) {
         int counter = 0;
         for (int i = 0; i < amountOfCards - 1; i++) {
-            if (!(cardList[i].getSuit().equals(cardList[i+1].getSuit()))) { //Checks if it they're all the same suit.
+            //Checks if it they're all the same suit
+            if (!(cardList[i].getSuit().equals(cardList[i+1].getSuit()))) {
                 for (int x = 0; x < amountOfCards - 1; x++) {
-                    if (!(cardList[x].getNumber()==cardList[x+1].getNumber())) { //Checks if they're all the same number.
+                    //Checks if they're all the same number.
+                    if (!(cardList[x].getNumber()==cardList[x+1].getNumber())) {
                         return false;
                     } else { // if they are the same number
                         counter ++;
@@ -181,13 +204,20 @@ public class Controller implements View.OnClickListener{
                 }
             }
         }
-        if (counter + 1 == amountOfCards) { //this will only return true if they are all cards are in a run, or in a set.
+        if (counter + 1 == amountOfCards) { //this will only return true
+            // if they are all cards are in a run, or in a set.
             return true;
         }
         return false;
     }
 
     //DOTHIS : Make a command that prompts the user to wait until its their turn
+    /**
+     * Method that describes game actions when
+     * a specific card and button action is made
+     *
+     * @param view retrieves view information of Gin Rummy game
+     */
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -368,6 +398,7 @@ public class Controller implements View.OnClickListener{
                 break;
         }
     }
+
 
     public void updateCard(Card card, ImageView cardView) {
         switch (card.getNumber()) {
@@ -571,8 +602,8 @@ public class Controller implements View.OnClickListener{
                 break;
         }
     }
-
-    public void autoGin() {
-
-    }
+    //WILL BE IMPLEMENTED LATER POST-ALPHA
+//    public void autoGin() {
+//
+//    }
 }
