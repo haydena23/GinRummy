@@ -32,18 +32,19 @@ public class rummyDumbAI {
         for (int i = 0; i < amountOfCards-1; i++)
         {
             // Find the minimum element in unsorted array
-            int min_idx = i;
-            for (int j = i+1; j < amountOfCards; j++)
-                if (cardList[j].getNumber() < cardList[min_idx].getNumber())
+            int min_idx = i; // this sorting algorithm will start at the minimum value based on repeated sorting amount.
+
+            for (int j = i+1; j < amountOfCards; j++) {
+                if (cardList[j].getNumber() < cardList[min_idx].getNumber()) {
                     min_idx = j;
-
-            // Swap the found minimum element with the first
-            // element
-            int temp = cardList[min_idx].getNumber();
+                }
+            }
+            // Swap the found minimum element with the first element
+            Card temp = cardList[min_idx];
             cardList[min_idx] = cardList[i];
-            cardList[i].setNumber(temp);
+            cardList[i] = temp;
         }
-
+        /*
         int counter = 0;
         //Do this second
         for (Card c : cardList ) {
@@ -70,6 +71,7 @@ public class rummyDumbAI {
                 counter++;
             }
         }
+        */
         return fullySorted;
     }
 
