@@ -240,7 +240,9 @@ public class Controller implements View.OnClickListener{
                         scoreView.setPlayer1("Player 1 Score : " + Integer.toString(whoWon));
                         scoreView.setPlayer2("Player 2 Score : 0");
                     }
+                    drawPileCard.setImageResource(R.drawable.gray_back);
                     scoreView.invalidate();
+                    break;
                 }
                 if (rummyGameState.getCurrentStage() == "drawingStage") {
                     if(rummyGameState.getTurn()) {
