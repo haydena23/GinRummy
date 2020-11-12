@@ -3,6 +3,7 @@ package com.example.ginrummy;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -71,9 +72,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.startButton:
                 setContentView(R.layout.activity_main);
+                break;
             case R.id.quitButton:
                 setContentView(R.layout.start_screen);
                 break;
         }
+        
     }
 }
