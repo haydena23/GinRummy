@@ -34,11 +34,13 @@ public class Controller implements View.OnClickListener{
     ImageView drawPileCard;
     ImageView discardedCard;
 
+    ScoreView scoreView;
+
     public Controller(RummyGameState rummyGameState, Button discardButton,
                       ImageView card0, ImageView card1, ImageView card2, ImageView card3,
                       ImageView card4, ImageView card5, ImageView card6, ImageView card7,
                       ImageView card8, ImageView card9, ImageView card10, ImageView drawPileCard,
-                      Button groupButton, ImageView discardedCard) {
+                      Button groupButton, ImageView discardedCard, ScoreView scoreView) {
 
         this.rummyGameState = rummyGameState;
         this.player1Cards = rummyGameState.getPlayer1Cards();
@@ -68,6 +70,8 @@ public class Controller implements View.OnClickListener{
         groupAmount = 0;
         groupTotal = 0;
         groupCards = new Card[11];
+
+        this.scoreView = scoreView;
 
         //player1Cards[0].getNumber()
     }
@@ -227,6 +231,17 @@ public class Controller implements View.OnClickListener{
                     //DOTHIS : Not sure how to do this yet.
                 break;
             case R.id.drawPile:
+                if (rummyGameState.getAmountDrawn() == 31) {
+                    int whoWon = rummyGameState.endGame(this.groupTotal);
+                    if (whoWon < 0) {
+                        scoreView.setPlayer1("Player 1 Score : 0");
+                        scoreView.setPlayer2("Player 2 Score : " + Integer.toString(-whoWon));
+                    } else {
+                        scoreView.setPlayer1("Player 1 Score : " + Integer.toString(whoWon));
+                        scoreView.setPlayer2("Player 2 Score : 0");
+                    }
+                    scoreView.invalidate();
+                }
                 if (rummyGameState.getCurrentStage() == "drawingStage") {
                     if(rummyGameState.getTurn()) {
                         player1Cards[10] = rummyGameState.drawDraw();
@@ -235,8 +250,6 @@ public class Controller implements View.OnClickListener{
                         player2Cards[10] = rummyGameState.drawDraw();
                     }
                     rummyGameState.setCurrentStage("discardStage");
-                } else {
-                    //DOTHIS : Say something like wait until your turn!
                 }
                 break;
             case R.id.card0:

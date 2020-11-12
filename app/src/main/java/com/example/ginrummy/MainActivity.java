@@ -38,9 +38,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ImageView card9 = findViewById(R.id.card9);
         ImageView card10 = findViewById(R.id.card10);
 
+        ScoreView scoreView = findViewById(R.id.surfaceView);
+
         Controller controller = new Controller(player, discardButton, card0, card1,
                 card2, card3, card4, card5, card6, card7, card8, card9, card10,
-                drawPile, groupButton, discardedCard);
+                drawPile, groupButton, discardedCard, scoreView);
 
         quitButton.setOnClickListener(this);
         knockButton.setOnClickListener(controller);

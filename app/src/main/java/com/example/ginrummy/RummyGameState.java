@@ -68,6 +68,19 @@ public class RummyGameState {
         this.amountDrawn= gameState.amountDrawn;
     }
 
+    public int endGame(int groupCardsTotal) {
+        int tempTotalP1 = 0;
+        int tempTotalP2 = 0;
+        for (Card c : player1Cards) {
+            tempTotalP1 = tempTotalP1 + c.getNumber();
+        }
+        for (Card c : player2Cards) {
+            tempTotalP2 = tempTotalP2 = c.getNumber();
+        }
+        tempTotalP1 = tempTotalP1 - groupCardsTotal;
+        return tempTotalP1-tempTotalP2;
+    }
+
     //Player methods
     //Method for drawing a card from draw pile
     public Card drawDraw() {

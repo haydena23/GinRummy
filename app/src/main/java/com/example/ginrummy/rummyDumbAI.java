@@ -11,7 +11,7 @@ public class rummyDumbAI {
     public rummyDumbAI(RummyGameState gameStateRef) {
         this.rummyGameState = gameStateRef;
         this.player2Cards = gameStateRef.getPlayer2Cards();
-        this.player2Cards = sort(this.player2Cards);
+        //this.player2Cards = sort(this.player2Cards);
     }
 
     public void act() {
@@ -22,7 +22,7 @@ public class rummyDumbAI {
         } else {
             player2Cards[10] = rummyGameState.drawDiscard();
         }
-        int discardThis = random.nextInt(12);
+        int discardThis = random.nextInt(11);
         rummyGameState.discardCard(player2Cards, discardThis);
         rummyGameState.toggleTurn();
     }
