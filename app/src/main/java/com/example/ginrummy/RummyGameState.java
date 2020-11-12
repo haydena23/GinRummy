@@ -234,6 +234,13 @@ public class RummyGameState {
     }
 
     //@Override
+
+    /**
+     * toString method to give a run down in the logcat of the current state of the came. Currently not using
+     *
+     * @param gameState Reference to the game state
+     * @return string of the game
+     */
     public String toString(RummyGameState gameState) {
         String returnThis;
         returnThis = "Current phase : " + gameState.getCurrentStage() + "\n";

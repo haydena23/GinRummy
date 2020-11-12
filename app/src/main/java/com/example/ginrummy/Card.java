@@ -25,18 +25,38 @@ public class Card {
         this.suit = suit;
     }
 
+    /**
+     * Getter method to get the value of a card
+     *
+     * @return The value of the card, 1-13
+     */
     public int getNumber() {
         return this.number;
     }
 
+    /**
+     * Method to manually set a card. Only used in testing
+     *
+     * @param number Value of card to set
+     */
     public void setNumber(int number) {
         this.number = number;
     }
 
+    /**
+     * Method to manually set a card suit. Only used in testing
+     *
+     * @param suit String for suit of the card
+     */
     public void setSuit(String suit) {
         this.suit = suit;
     }
 
+    /**
+     * Getter method to get the suit of a card
+     *
+     * @return The suit of the card
+     */
     public String getSuit() {
         return this.suit;
     }
