@@ -73,7 +73,12 @@ public class Controller implements View.OnClickListener{
 
         this.scoreView = scoreView;
 
-        //player1Cards[0].getNumber()
+/*        player1Cards[0].setNumber(8);
+        player1Cards[1].setNumber(9);
+        player1Cards[2].setNumber(10);
+        player1Cards[0].setSuit("Clubs");
+        player1Cards[1].setSuit("Clubs");
+        player1Cards[2].setSuit("Clubs");*/
     }
 
     public void updateCards() {
@@ -162,8 +167,8 @@ public class Controller implements View.OnClickListener{
                     }
                 }
             } else { //if they are the same suit
-                for (int y = 0; y < amountOfCards - 1; y++) {
-                    if ((cardList[y].getNumber()+1) == cardList[y].getNumber()) {
+                for (int y = 0; y < amountOfCards - 2; y++) {
+                    if ((cardList[y].getNumber()+1) == cardList[y+1].getNumber()) {
                         counter ++;
                     }
                 }
@@ -190,7 +195,7 @@ public class Controller implements View.OnClickListener{
                 } else {
                     if (this.groupAmount > 2) {
                         if (checkCards(this.groupCards, this.groupAmount)) {
-                            for (int i = 0; i < this.groupAmount - 1; i++) {
+                            for (int i = 0; i < this.groupAmount; i++) {
                                 //adds a running total of the value of grouped cards in the players hand.
                                 //Currently doesn't check if the player has already grouped up certain cards
                                 //Also doesn't reduce this total if the grouped cards are thrown away.
