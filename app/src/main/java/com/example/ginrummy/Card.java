@@ -17,6 +17,10 @@ public class Card {
         this.number = number;
     }
 
+    public void setSuit(String suit) {
+        this.suit = suit;
+    }
+
     public String getSuit() {
         return this.suit;
     }
