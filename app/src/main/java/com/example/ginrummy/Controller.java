@@ -127,7 +127,9 @@ public class Controller implements View.OnClickListener{
                 rummyGameState.toggleTurn();
                 discardOn = !discardOn;
                 discardButton.setText("Discard Off");
-                dumbAI.act();
+                if (rummyGameState.getAmountDrawn() < 31) {
+                    dumbAI.act();
+                }
             }
         } else {
             if (discardOn) {
@@ -231,14 +233,15 @@ public class Controller implements View.OnClickListener{
                     //DOTHIS : Not sure how to do this yet.
                 break;
             case R.id.drawPile:
+                //Amount drawn was 30, and i drew its 31.
                 if (rummyGameState.getAmountDrawn() == 31) {
                     int whoWon = rummyGameState.endGame(this.groupTotal);
                     if (whoWon < 0) {
-                        scoreView.setPlayer1("Player 1 Score : 0");
-                        scoreView.setPlayer2("Player 2 Score : " + Integer.toString(-whoWon));
+                        scoreView.setPlayer1("Player 2 Score : " + Integer.toString(-whoWon));
+                        scoreView.setPlayer2("Player 1 Score : 0");
                     } else {
-                        scoreView.setPlayer1("Player 1 Score : " + Integer.toString(whoWon));
-                        scoreView.setPlayer2("Player 2 Score : 0");
+                        scoreView.setPlayer1("Player 2 Score : 0");
+                        scoreView.setPlayer2("Player 1 Score : " + Integer.toString(whoWon));
                     }
                     drawPileCard.setImageResource(R.drawable.gray_back);
                     scoreView.invalidate();
