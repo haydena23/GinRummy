@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button discardButton = findViewById(R.id.discardButton);
         Button quitButton = findViewById(R.id.quitButton);
         Button knockButton = findViewById(R.id.knockButton);
+        Button groupButton = findViewById(R.id.groupButton);
 
         ImageView discardedCard = findViewById(R.id.discardedCard);
         ImageView drawPile = findViewById(R.id.drawPile);
@@ -37,13 +38,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ImageView card9 = findViewById(R.id.card9);
         ImageView card10 = findViewById(R.id.card10);
 
-        Controller controller = new Controller(player, discardButton, card0, card1, card2, card3, card4, card5, card6, card7, card8, card9, card10, drawPile);
+        Controller controller = new Controller(player, discardButton, card0, card1,
+                card2, card3, card4, card5, card6, card7, card8, card9, card10,
+                drawPile, groupButton, discardedCard);
 
         quitButton.setOnClickListener(this);
-
         knockButton.setOnClickListener(controller);
-
         discardButton.setOnClickListener(controller);
+        groupButton.setOnClickListener(controller);
 
         discardedCard.setOnClickListener(controller);
 

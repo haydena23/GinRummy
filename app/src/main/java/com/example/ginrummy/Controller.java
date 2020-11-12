@@ -1,19 +1,24 @@
 package com.example.ginrummy;
 
-import android.media.Image;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
 public class Controller implements View.OnClickListener{
     private boolean discardOn = false;
+    private boolean groupOn = false;
     private RummyGameState rummyGameState;
     private Card[] player1Cards;
     private Card[] player2Cards;
     private rummyDumbAI dumbAI;
 
+
+    private int groupAmount;
+    private int groupTotal; //value of grouped cards
+    private Card[] groupCards;
+
     Button discardButton;
+    Button groupButton;
 
     ImageView card0;
     ImageView card1;
@@ -27,15 +32,21 @@ public class Controller implements View.OnClickListener{
     ImageView card9;
     ImageView card10;
     ImageView drawPileCard;
+    ImageView discardedCard;
 
     public Controller(RummyGameState rummyGameState, Button discardButton,
                       ImageView card0, ImageView card1, ImageView card2, ImageView card3,
                       ImageView card4, ImageView card5, ImageView card6, ImageView card7,
-                      ImageView card8, ImageView card9, ImageView card10, ImageView drawPileCard) {
+                      ImageView card8, ImageView card9, ImageView card10, ImageView drawPileCard,
+                      Button groupButton, ImageView discardedCard) {
+
         this.rummyGameState = rummyGameState;
         this.player1Cards = rummyGameState.getPlayer1Cards();
         this.player2Cards = rummyGameState.getPlayer2Cards();
+
         this.discardButton = discardButton;
+        this.groupButton = groupButton;
+
         this.dumbAI = new rummyDumbAI(rummyGameState);
 
         this.card0 = card0;
@@ -52,9 +63,16 @@ public class Controller implements View.OnClickListener{
         this.drawPileCard = drawPileCard;
 
         updateCards();
+
+        groupAmount = 0;
+        groupTotal = 0;
+        groupCards = new Card[11];
+
+        player1Cards[0].getNumber()
     }
 
     public void updateCards() {
+      //  updateCard(rummyGameState.getDiscardedCard(), discardedCard);
         updateCard(player1Cards[0], card0);
         updateCard(player1Cards[1], card1);
         updateCard(player1Cards[2], card2);
@@ -93,6 +111,7 @@ public class Controller implements View.OnClickListener{
                 }*/
 
                 rummyGameState.setDiscardedCard(player1Cards[x]);
+                discardedCard.setImageResource(R.drawable.blue_back);
                 for(int i = x; i < 10; i++) {
                     player1Cards[i] = player1Cards[i+1];
                     //updateCards();
@@ -121,12 +140,62 @@ public class Controller implements View.OnClickListener{
         //discardButton.invalidate();
     }
 
-    //DOTHIS : Make a command that prompts the user to wait until its their turn
+    public boolean checkCards(Card[] cardList, int amountOfCards) {
+        int counter = 0;
+        for (int i = 0; i < amountOfCards - 1; i++) {
+            if (!(cardList[i].getSuit().equals(cardList[i+1].getSuit()))) { //Checks if it they're all the same suit.
+                for (int x = 0; x < amountOfCards - 1; x++) {
+                    if (!(cardList[x].getNumber()==cardList[x+1].getNumber())) { //Checks if they're all the same number.
+                        return false;
+                    } else { // if they are the same number
+                        counter ++;
+                    }
+                }
+            } else { //if they are the same suit
+                for (int y = 0; y < amountOfCards - 1; y++) {
+                    if ((cardList[y].getNumber()+1) == cardList[y].getNumber()) {
+                        counter ++;
+                    }
+                }
+            }
+        }
+        if (counter + 1 == amountOfCards) { //this will only return true if they are all cards are in a run, or in a set.
+            return true;
+        }
+        return false;
+    }
 
+    //DOTHIS : Make a command that prompts the user to wait until its their turn
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.groupButton: //WILL BREAK IF USER CLICKS CARDS MULTIPLE TIMES
+                if (discardOn) {
+                    break;
+                }
+                this.groupOn = !this.groupOn;
+                if (groupOn) {
+                    groupButton.setText("Group On");
+                    this.groupAmount = 0;
+                } else {
+                    if (this.groupAmount > 2) {
+                        if (checkCards(this.groupCards, this.groupAmount)) {
+                            for (int i = 0; i < this.groupAmount - 1; i++) {
+                                //adds a running total of the value of grouped cards in the players hand.
+                                //Currently doesn't check if the player has already grouped up certain cards
+                                //Also doesn't reduce this total if the grouped cards are thrown away.
+                                this.groupTotal = this.groupTotal + this.groupCards[i].getNumber();
+                            }
+                        }
+                    }
+                    groupButton.setText("Group Off");
+                    this.groupAmount = 0;
+                }
+                break;
             case R.id.discardButton:
+                if (groupOn) {
+                    break;
+                }
                 if (rummyGameState.getCurrentStage() == "discardStage") {
                     discardOn = !discardOn;
                     if(discardOn) {
@@ -145,6 +214,7 @@ public class Controller implements View.OnClickListener{
                     if(rummyGameState.getTurn()) {
                         player1Cards[10] = rummyGameState.drawDiscard();
                         updateCard(player1Cards[10], card10);
+                        //discardedCard.setImageResource(R.drawable.blue_back);
                     }
                     else {
                         player2Cards[10] = rummyGameState.drawDiscard();
@@ -169,46 +239,90 @@ public class Controller implements View.OnClickListener{
                 break;
             case R.id.card0:
                 discardThisCard(0);
+                if (groupOn) {
+                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
+                    this.groupAmount++;
+                }
                 updateCard(player1Cards[0], card0);
                 break;
             case R.id.card1:
                 discardThisCard(1);
+                if (groupOn) {
+                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
+                    this.groupAmount++;
+                }
                 updateCard(player1Cards[1], card1);
                 break;
             case R.id.card2:
                 discardThisCard(2);
+                if (groupOn) {
+                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
+                    this.groupAmount++;
+                }
                 updateCard(player1Cards[2], card2);
                 break;
             case R.id.card3:
                 discardThisCard(3);
+                if (groupOn) {
+                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
+                    this.groupAmount++;
+                }
                 updateCard(player1Cards[3], card3);
                 break;
             case R.id.card4:
                 discardThisCard(4);
+                if (groupOn) {
+                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
+                    this.groupAmount++;
+                }
                 updateCard(player1Cards[4], card4);
                 break;
             case R.id.card5:
                 discardThisCard(5);
+                if (groupOn) {
+                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
+                    this.groupAmount++;
+                }
                 updateCard(player1Cards[5], card5);
                 break;
             case R.id.card6:
                 discardThisCard(6);
+                if (groupOn) {
+                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
+                    this.groupAmount++;
+                }
                 updateCard(player1Cards[6], card6);
                 break;
             case R.id.card7:
                 discardThisCard(7);
+                if (groupOn) {
+                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
+                    this.groupAmount++;
+                }
                 updateCard(player1Cards[7], card7);
                 break;
             case R.id.card8:
                 discardThisCard(8);
+                if (groupOn) {
+                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
+                    this.groupAmount++;
+                }
                 updateCard(player1Cards[8], card8);
                 break;
             case R.id.card9:
                 discardThisCard(9);
+                if (groupOn) {
+                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
+                    this.groupAmount++;
+                }
                 updateCard(player1Cards[9], card9);
                 break;
             case R.id.card10:
                 discardThisCard(10);
+                if (groupOn) {
+                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
+                    this.groupAmount++;
+                }
                 updateCard(player1Cards[10], card10);
                 break;
         }
