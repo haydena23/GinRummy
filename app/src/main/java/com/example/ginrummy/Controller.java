@@ -123,7 +123,7 @@ public class Controller implements View.OnClickListener{
                 rummyGameState.toggleTurn();
                 discardOn = !discardOn;
                 discardButton.setText("Discard Off");
-                //updateCards();
+                dumbAI.act();
             }
         } else {
             if (discardOn) {

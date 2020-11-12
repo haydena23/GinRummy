@@ -101,6 +101,7 @@ public class RummyGameState {
         if(toRemove == 10) {
             this.discardedCard = cardPile[10];
             this.player1Cards[10] = new Card (100, "Trash");
+            toggleTurn();
             return;
         }
 

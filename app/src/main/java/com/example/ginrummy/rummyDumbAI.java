@@ -14,6 +14,19 @@ public class rummyDumbAI {
         this.player2Cards = sort(this.player2Cards);
     }
 
+    public void act() {
+        Random random = new Random();
+        //Randomly decides to draw from draw pile or draw from discard pile.
+        if (random.nextBoolean()) {
+            player2Cards[10] = rummyGameState.drawDraw();
+        } else {
+            player2Cards[10] = rummyGameState.drawDiscard();
+        }
+        int discardThis = random.nextInt(12);
+        rummyGameState.discardCard(player2Cards, discardThis);
+        rummyGameState.toggleTurn();
+    }
+
     public int discardLow() {
         if(!rummyGameState.getTurn() && rummyGameState.getCurrentStage() == "drawingStage") {
             int clubCounter2 = 0;
