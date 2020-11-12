@@ -16,7 +16,7 @@ public class rummyDumbAI {
 
     public int discardRandom() {
         if(!rummyGameState.getTurn() && rummyGameState.getCurrentStage() == "drawingStage") {
-            return rand.nextInt(12);
+            return rand.nextInt(11);
         }
         else {
             return 13;
@@ -28,7 +28,14 @@ public class rummyDumbAI {
 
         int amountOfCards = cardList.length;
 
-        //Used code in https://www.geeksforgeeks.org/java-program-for-selection-sort/
+        /**
+         * External Citation
+         *    Date: 3 November 2020
+         *    Problem: Needed a solution to simply sort the cards
+         *    Resource:
+         *         https://www.geeksforgeeks.org/java-program-for-selection-sort/
+         *    Solution: Implemented a card version for selection sort
+         */
         for (int i = 0; i < amountOfCards-1; i++)
         {
             // Find the minimum element in unsorted array
@@ -73,62 +80,5 @@ public class rummyDumbAI {
         }
         */
         return fullySorted;
-    }
-
-    public void attemptKnock() {
-        int clubCounter = 0;
-        int heartCounter = 0;
-        int spadeCounter = 0;
-        int diamondCounter = 0;
-        ArrayList<Integer> knockValues = new ArrayList<>();
-
-        if(!rummyGameState.getTurn() && rummyGameState.getCurrentStage() == "drawingStage") {
-            Arrays.sort(player2Cards);
-            for(int i = 0; i < 11; i++) {
-                if(player2Cards[i].getSuit() == "Clubs") {
-                    clubCounter++;
-                }
-                if(player2Cards[i].getSuit() == "Hearts") {
-                    heartCounter++;
-                }
-                if(player2Cards[i].getSuit() == "Spades") {
-                    spadeCounter++;
-                }
-                if(player2Cards[i].getSuit() == "Diamonds") {
-                    diamondCounter++;
-                }
-            }
-            if(clubCounter > 3) {
-                for(int i = 0; i < player2Cards.length - 1; i++) {
-                    if(player2Cards[i].getNumber()+1 == player2Cards[i+1].getNumber() && (player2Cards[i].getSuit()+1 == player2Cards[i+1].getSuit())) {
-                        knockValues.add(player2Cards[i].getNumber());
-                    }
-                }
-            }
-            if(heartCounter > 3) {
-                for(int i = 0; i < player2Cards.length - 1; i++) {
-                    if((player2Cards[i].getNumber()+1 == player2Cards[i+1].getNumber()) && (player2Cards[i].getSuit()+1 == player2Cards[i+1].getSuit())) {
-                        knockValues.add(player2Cards[i].getNumber());
-                    }
-                }
-            }
-            if(spadeCounter > 3) {
-                for(int i = 0; i < player2Cards.length - 1; i++) {
-                    if(player2Cards[i].getNumber()+1 == player2Cards[i+1].getNumber() && (player2Cards[i].getSuit()+1 == player2Cards[i+1].getSuit())) {
-                        knockValues.add(player2Cards[i].getNumber());
-                    }
-                }
-            }
-            if(diamondCounter > 3) {
-                for(int i = 0; i < player2Cards.length - 1; i++) {
-                    if(player2Cards[i].getNumber()+1 == player2Cards[i+1].getNumber() && (player2Cards[i].getSuit()+1 == player2Cards[i+1].getSuit())) {
-                        knockValues.add(player2Cards[i].getNumber());
-                    }
-                }
-            }
-            if(clubCounter + heartCounter + spadeCounter + diamondCounter == 10) {
-                rummyGameState.autoGin(player2Cards);
-            }
-        }
     }
 }
