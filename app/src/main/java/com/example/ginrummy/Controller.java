@@ -61,6 +61,7 @@ public class Controller implements View.OnClickListener{
         this.card9 = card9;
         this.card10 = card10;
         this.drawPileCard = drawPileCard;
+        this.discardedCard = discardedCard;
 
         updateCards();
 
@@ -68,11 +69,11 @@ public class Controller implements View.OnClickListener{
         groupTotal = 0;
         groupCards = new Card[11];
 
-        player1Cards[0].getNumber()
+        //player1Cards[0].getNumber()
     }
 
     public void updateCards() {
-      //  updateCard(rummyGameState.getDiscardedCard(), discardedCard);
+        updateCard(rummyGameState.getDiscardedCard(), discardedCard);
         updateCard(player1Cards[0], card0);
         updateCard(player1Cards[1], card1);
         updateCard(player1Cards[2], card2);
@@ -116,11 +117,12 @@ public class Controller implements View.OnClickListener{
                     player1Cards[i] = player1Cards[i+1];
                     //updateCards();
                 }
-                player1Cards[10] = null;
+                player1Cards[10] = new Card(100, "Trash");
                 rummyGameState.setPlayer1Cards(player1Cards);
                 rummyGameState.setCurrentStage("drawingStage");
                 rummyGameState.toggleTurn();
                 discardOn = !discardOn;
+                discardButton.setText("Discard Off");
                 //updateCards();
             }
         } else {
@@ -214,7 +216,7 @@ public class Controller implements View.OnClickListener{
                     if(rummyGameState.getTurn()) {
                         player1Cards[10] = rummyGameState.drawDiscard();
                         updateCard(player1Cards[10], card10);
-                        //discardedCard.setImageResource(R.drawable.blue_back);
+                        discardedCard.setImageResource(R.drawable.blue_back);
                     }
                     else {
                         player2Cards[10] = rummyGameState.drawDiscard();
@@ -240,10 +242,10 @@ public class Controller implements View.OnClickListener{
             case R.id.card0:
                 discardThisCard(0);
                 if (groupOn) {
-                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
+                this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
                     this.groupAmount++;
                 }
-                updateCard(player1Cards[0], card0);
+                //updateCard(player1Cards[0], card0);
                 break;
             case R.id.card1:
                 discardThisCard(1);
