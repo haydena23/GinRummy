@@ -41,7 +41,7 @@ public class rummyDumbAI {
             int heartCounter2 = 0;
             int spadeCounter2 = 0;
             int diamondCounter2 = 0;
-            Arrays.sort(player2Cards);
+            //Arrays.sort(player2Cards);
             for(int i = 0; i < 11; i++) {
                 if(player2Cards[i].getSuit() == "Clubs") {
                     clubCounter2++;

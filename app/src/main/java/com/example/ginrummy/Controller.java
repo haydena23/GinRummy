@@ -80,7 +80,12 @@ public class Controller implements View.OnClickListener{
 
         this.scoreView = scoreView;
 
-        //player1Cards[0].getNumber()
+/*        player1Cards[0].setNumber(8);
+        player1Cards[1].setNumber(9);
+        player1Cards[2].setNumber(10);
+        player1Cards[0].setSuit("Clubs");
+        player1Cards[1].setSuit("Clubs");
+        player1Cards[2].setSuit("Clubs");*/
     }
 
     public void updateCards() {
@@ -169,8 +174,8 @@ public class Controller implements View.OnClickListener{
                     }
                 }
             } else { //if they are the same suit
-                for (int y = 0; y < amountOfCards - 1; y++) {
-                    if ((cardList[y].getNumber()+1) == cardList[y].getNumber()) {
+                for (int y = 0; y < amountOfCards - 2; y++) {
+                    if ((cardList[y].getNumber()+1) == cardList[y+1].getNumber()) {
                         counter ++;
                     }
                 }
@@ -197,7 +202,7 @@ public class Controller implements View.OnClickListener{
                 } else {
                     if (this.groupAmount > 2) {
                         if (checkCards(this.groupCards, this.groupAmount)) {
-                            for (int i = 0; i < this.groupAmount - 1; i++) {
+                            for (int i = 0; i < this.groupAmount; i++) {
                                 //adds a running total of the value of grouped cards in the players hand.
                                 //Currently doesn't check if the player has already grouped up certain cards
                                 //Also doesn't reduce this total if the grouped cards are thrown away.
@@ -239,18 +244,25 @@ public class Controller implements View.OnClickListener{
                     rummyGameState.setCurrentStage("discardStage");
                 }
             case R.id.knockButton:
-                    //DOTHIS : Not sure how to do this yet.
+                    int i = 0;
+                    for (Card c : player1Cards) {
+                        i = i + c.getNumber();
+                    }
+                    i = i - groupTotal;
+                    if (i < 10) {
+                        scoreView.setPlayer1("Player 1 Score : 10");
+                    }
                 break;
             case R.id.drawPile:
                 //Amount drawn was 30, and i drew its 31.
                 if (rummyGameState.getAmountDrawn() == 31) {
                     int whoWon = rummyGameState.endGame(this.groupTotal);
-                    if (whoWon < 0) {
-                        scoreView.setPlayer1("Player 2 Score : " + Integer.toString(-whoWon));
+                    if (whoWon > 0) {
+                        scoreView.setPlayer1("Player 2 Score : " + Integer.toString(whoWon));
                         scoreView.setPlayer2("Player 1 Score : 0");
                     } else {
                         scoreView.setPlayer1("Player 2 Score : 0");
-                        scoreView.setPlayer2("Player 1 Score : " + Integer.toString(whoWon));
+                        scoreView.setPlayer2("Player 1 Score : " + Integer.toString(-whoWon));
                     }
                     drawPileCard.setImageResource(R.drawable.gray_back);
                     scoreView.invalidate();
