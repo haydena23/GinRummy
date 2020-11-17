@@ -107,8 +107,6 @@ public class Controller implements View.OnClickListener{
 
     //DOTHIS : Current Issues - we have to check what player called it, then change based on that.
     public void discardThisCard(int x) {
-        //switch ifs
-        //this.player1Cards[10] = new Card(100, "Trash");
         rummyGameState.setPlayer1Cards(this.player1Cards);
 
         if (rummyGameState.getTurn()) {
@@ -157,6 +155,11 @@ public class Controller implements View.OnClickListener{
 
     public boolean checkCards(Card[] cardList, int amountOfCards) {
         int counter = 0;
+        for (Card c : cardList) {
+            if (c.getIsPaired()) {
+                return false;
+            }
+        }
         for (int i = 0; i < amountOfCards - 1; i++) {
             if (!(cardList[i].getSuit().equals(cardList[i+1].getSuit()))) { //Checks if it they're all the same suit.
                 for (int x = 0; x < amountOfCards - 1; x++) {
@@ -195,6 +198,9 @@ public class Controller implements View.OnClickListener{
                 } else {
                     if (this.groupAmount > 2) {
                         if (checkCards(this.groupCards, this.groupAmount)) {
+                            for (Card c : this.groupCards) {
+                                c.toggleIsPaired();
+                            }
                             for (int i = 0; i < this.groupAmount; i++) {
                                 //adds a running total of the value of grouped cards in the players hand.
                                 //Currently doesn't check if the player has already grouped up certain cards
@@ -237,6 +243,9 @@ public class Controller implements View.OnClickListener{
                     rummyGameState.setCurrentStage("discardStage");
                 }
             case R.id.knockButton:
+                if (!(rummyGameState.getCurrentStage().equals("discardStage"))) {
+                    break;
+                }
                     int i = 0;
                     for (Card c : player1Cards) {
                         i = i + c.getNumber();
@@ -244,6 +253,7 @@ public class Controller implements View.OnClickListener{
                     i = i - groupTotal;
                     if (i < 10) {
                         scoreView.setPlayer1("Player 1 Score : 10");
+                        scoreView.invalidate();
                     }
                 break;
             case R.id.drawPile:
