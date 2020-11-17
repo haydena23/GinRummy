@@ -196,8 +196,8 @@ public class Controller implements View.OnClickListener{
      */
     public boolean checkCards(Card[] cardList, int amountOfCards) {
         int counter = 0;
-        for (Card c : cardList) {
-            if (c.getIsPaired()) {
+        for (int x = 0; x<amountOfCards; x++) {
+            if (cardList[x].getIsPaired()) {
                 return false;
             }
         }
