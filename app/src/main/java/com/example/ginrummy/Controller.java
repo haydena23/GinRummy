@@ -196,6 +196,11 @@ public class Controller implements View.OnClickListener{
      */
     public boolean checkCards(Card[] cardList, int amountOfCards) {
         int counter = 0;
+        for (Card c : cardList) {
+            if (c.getIsPaired()) {
+                return false;
+            }
+        }
         for (int i = 0; i < amountOfCards - 1; i++) {
             if (!(cardList[i].getSuit().equals(cardList[i+1].getSuit()))) { //Checks if it they're all the same suit.
                 for (int x = 0; x < amountOfCards - 1; x++) {
@@ -239,6 +244,9 @@ public class Controller implements View.OnClickListener{
                 } else {
                     if (this.groupAmount > 2) {
                         if (checkCards(this.groupCards, this.groupAmount)) {
+                            for (Card c : this.groupCards) {
+                                c.toggleIsPaired();
+                            }
                             for (int i = 0; i < this.groupAmount; i++) {
                                 //adds a running total of the value of grouped cards in the players hand.
                                 //Currently doesn't check if the player has already grouped up certain cards
