@@ -244,8 +244,8 @@ public class Controller implements View.OnClickListener{
                 } else {
                     if (this.groupAmount > 2) {
                         if (checkCards(this.groupCards, this.groupAmount)) {
-                            for (Card c : this.groupCards) {
-                                c.toggleIsPaired();
+                            for (int x = 0; x<this.groupAmount; x++) {
+                                groupCards[x].toggleIsPaired();
                             }
                             for (int i = 0; i < this.groupAmount; i++) {
                                 //adds a running total of the value of grouped cards in the players hand.
