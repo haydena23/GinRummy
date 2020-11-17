@@ -1,3 +1,10 @@
+/**
+ * Controller.java - utilized to all user interaction responses
+ * and changes model to reflect commands
+ *
+ * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
+ * @version 12 Nov 2020
+ */
 package com.example.ginrummy;
 
 import android.view.View;
@@ -5,13 +12,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 public class Controller implements View.OnClickListener{
+
+    // Instance variables for the class
     private boolean discardOn = false;
     private boolean groupOn = false;
     private RummyGameState rummyGameState;
     private Card[] player1Cards;
     private Card[] player2Cards;
     private rummyDumbAI dumbAI;
-
 
     private int groupAmount;
     private int groupTotal; //value of grouped cards
@@ -20,6 +28,7 @@ public class Controller implements View.OnClickListener{
     Button discardButton;
     Button groupButton;
 
+    // Instance variables for all the on screen card displays
     ImageView card0;
     ImageView card1;
     ImageView card2;
@@ -36,6 +45,28 @@ public class Controller implements View.OnClickListener{
 
     ScoreView scoreView;
 
+    /**
+     * This is the constructor for the controller class. It takes in a lot of variables to obtain the correct references to the
+     * object it needs
+     *
+     * @param rummyGameState Game state reference
+     * @param discardButton Reference to the discard button
+     * @param card0 Cards 1-10 on screen for player hand
+     * @param card1
+     * @param card2
+     * @param card3
+     * @param card4
+     * @param card5
+     * @param card6
+     * @param card7
+     * @param card8
+     * @param card9
+     * @param card10
+     * @param drawPileCard Reference to the on screen draw pile
+     * @param groupButton Reference to the group button
+     * @param discardedCard Reference to the on screen discard pile
+     * @param scoreView Reference to the Score View which is the surface view to display score
+     */
     public Controller(RummyGameState rummyGameState, Button discardButton,
                       ImageView card0, ImageView card1, ImageView card2, ImageView card3,
                       ImageView card4, ImageView card5, ImageView card6, ImageView card7,
@@ -72,15 +103,12 @@ public class Controller implements View.OnClickListener{
         groupCards = new Card[11];
 
         this.scoreView = scoreView;
-
-/*        player1Cards[0].setNumber(8);
-        player1Cards[1].setNumber(9);
-        player1Cards[2].setNumber(10);
-        player1Cards[0].setSuit("Clubs");
-        player1Cards[1].setSuit("Clubs");
-        player1Cards[2].setSuit("Clubs");*/
     }
 
+    /**
+     * This is the updateCards method. It calls the updateCard method for each of the on screen cards, and invalidates each
+     * card to update it and make sure it is correctly displaying on the GUI
+     */
     public void updateCards() {
         updateCard(rummyGameState.getDiscardedCard(), discardedCard);
         updateCard(player1Cards[0], card0);
@@ -101,28 +129,33 @@ public class Controller implements View.OnClickListener{
         }
     }
 
+    /**
+     * This setBlank method is called if card #11 is a null object in the players hand, since that means the user has either not
+     * drawn a card or has just recently discarded a card.
+     */
     public void setBlank() {
         card10.setImageResource(R.drawable.blue_back);
     }
 
-    //DOTHIS : Current Issues - we have to check what player called it, then change based on that.
+    /**
+     * This discardThisCard method takes in a value X to indicate which card they need to discard, and appropriately discards it
+     *
+     * @param x This is the X value indicating which card in the hand that we need to discard
+     *
+     * NOTES: Need to switch ifs
+     *        Need to check which player called this method, and change based on that
+     */
     public void discardThisCard(int x) {
         rummyGameState.setPlayer1Cards(this.player1Cards);
 
         if (rummyGameState.getTurn()) {
             if (discardOn) {
 
-                /*if(x == 10) {
-                    rummyGameState.setDiscardedCard(this.player1Cards[10]);
-                    //this.player1Cards[10] = new Card (99, "Trash");
-                    return;
-                }*/
-
                 rummyGameState.setDiscardedCard(player1Cards[x]);
                 discardedCard.setImageResource(R.drawable.blue_back);
                 for(int i = x; i < 10; i++) {
                     player1Cards[i] = player1Cards[i+1];
-                    //updateCards();
+                    //updateCards(); // Potentially need to update cards if we can get our sorting algorithm working
                 }
                 player1Cards[10] = new Card(100, "Trash");
                 rummyGameState.setPlayer1Cards(player1Cards);
@@ -150,16 +183,19 @@ public class Controller implements View.OnClickListener{
             }
         }
         updateCards();
-        //discardButton.invalidate();
     }
 
+    /**
+     * This method checks the players hands for any runs or sets that they currently have, and then counts the value
+     * for the chosen cards to subtract from their overall score when knock is pressed
+     *
+     * @param cardList Takes in a current players list of cards in their hand
+     * @param amountOfCards Takes the number of cards they are selecting
+     *
+     * @return Whether or not the all the selected cards are of the same run or in a set
+     */
     public boolean checkCards(Card[] cardList, int amountOfCards) {
         int counter = 0;
-        for (Card c : cardList) {
-            if (c.getIsPaired()) {
-                return false;
-            }
-        }
         for (int i = 0; i < amountOfCards - 1; i++) {
             if (!(cardList[i].getSuit().equals(cardList[i+1].getSuit()))) { //Checks if it they're all the same suit.
                 for (int x = 0; x < amountOfCards - 1; x++) {
@@ -183,8 +219,13 @@ public class Controller implements View.OnClickListener{
         return false;
     }
 
-    //DOTHIS : Make a command that prompts the user to wait until its their turn
     @Override
+    /**
+     * This is the onClick method which takes in a view for the button that was just pressed. Depending on the button pressed,
+     * it performs a certain action
+     *
+     * NOTES: Need to make a command that prompts the user when they are attemping to press a button when it is not their turn
+     */
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.groupButton: //WILL BREAK IF USER CLICKS CARDS MULTIPLE TIMES
@@ -198,9 +239,6 @@ public class Controller implements View.OnClickListener{
                 } else {
                     if (this.groupAmount > 2) {
                         if (checkCards(this.groupCards, this.groupAmount)) {
-                            for (Card c : this.groupCards) {
-                                c.toggleIsPaired();
-                            }
                             for (int i = 0; i < this.groupAmount; i++) {
                                 //adds a running total of the value of grouped cards in the players hand.
                                 //Currently doesn't check if the player has already grouped up certain cards
@@ -246,16 +284,16 @@ public class Controller implements View.OnClickListener{
                 if (!(rummyGameState.getCurrentStage().equals("discardStage"))) {
                     break;
                 }
-                    int i = 0;
-                    for (Card c : player1Cards) {
-                        i = i + c.getNumber();
-                    }
-                    i = i - groupTotal;
-                    if (i < 10) {
-                        scoreView.setPlayer1("Player 1 Score : 10");
-                        scoreView.invalidate();
-                    }
-                break;
+                int i = 0;
+                for (Card c : player1Cards) {
+                    i = i + c.getNumber();
+                }
+                i = i - groupTotal;
+                if (i < 10) {
+                    scoreView.setPlayer1("Player 1 Score : 10");
+                    scoreView.invalidate();
+                }
+            break;
             case R.id.drawPile:
                 //Amount drawn was 30, and i drew its 31.
                 if (rummyGameState.getAmountDrawn() == 31) {
@@ -372,6 +410,13 @@ public class Controller implements View.OnClickListener{
         }
     }
 
+    /**
+     * This update card method takes in a card from the player hand and a reference to the on screen visual, and sets the visual card
+     * appropriately
+     *
+     * @param card A card from the Card.java
+     * @param cardView Which on screen card it should be, card1 through card10
+     */
     public void updateCard(Card card, ImageView cardView) {
         switch (card.getNumber()) {
             case 1:
@@ -575,6 +620,11 @@ public class Controller implements View.OnClickListener{
         }
     }
 
+    /**
+     * Auto gin will automatically gin a player if it detects all 10 cards are ready for gin.
+     *
+     * CAVEAT: This has not been implemented yet
+     */
     public void autoGin() {
 
     }

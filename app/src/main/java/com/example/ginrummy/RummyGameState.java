@@ -1,3 +1,10 @@
+/**
+ * RummyGameState.java - utilized to contain the building block
+ * information necessary for the game to function
+ *
+ * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
+ * @version 12 Nov 2020
+ */
 package com.example.ginrummy;
 
 import java.util.Random;
@@ -22,7 +29,9 @@ public class RummyGameState {
 
     private String currentStage;
 
-    //Normal Constructor
+    /**
+     * Normal Constructor for RummyGameState
+     */
     public RummyGameState () {
         this.startingDeck = createStartingDeck();
         this.player1Cards = createPlayerHand();
@@ -40,27 +49,33 @@ public class RummyGameState {
         this.turn = true;
     }
 
-    //Deep Copy Constructor
+    /**
+     * Deep Copy Constructor for RummyGameState
+     */
     public RummyGameState (RummyGameState gameState) {
         if (gameState.turn) {
             this.player1Cards = new Card[11];
             for (int i = 0; i < gameState.player1Cards.length-1; i++) {
-                this.player1Cards[i] = new Card(gameState.player1Cards[i].getNumber(), gameState.player1Cards[i].getSuit());
+                this.player1Cards[i] = new Card(gameState.player1Cards[i].getNumber(),
+                        gameState.player1Cards[i].getSuit());
             }
         } else {
             this.player2Cards = new Card[11];
             for (int i = 0; i < gameState.player1Cards.length-1; i++) {
-                this.player2Cards[i] = new Card(gameState.player2Cards[i].getNumber(), gameState.player2Cards[i].getSuit());
+                this.player2Cards[i] = new Card(gameState.player2Cards[i].getNumber(),
+                        gameState.player2Cards[i].getSuit());
             }
         }
 
         this.drawPile = new Card[32]; // Could be 31
         for (int i = 0; i < gameState.drawPile.length-1; i++) {
-            this.drawPile[i] = new Card(gameState.drawPile[i].getNumber(), gameState.drawPile[i].getSuit());
+            this.drawPile[i] = new Card(gameState.drawPile[i].getNumber(),
+                    gameState.drawPile[i].getSuit());
         }
         this.currentStage = gameState.getCurrentStage();
 
-        this.discardedCard = new Card(gameState.discardedCard.getNumber(), gameState.discardedCard.getSuit());
+        this.discardedCard = new Card(gameState.discardedCard.getNumber(),
+                gameState.discardedCard.getSuit());
         this.totalOfP1 = gameState.totalOfP1;
         this.P1Points = gameState.P1Points;
         this.P2Points = gameState.P2Points;
@@ -68,6 +83,12 @@ public class RummyGameState {
         this.amountDrawn= gameState.amountDrawn;
     }
 
+    /**
+     * Method that calculates total points
+     * received by either player after a round ends
+     *
+     * @param groupCardsTotal amount that player 1 and 2s cards total to
+     */
     public int endGame(int groupCardsTotal) {
         int tempTotalP1 = 0;
         int tempTotalP2 = 0;
@@ -75,14 +96,16 @@ public class RummyGameState {
             tempTotalP1 = tempTotalP1 + c.getNumber();
         }
         for (Card c : player2Cards) {
-            tempTotalP2 = tempTotalP2 = c.getNumber();
+            tempTotalP2 = tempTotalP2 + c.getNumber();
         }
         tempTotalP1 = tempTotalP1 - groupCardsTotal;
         return tempTotalP1-tempTotalP2;
     }
 
-    //Player methods
-    //Method for drawing a card from draw pile
+    //START OF PLAYER METHODS
+    /**
+     * Method for drawing a card from draw pile
+     */
     public Card drawDraw() {
         if (this.amountDrawn > 31) {
             return null;
@@ -98,7 +121,9 @@ public class RummyGameState {
         }
     }
 
-    //Method for drawing the discarded card
+    /**
+     * Method for drawing the discarded card
+     */
     public Card drawDiscard() {
         if (this.currentStage == "drawingStage") {
             Card returnThis = this.discardedCard;
@@ -110,6 +135,13 @@ public class RummyGameState {
         }
     }
 
+    /**
+     * Method for discarding a card from your hand
+     *
+     * @param cardPile Array containing user's hand
+     * @param toRemove Card selected in cardPile by position
+     *                 subject to be removed
+     */
     public void discardCard(Card[] cardPile, int toRemove) {
         if(toRemove == 10) {
             this.discardedCard = cardPile[10];
@@ -133,6 +165,9 @@ public class RummyGameState {
         this.currentStage = "drawingStage";
     }
 
+    /**
+     * Method that randomly sets up the player's hand
+     */
     public Card[] createPlayerHand() {
         Random random = new Random();
         Card[] returnThis = new Card[11];
@@ -150,17 +185,26 @@ public class RummyGameState {
         return returnThis;
     }
 
+    /**
+     * Method creates the card pile that holds discarded
+     * player and computer cards (right side)
+     */
     public Card createDiscardPile() {
 
         //Random random = new Random();
 
         //int getThisCard = random.nextInt(32);
-        Card returnMe = new Card(this.drawPile[31].getNumber(), this.drawPile[31].getSuit());
+        Card returnMe = new Card(this.drawPile[31].getNumber(),
+                this.drawPile[31].getSuit());
         this.drawPile[31] = null;
 
         return returnMe;
     }
 
+    /**
+     * Method creates the card pile that holds unknown
+     * cards that have not been in play yet(left side)
+     */
     public Card[] createDrawPile() {
         Random random = new Random();
         Card[] returnThis = new Card[32];
@@ -182,32 +226,48 @@ public class RummyGameState {
     public String writeHand(Card[] cardSet) {
         String returnThis = "";
         for (int i = 0 ; i < cardSet.length-1; i++) {
-            returnThis = returnThis + cardSet[i].getNumber() + " of " + cardSet[i].getSuit() + ", ";
+            returnThis = returnThis + cardSet[i].getNumber()
+                    + " of " + cardSet[i].getSuit() + ", ";
         }
 
         return returnThis;
     }
 
     //@Override
+
+    /**
+     * toString method to give a run down in the logcat of the current state of the came. Currently not using
+     *
+     * @param gameState Reference to the game state
+     * @return string of the game
+     */
     public String toString(RummyGameState gameState) {
         String returnThis;
         returnThis = "Current phase : " + gameState.getCurrentStage() + "\n";
-        //If array.toString doesn't work, this will be a for loop that goes through the array and writes it out.
-        returnThis = returnThis + "Current points for both players are, from P1 to P2 : " + gameState.P1Points + "," + gameState.P2Points + "\n";
+        //If array.toString doesn't work, this will be a for loop
+        //that goes through the array and writes it out.
+        returnThis = returnThis + "Current points for both players are, from P1 to P2 : "
+                + gameState.P1Points + "," + gameState.P2Points + "\n";
         if (turn) {
             returnThis = returnThis + "Current player is Player 1 \n";
-            returnThis = returnThis + "Your cards are : " + writeHand(gameState.player1Cards) + "\n";
-            returnThis = returnThis + "Your hand value is : " + gameState.totalOfP1 + "\n";
+            returnThis = returnThis + "Your cards are : "
+                    + writeHand(gameState.player1Cards) + "\n";
+            returnThis = returnThis + "Your hand value is : "
+                    + gameState.totalOfP1 + "\n";
         } else {
             returnThis = returnThis + "Current player is Player 2 \n";
-            returnThis = returnThis + "Your cards are : " + writeHand(gameState.player2Cards) + "\n";
-            returnThis = returnThis + "Your hand value is : " + gameState.totalofP2 + "\n";
+            returnThis = returnThis + "Your cards are : "
+                    + writeHand(gameState.player2Cards) + "\n";
+            returnThis = returnThis + "Your hand value is : "
+                    + gameState.totalofP2 + "\n";
         }
 
         return returnThis;
     }
 
-    //Dealing with Card methods
+    /**
+     * Method creates all 52 cards for game to use
+     */
     public Card[] createStartingDeck() {
         Card[] startingDeck = new Card[52];
 
@@ -324,7 +384,9 @@ public class RummyGameState {
 
     //These actions can be taken at anytime, thus they will always return true;//
     public boolean quitGame() {
-        if (this.currentStage == "drawingStage" || this.currentStage == "discardStage" || this.currentStage == "endStage") {
+        if (this.currentStage == "drawingStage"
+                || this.currentStage == "discardStage"
+                || this.currentStage == "endStage") {
             this.currentStage = "noStage";
             return true;
         }
@@ -332,7 +394,9 @@ public class RummyGameState {
     }
 
     public boolean restartGame() {
-        if (this.currentStage == "drawingStage" || this.currentStage == "discardStage" || this.currentStage == "endStage") {
+        if (this.currentStage == "drawingStage" ||
+                this.currentStage == "discardStage"
+                || this.currentStage == "endStage") {
             this.currentStage = "drawingStage";
             return true;
         }
@@ -340,7 +404,9 @@ public class RummyGameState {
     }
 
     public boolean giveUp() {
-        if (this.currentStage == "drawingStage" || this.currentStage == "discardStage" || this.currentStage == "endStage") {
+        if (this.currentStage == "drawingStage"
+                || this.currentStage == "discardStage"
+                || this.currentStage == "endStage") {
             this.currentStage = "noPhase";
             return true;
         }
@@ -348,14 +414,18 @@ public class RummyGameState {
     }
 
     public boolean organizeHand() {
-        if (this.currentStage == "drawingStage" || this.currentStage == "discardStage" || this.currentStage == "endStage") {
+        if (this.currentStage == "drawingStage"
+                || this.currentStage == "discardStage"
+                || this.currentStage == "endStage") {
             return true;
         }
         return false;
     }
 
     public boolean groupCards() {
-        if (this.currentStage == "drawingStage" || this.currentStage == "discardStage" || this.currentStage == "endStage") {
+        if (this.currentStage == "drawingStage"
+                || this.currentStage == "discardStage"
+                || this.currentStage == "endStage") {
             return true;
         }
         return false;
