@@ -1,9 +1,8 @@
 package com.example.ginrummy;
 
 import com.example.game.GameFramework.GamePlayer;
-import com.example.game.GameFramework.actionMessage.GameAction;
 
-public class GinRummyDiscardAction extends GameAction {
+public class GinRummyDiscardAction extends GinRummyMoveAction {
     /**
      * constructor for GameAction
      *
