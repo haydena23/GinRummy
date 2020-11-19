@@ -18,8 +18,7 @@ public class GinRummyGameState extends GameState {
     private int P2Points;
     private int amountDrawn;
 
-    //Similar to a toggle, this will be true for P1 and false for P2.
-    private boolean turn;
+    private int toPlay;
 
     private String currentStage;
 
@@ -40,7 +39,7 @@ public class GinRummyGameState extends GameState {
         this.totalofP2 = 0;
         this.P1Points = 0;
         this.P2Points = 0;
-        this.turn = true;
+        this.toPlay = 1; // will always be player 1 that starts.
     }
 
     /**
@@ -229,7 +228,7 @@ public class GinRummyGameState extends GameState {
         this.amountDrawn = amountDrawn;
     }
 
-    public boolean isTurn() {
+    public boolean getTurn() {
         return turn;
     }
 
@@ -251,5 +250,13 @@ public class GinRummyGameState extends GameState {
 
     public void setDrawPile(Card[] drawPile) {
         this.drawPile = drawPile;
+    }
+
+    public int getToPlay() {
+        return toPlay;
+    }
+
+    public void setToPlay(int toPlay) {
+        this.toPlay = toPlay;
     }
 }

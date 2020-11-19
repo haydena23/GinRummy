@@ -7,7 +7,7 @@ import com.example.game.GameFramework.GameHumanPlayer;
 import com.example.game.GameFramework.GameMainActivity;
 import com.example.game.GameFramework.infoMessage.GameInfo;
 
-public class GinRummyHumanPlayer1 extends GameHumanPlayer implements View.OnClickListener {
+public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
     private boolean discardOn = false;
     private boolean groupOn = false;
 
@@ -17,7 +17,7 @@ public class GinRummyHumanPlayer1 extends GameHumanPlayer implements View.OnClic
      *
      * @param name the name of the player
      */
-    public GinRummyHumanPlayer1(String name) {
+    public GinRummyHumanPlayer(String name) {
         super(name);
     }
 
@@ -45,7 +45,7 @@ public class GinRummyHumanPlayer1 extends GameHumanPlayer implements View.OnClic
                 }
                 this.groupOn = !this.groupOn;
                 if (groupOn) {
-                    groupButton.setText("Group On");
+                    gameState.groupButton.setText("Group On");
                     this.groupAmount = 0;
                 } else {
                     if (this.groupAmount > 2) {

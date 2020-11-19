@@ -32,7 +32,7 @@ public class GinRummyLocalGame extends LocalGame{
     @Override
     protected boolean makeMove(GameAction action) {
 
-        // check that we have slap-jack action; if so cast it
+        // check that we have a GinRummyPlayerAction
         if (!(action instanceof GinRummyMoveAction)) {
             return false;
         }
@@ -46,13 +46,17 @@ public class GinRummyLocalGame extends LocalGame{
         }
 
         if (grma.isDraw()) {
+            if (thisPlayerIdx != state.toPlay()) {
+                // attempt to play when it's the other player's turn
+                return false;
+            }
             //Check if legal
             if (state.getAmountDrawn() == 32) {
                 // empty deck: return false, as move is illegal
                 return false;
             }
             else {
-
+                drawDraw();
             }
         }
 
@@ -86,8 +90,10 @@ public class GinRummyLocalGame extends LocalGame{
 
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
+        p.sendInfo(state);
     }
 
+    //not sure how to do this
     @Override
     protected boolean canMove(int playerIdx) {
         return false;
@@ -95,6 +101,9 @@ public class GinRummyLocalGame extends LocalGame{
 
     @Override
     protected String checkIfGameOver() {
+        if (state.getAmountDrawn() > 31) {
+            return "Game Over";
+        }
         return null;
     }
 
@@ -104,9 +113,9 @@ public class GinRummyLocalGame extends LocalGame{
         }
         if (state.getCurrentStage() == "drawingStage") {
             Card returnThis = (Card) Array.get( state.getDrawPile(), state.getAmountDrawn() );
-            this.drawPile[amountDrawn] = null;
-            amountDrawn++;
-            this.currentStage = "discardStage";
+            Array.set(state.getDrawPile(), state.getAmountDrawn(), null);
+            state.setAmountDrawn(state.getAmountDrawn()+1);
+            state.setCurrentStage("discardStage");
             return returnThis;
         } else {
             return null;
@@ -117,10 +126,10 @@ public class GinRummyLocalGame extends LocalGame{
      * Method for drawing the discarded card
      */
     public Card drawDiscard() {
-        if (this.currentStage == "drawingStage") {
-            Card returnThis = this.discardedCard;
-            this.discardedCard = new Card(100, "Trash");
-            this.currentStage = "discardStage";
+        if (state.getCurrentStage().equals("drawingStage")) {
+            Card returnThis = state.getDiscardedCard()
+            state.setDiscardedCard(new Card(100, "Trash"));
+            state.setCurrentStage("discardStage");
             return returnThis;
         } else {
             return null;
@@ -134,26 +143,21 @@ public class GinRummyLocalGame extends LocalGame{
      * @param toRemove Card selected in cardPile by position
      *                 subject to be removed
      */
-    public void discardCard(Card[] cardPile, int toRemove) {
+    public Card[] discardCard(Card[] cardPile, int toRemove) {
         if(toRemove == 10) {
-            this.discardedCard = cardPile[10];
-            this.player1Cards[10] = new Card (100, "Trash");
-            toggleTurn();
-            return;
+            state.setDiscardedCard(cardPile[10]);
+            cardPile[10] = new Card (100, "Trash");
+            return cardPile;
         }
 
-        this.discardedCard = cardPile[toRemove];
+        state.setDiscardedCard(cardPile[toRemove]);
 
         for(int i = toRemove; i < 10; i++) {
             cardPile[i] = cardPile[i+1];
         }
 
         cardPile[10] = new Card(100, "Trash");
-        if(this.turn) {
-            this.player1Cards = cardPile;
-        } else {
-            this.player2Cards = cardPile;
-        }
-        this.currentStage = "drawingStage";
+        state.setCurrentStage("drawingStage");
+        return cardPile;
     }
 }
