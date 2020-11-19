@@ -1,4 +1,4 @@
-package edu.up.cs301.game.GameFramework.animation;
+package com.example.GameFramework.animation;
 
 
 import android.content.Context;

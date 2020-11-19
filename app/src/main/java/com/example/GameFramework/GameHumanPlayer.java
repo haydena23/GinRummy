@@ -1,4 +1,4 @@
-package edu.up.cs301.game.GameFramework;
+package com.example.GameFramework;
 
 import edu.up.cs301.game.GameFramework.actionMessage.GameOverAckAction;
 import edu.up.cs301.game.GameFramework.actionMessage.MyNameIsAction;

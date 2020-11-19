@@ -1,4 +1,4 @@
-package edu.up.cs301.game.GameFramework.infoMessage;
+package com.example.GameFramework.infoMessage;
 
 /**
  * A message from the game to a player that tells the player that

@@ -1,4 +1,4 @@
-package edu.up.cs301.game.GameFramework.utilities;
+package com.example.GameFramework.utilities;
 
 import android.app.Activity;
 import android.app.AlertDialog;

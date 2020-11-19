@@ -1,4 +1,4 @@
-package edu.up.cs301.game.GameFramework.gameConfiguration;
+package com.example.GameFramework.gameConfiguration;
 
 import edu.up.cs301.game.GameFramework.GamePlayer;
 

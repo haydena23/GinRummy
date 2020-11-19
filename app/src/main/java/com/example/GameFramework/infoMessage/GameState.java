@@ -1,4 +1,4 @@
-package edu.up.cs301.game.GameFramework.infoMessage;
+package com.example.GameFramework.infoMessage;
 
 /**
  * The state of the game. This class should be subclassed so that it holds

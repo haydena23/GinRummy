@@ -1,4 +1,4 @@
-package edu.up.cs301.game.GameFramework.utilities;
+package com.example.GameFramework.utilities;
 
 import java.io.IOException;
 import java.io.InputStream;

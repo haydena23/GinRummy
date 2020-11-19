@@ -1,4 +1,4 @@
-package edu.up.cs301.game.GameFramework.utilities;
+package com.example.GameFramework.utilities;
 
 /**
  * An inteface that defines an object that can respond to a GameTimer "tick".

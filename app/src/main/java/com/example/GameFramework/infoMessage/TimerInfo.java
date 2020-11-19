@@ -1,4 +1,4 @@
-package edu.up.cs301.game.GameFramework.infoMessage;
+package com.example.GameFramework.infoMessage;
 
 import edu.up.cs301.game.GameFramework.utilities.GameTimer;
 

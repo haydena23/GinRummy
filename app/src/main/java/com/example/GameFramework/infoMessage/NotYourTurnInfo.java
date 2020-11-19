@@ -1,4 +1,4 @@
-package edu.up.cs301.game.GameFramework.infoMessage;
+package com.example.GameFramework.infoMessage;
 
 /**
  * The a message from the game to a player that the move just attempted

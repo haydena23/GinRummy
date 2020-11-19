@@ -1,4 +1,4 @@
-package edu.up.cs301.game.GameFramework.utilities;
+package com.example.GameFramework.utilities;
 
 /**
  * A GameTimer is an object that sends a GameTimerAction to a Game or a
