@@ -244,4 +244,12 @@ public class GinRummyGameState extends GameState {
     public void setCurrentStage(String currentStage) {
         this.currentStage = currentStage;
     }
+
+    public Card[] getDrawPile() {
+        return drawPile;
+    }
+
+    public void setDrawPile(Card[] drawPile) {
+        this.drawPile = drawPile;
+    }
 }

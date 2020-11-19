@@ -6,6 +6,8 @@ import com.example.game.GameFramework.GamePlayer;
 import com.example.game.GameFramework.LocalGame;
 import com.example.game.GameFramework.actionMessage.GameAction;
 
+import java.lang.reflect.Array;
+
 public class GinRummyLocalGame extends LocalGame{
 
     GinRummyGameState state;
@@ -97,11 +99,11 @@ public class GinRummyLocalGame extends LocalGame{
     }
 
     public Card drawDraw() {
-        if (this.amountDrawn > 31) {
+        if (state.getAmountDrawn() > 31) {
             return null;
         }
-        if (this.currentStage == "drawingStage") {
-            Card returnThis = this.drawPile[amountDrawn];
+        if (state.getCurrentStage() == "drawingStage") {
+            Card returnThis = (Card) Array.get( state.getDrawPile(), state.getAmountDrawn() );
             this.drawPile[amountDrawn] = null;
             amountDrawn++;
             this.currentStage = "discardStage";
