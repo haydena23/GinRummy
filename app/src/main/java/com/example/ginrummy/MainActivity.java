@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.R;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     @Override
