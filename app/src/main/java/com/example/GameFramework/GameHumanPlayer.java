@@ -11,7 +11,6 @@ import com.example.GameFramework.infoMessage.TimerInfo;
 import com.example.GameFramework.utilities.GameTimer;
 import com.example.GameFramework.utilities.Logger;
 import com.example.GameFramework.utilities.MessageBox;
-import com.example.GameFramework.utilities.Tickable;
 import com.example.R;
 
 import android.content.DialogInterface;
@@ -21,6 +20,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+
 
 /**
  * class GameHumanPlayer
