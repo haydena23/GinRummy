@@ -52,11 +52,11 @@ public class GinRummyLocalGame extends LocalGame{
                 return false;
             }
             else {
-                giveMiddleCardsToPlayer(1-thisPlayerIdx);
+
             }
         }
 
-        else if (grma.isDraw()) { // we have a "play" action
+        else if (grma.isDrawDiscard()) {
             if (thisPlayerIdx != state.toPlay()) {
                 // attempt to play when it's the other player's turn
                 return false;
