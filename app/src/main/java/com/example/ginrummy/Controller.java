@@ -103,6 +103,13 @@ public class Controller implements View.OnClickListener{
         groupCards = new Card[11];
 
         this.scoreView = scoreView;
+
+        /*player1Cards[0].setNumber(1);
+        player1Cards[1].setNumber(2);
+        player1Cards[2].setNumber(3);
+        player1Cards[0].setSuit("Hearts");
+        player1Cards[1].setSuit("Hearts");
+        player1Cards[2].setSuit("Hearts");*/
     }
 
     /**
