@@ -66,25 +66,16 @@ public class GinRummyLocalGame extends LocalGame{
                 return false;
             }
             else {
-                // it's the correct player's turn: move the top card from the
-                // player's deck to the top of the middle deck
-                state.getDeck(thisPlayerIdx).moveTopCardTo(state.getDeck(2));
-                // if the opponent has any cards, make it the opponent's move
-                if (state.getDeck(1-thisPlayerIdx).size() > 0) {
-                    state.setToPlay(1-thisPlayerIdx);
-                }
+                drawDiscard();
             }
-        }
 
-        else if (grma.isDiscard()) {
+            } else if (grma.isDiscard()) {
+                //how do i figure out which card was discarded?
+            } else { // some unexpected action
+                return false;
+            }
 
-        }
-
-        else { // some unexpected action
-            return false;
-        }
-
-        // return true, because the move was successful if we get her
+        // return true, because the move was successful if we get here
         return true;
     }
 
@@ -116,6 +107,7 @@ public class GinRummyLocalGame extends LocalGame{
             Array.set(state.getDrawPile(), state.getAmountDrawn(), null);
             state.setAmountDrawn(state.getAmountDrawn()+1);
             state.setCurrentStage("discardStage");
+
             return returnThis;
         } else {
             return null;

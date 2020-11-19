@@ -1,6 +1,9 @@
 package com.example.ginrummy;
 
+import android.app.Activity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.R;
 import com.example.game.GameFramework.GameHumanPlayer;
@@ -8,12 +11,34 @@ import com.example.game.GameFramework.GameMainActivity;
 import com.example.game.GameFramework.infoMessage.GameInfo;
 
 public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
+    Button discardButton;
+    Button groupButton;
+
+    // Instance variables for all the on screen card displays
+    ImageView card0;
+    ImageView card1;
+    ImageView card2;
+    ImageView card3;
+    ImageView card4;
+    ImageView card5;
+    ImageView card6;
+    ImageView card7;
+    ImageView card8;
+    ImageView card9;
+    ImageView card10;
+    ImageView drawPileCard;
+    ImageView discardedCard;
+
+    ScoreView scoreView;
+
     private boolean discardOn = false;
     private boolean groupOn = false;
 
     private int whichPlayer;
 
     GinRummyGameState gameState;
+    private Activity myActivity;
+
     /**
      * constructor
      *
@@ -36,7 +61,52 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
 
     @Override
     public void setAsGui(GameMainActivity activity) {
+        myActivity = activity;
 
+        activity.setContentView(R.layout.activity_main);
+
+        Button discardButton = myActivity.findViewById(R.id.discardButton);
+        Button quitButton = myActivity.findViewById(R.id.quitButton);
+        Button knockButton = myActivity.findViewById(R.id.knockButton);
+        Button groupButton = myActivity.findViewById(R.id.groupButton);
+
+        ImageView discardedCard = myActivity.findViewById(R.id.discardedCard);
+        ImageView drawPile = myActivity.findViewById(R.id.drawPile);
+
+        ImageView card0 = myActivity.findViewById(R.id.card0);
+        ImageView card1 = myActivity.findViewById(R.id.card1);
+        ImageView card2 = myActivity.findViewById(R.id.card2);
+        ImageView card3 = myActivity.findViewById(R.id.card3);
+        ImageView card4 = myActivity.findViewById(R.id.card4);
+        ImageView card5 = myActivity.findViewById(R.id.card5);
+        ImageView card6 = myActivity.findViewById(R.id.card6);
+        ImageView card7 = myActivity.findViewById(R.id.card7);
+        ImageView card8 = myActivity.findViewById(R.id.card8);
+        ImageView card9 = myActivity.findViewById(R.id.card9);
+        ImageView card10 = myActivity.findViewById(R.id.card10);
+
+        ScoreView scoreView = myActivity.findViewById(R.id.surfaceView);
+
+        quitButton.setOnClickListener(this);
+        knockButton.setOnClickListener(this);
+        discardButton.setOnClickListener(this);
+        groupButton.setOnClickListener(this);
+
+        discardedCard.setOnClickListener(this);
+
+        drawPile.setOnClickListener(this);
+
+        card1.setOnClickListener(this);
+        card2.setOnClickListener(this);
+        card3.setOnClickListener(this);
+        card4.setOnClickListener(this);
+        card5.setOnClickListener(this);
+        card6.setOnClickListener(this);
+        card7.setOnClickListener(this);
+        card8.setOnClickListener(this);
+        card9.setOnClickListener(this);
+        card10.setOnClickListener(this);
+        card0.setOnClickListener(this);
     }
 
     @Override
@@ -48,7 +118,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                 }
                 this.groupOn = !this.groupOn;
                 if (groupOn) {
-                    gameState.groupButton.setText("Group On");
+                    groupButton.setText("Group On");
                     this.groupAmount = 0;
                 } else {
                     if (this.groupAmount > 2) {
