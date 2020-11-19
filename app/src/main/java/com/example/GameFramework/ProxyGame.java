@@ -3,11 +3,11 @@ package com.example.GameFramework;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import edu.up.cs301.game.GameFramework.actionMessage.GameAction;
-import edu.up.cs301.game.GameFramework.infoMessage.GameInfo;
-import edu.up.cs301.game.GameFramework.utilities.IPCoder;
-import edu.up.cs301.game.GameFramework.utilities.NetworkObjectPasser;
-import edu.up.cs301.game.GameFramework.utilities.Logger;
+import com.example.GameFramework.actionMessage.GameAction;
+import com.example.GameFramework.infoMessage.GameInfo;
+import com.example.GameFramework.utilities.IPCoder;
+import com.example.GameFramework.utilities.NetworkObjectPasser;
+import com.example.GameFramework.utilities.Logger;
 
 /**
  * A Game object that is used as a proxy for the real game that is on another

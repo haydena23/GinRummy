@@ -1,6 +1,6 @@
-package edu.up.cs301.game.GameFramework.actionMessage;
+package com.example.GameFramework.actionMessage;
 
-import edu.up.cs301.game.GameFramework.GamePlayer;
+import com.example.GameFramework.GamePlayer;
 
 /**
  * An action by which the player acknowledges that the game is over.

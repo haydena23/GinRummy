@@ -2,7 +2,7 @@ package com.example.GameFramework.actionMessage;
 
 import java.io.Serializable;
 
-import edu.up.cs301.game.GameFramework.GamePlayer;
+import com.example.GameFramework.GamePlayer;
 
 
 public class EndTurnAction extends GameAction implements Serializable {

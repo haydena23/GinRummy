@@ -1,6 +1,6 @@
 package com.example.GameFramework;
 
-import edu.up.cs301.game.GameFramework.infoMessage.GameInfo;
+import com.example.GameFramework.infoMessage.GameInfo;
 
 /**
  * A player who plays a (generic) game. Each class that implements a player for

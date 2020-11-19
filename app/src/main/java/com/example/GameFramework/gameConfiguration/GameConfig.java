@@ -10,10 +10,10 @@ import java.util.ArrayList;
 
 import android.content.Context;
 
-import edu.up.cs301.game.GameFramework.GameMainActivity;
-import edu.up.cs301.game.GameFramework.GamePlayer;
-import edu.up.cs301.game.GameFramework.ProxyPlayer;
-import edu.up.cs301.game.GameFramework.utilities.Logger;
+import com.example.GameFramework.GameMainActivity;
+import com.example.GameFramework.GamePlayer;
+import com.example.GameFramework.ProxyPlayer;
+import com.example.GameFramework.utilities.Logger;
 
 /**
  * GameConfig class

@@ -26,12 +26,12 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TabHost.TabSpec;
-import edu.up.cs301.game.GameFramework.gameConfiguration.GameConfig;
-import edu.up.cs301.game.GameFramework.gameConfiguration.GamePlayerType;
-import edu.up.cs301.game.GameFramework.utilities.IPCoder;
-import edu.up.cs301.game.GameFramework.utilities.Logger;
-import edu.up.cs301.game.GameFramework.utilities.MessageBox;
-import edu.up.cs301.game.R;
+import com.example.GameFramework.gameConfiguration.GameConfig;
+import com.example.GameFramework.gameConfiguration.GamePlayerType;
+import com.example.GameFramework.utilities.IPCoder;
+import com.example.GameFramework.utilities.Logger;
+import com.example.GameFramework.utilities.MessageBox;
+import com.example.R;
 
 /**
  * class GameMainActivity
