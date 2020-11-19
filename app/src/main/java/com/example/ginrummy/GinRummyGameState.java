@@ -228,14 +228,6 @@ public class GinRummyGameState extends GameState {
         this.amountDrawn = amountDrawn;
     }
 
-    public boolean getTurn() {
-        return turn;
-    }
-
-    public void setTurn(boolean turn) {
-        this.turn = turn;
-    }
-
     public String getCurrentStage() {
         return currentStage;
     }

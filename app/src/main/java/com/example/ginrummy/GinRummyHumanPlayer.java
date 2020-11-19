@@ -11,14 +11,17 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
     private boolean discardOn = false;
     private boolean groupOn = false;
 
+    private int whichPlayer;
+
     GinRummyGameState gameState;
     /**
      * constructor
      *
      * @param name the name of the player
      */
-    public GinRummyHumanPlayer(String name) {
+    public GinRummyHumanPlayer(String name, int whichPlayer) {
         super(name);
+        this.whichPlayer = whichPlayer;
     }
 
     @Override

@@ -1,7 +1,5 @@
 package com.example.ginrummy;
 
-import android.graphics.Color;
-
 import com.example.game.GameFramework.GameMainActivity;
 import com.example.game.GameFramework.GamePlayer;
 import com.example.game.GameFramework.LocalGame;
@@ -11,21 +9,24 @@ import com.example.game.GameFramework.gameConfiguration.GamePlayerType;
 import java.util.ArrayList;
 
 public class GinRummyMainActivity extends GameMainActivity {
+
+    public static final int PORT_NUMBER = 8585;
+
     @Override
     public GameConfig createDefaultConfig() {
         // Define the allowed player types
         ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
 
-        playerTypes.add(new GamePlayerType("human player (green)") {
+        playerTypes.add(new GamePlayerType("human player (player1)") {
             public GamePlayer createPlayer(String name) {
-                return new GinRummyHumanPlayer(name, Color.GREEN);
+                return new GinRummyHumanPlayer(name, 1);
             }});
-        playerTypes.add(new GamePlayerType("human player (yellow)") {
+        playerTypes.add(new GamePlayerType("human player (player2)") {
             public GamePlayer createPlayer(String name) {
-                return new GinRummyHumanPlayer(name, Color.YELLOW);
+                return new GinRummyHumanPlayer(name, 2);
             }
         });
-        playerTypes.add(new GamePlayerType("computer player (normal)") {
+        playerTypes.add(new GamePlayerType("computer player (dumb)") {
             public GamePlayer createPlayer(String name) {
                 return new GinRummyComputerPlayer(name, false);
             }
@@ -38,7 +39,7 @@ public class GinRummyMainActivity extends GameMainActivity {
         });
 
         // Create a game configuration class for SlapJack
-        GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "SlapJack", PORT_NUMBER);
+        GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "GinRummy", PORT_NUMBER);
 
         // Add the default players
         defaultConfig.addPlayer("Human", 0);
