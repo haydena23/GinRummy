@@ -7,9 +7,12 @@
  */
 package com.example.ginrummy;
 
+import com.example.GameFramework.infoMessage.GameState;
+
 import java.util.Random;
 
-public class RummyGameState {
+//The info of the GameState 
+public class RummyGameState extends GameState {
     //Instance Variables
     private Card[] startingDeck;
     private Card[] player1Cards;
