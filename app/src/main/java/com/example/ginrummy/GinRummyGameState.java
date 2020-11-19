@@ -18,7 +18,7 @@ public class GinRummyGameState extends GameState {
     private int P2Points;
     private int amountDrawn;
 
-    private int toPlay;
+    protected int toPlay;
 
     private String currentStage;
 

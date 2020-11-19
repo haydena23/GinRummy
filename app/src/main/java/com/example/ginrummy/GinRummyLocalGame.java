@@ -46,7 +46,7 @@ public class GinRummyLocalGame extends LocalGame{
         }
 
         if (grma.isDraw()) {
-            if (thisPlayerIdx != state.toPlay()) {
+            if (thisPlayerIdx != state.toPlay) {
                 // attempt to play when it's the other player's turn
                 return false;
             }
@@ -61,7 +61,7 @@ public class GinRummyLocalGame extends LocalGame{
         }
 
         else if (grma.isDrawDiscard()) {
-            if (thisPlayerIdx != state.toPlay()) {
+            if (thisPlayerIdx != state.toPlay) {
                 // attempt to play when it's the other player's turn
                 return false;
             }
@@ -127,7 +127,7 @@ public class GinRummyLocalGame extends LocalGame{
      */
     public Card drawDiscard() {
         if (state.getCurrentStage().equals("drawingStage")) {
-            Card returnThis = state.getDiscardedCard()
+            Card returnThis = state.getDiscardedCard();
             state.setDiscardedCard(new Card(100, "Trash"));
             state.setCurrentStage("discardStage");
             return returnThis;

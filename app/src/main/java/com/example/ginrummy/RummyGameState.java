@@ -7,7 +7,7 @@
  */
 package com.example.ginrummy;
 
-import com.example.GameFramework.infoMessage.GameState;
+import com.example.game.GameFramework.infoMessage.GameState;
 
 import java.util.Random;
 
