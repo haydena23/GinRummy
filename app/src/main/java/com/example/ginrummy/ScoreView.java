@@ -13,13 +13,18 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
 
-public class ScoreView extends SurfaceView {
+import com.example.game.GameFramework.utilities.FlashSurfaceView;
+
+public class ScoreView extends FlashSurfaceView {
 
     //Instance variables
     Paint playerOneScore = new Paint();
     Paint playerTwoScore = new Paint();
     String player1;
     String player2;
+
+    protected GinRummyGameState state;
+    private static final String TAG = "ScoreView";
 
     /**
      * Creation of the score view for the surfaceview
@@ -33,6 +38,27 @@ public class ScoreView extends SurfaceView {
         setBackgroundColor(Color.WHITE);
         player1 = "Player 2 Score: 0";
         player2 = "Player 1 Score: 0";
+    }
+
+    public ScoreView(Context context) {
+        super(context);
+        init();
+    }
+
+    private void init() {
+        setBackgroundColor(backgroundColor());
+    }
+
+    public int backgroundColor() {
+        return Color.BLUE;
+    }
+
+    public int foregroundColor() {
+        return Color.YELLOW;
+    }
+
+    public void setState(GinRummyGameState state) {
+        this.state = state;
     }
 
     /**

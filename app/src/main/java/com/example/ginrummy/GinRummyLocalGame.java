@@ -29,7 +29,7 @@ public class GinRummyLocalGame extends LocalGame{
      * @return
      * 		true if the move was legal; false otherwise
      */
-    @Override
+    /*@Override
     protected boolean makeMove(GameAction action) {
 
         // check that we have a GinRummyPlayerAction
@@ -74,7 +74,7 @@ public class GinRummyLocalGame extends LocalGame{
                     state.setToPlay(1-thisPlayerIdx);
                 }
             }
-        }
+        }*//*
 
         else if (grma.isDiscard()) {
 
@@ -86,7 +86,7 @@ public class GinRummyLocalGame extends LocalGame{
 
         // return true, because the move was successful if we get her
         return true;
-    }
+    }*/
 
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
@@ -105,6 +105,11 @@ public class GinRummyLocalGame extends LocalGame{
             return "Game Over";
         }
         return null;
+    }
+
+    @Override
+    protected boolean makeMove(GameAction action) {
+        return false;
     }
 
     public Card drawDraw() {

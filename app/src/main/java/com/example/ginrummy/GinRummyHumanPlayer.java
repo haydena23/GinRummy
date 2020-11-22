@@ -1,11 +1,20 @@
 package com.example.ginrummy;
 
+import android.app.Activity;
+import android.view.View;
+import android.graphics.Color;
+import android.graphics.Point;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.R;
 import com.example.game.GameFramework.GameHumanPlayer;
 import com.example.game.GameFramework.GameMainActivity;
 import com.example.game.GameFramework.infoMessage.GameInfo;
+import com.example.game.GameFramework.infoMessage.IllegalMoveInfo;
+import com.example.game.GameFramework.infoMessage.NotYourTurnInfo;
+import com.example.game.GameFramework.utilities.Logger;
+
 
 public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
     private boolean discardOn = false;
@@ -13,33 +22,66 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
 
     private int whichPlayer;
 
-    GinRummyGameState gameState;
+    private GinRummyGameState state;
+    private ScoreView scoreView;
+    private Activity myActivity;
+    private int layoutId;
+    private static final String TAG = "GinRummyHumanPlayer";
+
     /**
      * constructor
      *
      * @param name the name of the player
      */
-    public GinRummyHumanPlayer(String name, int whichPlayer) {
+    /*public GinRummyHumanPlayer(String name, int whichPlayer) {
         super(name);
         this.whichPlayer = whichPlayer;
+    }*/
+
+    public GinRummyHumanPlayer(String name, int layoutId) {
+        super(name);
+        this.layoutId = layoutId;
     }
 
     @Override
     public View getTopView() {
-        return null;
+        return myActivity.findViewById(R.id.top_gui_layout);
     }
 
     @Override
     public void receiveInfo(GameInfo info) {
-        gameState = (GinRummyGameState) info;
+        if(scoreView == null) {
+            return;
+        }
+        if(info instanceof IllegalMoveInfo || info instanceof NotYourTurnInfo) {
+            scoreView.flash(Color.RED, 50);
+        }
+        else if (!(info instanceof GinRummyGameState)) {
+            return;
+        }
+        else {
+            state = (GinRummyGameState)info;
+            scoreView.setState(state);
+            scoreView.invalidate();
+            Logger.log(TAG,"receiving");
+        }
+        state = (GinRummyGameState) info;
     }
 
     @Override
     public void setAsGui(GameMainActivity activity) {
-
+        myActivity = activity;
+        activity.setContentView(layoutId);
+        scoreView = (ScoreView)myActivity.findViewById(R.id.surfaceView);
+        scoreView.setState(state);
     }
 
     @Override
+    public void onClick(View view) {
+
+    }
+
+    /*@Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.groupButton: //WILL BREAK IF USER CLICKS CARDS MULTIPLE TIMES
@@ -225,5 +267,5 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                 updateCard(player1Cards[10], card10);
                 break;
         }
-    }
+    }*/
 }

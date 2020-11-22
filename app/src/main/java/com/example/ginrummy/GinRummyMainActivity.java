@@ -1,5 +1,6 @@
 package com.example.ginrummy;
 
+import com.example.R;
 import com.example.game.GameFramework.GameMainActivity;
 import com.example.game.GameFramework.GamePlayer;
 import com.example.game.GameFramework.LocalGame;
@@ -19,13 +20,8 @@ public class GinRummyMainActivity extends GameMainActivity {
 
         playerTypes.add(new GamePlayerType("human player (player1)") {
             public GamePlayer createPlayer(String name) {
-                return new GinRummyHumanPlayer(name, 1);
+                return new GinRummyHumanPlayer(name, R.layout.activity_main);
             }});
-        playerTypes.add(new GamePlayerType("human player (player2)") {
-            public GamePlayer createPlayer(String name) {
-                return new GinRummyHumanPlayer(name, 2);
-            }
-        });
         playerTypes.add(new GamePlayerType("computer player (dumb)") {
             public GamePlayer createPlayer(String name) {
                 return new GinRummyComputerPlayer(name, false);
