@@ -29,7 +29,7 @@ public class GinRummyLocalGame extends LocalGame{
      * @return
      * 		true if the move was legal; false otherwise
      */
-    @Override
+    /*@Override
     protected boolean makeMove(GameAction action) {
 
         // check that we have a GinRummyPlayerAction
@@ -66,18 +66,27 @@ public class GinRummyLocalGame extends LocalGame{
                 return false;
             }
             else {
-                drawDiscard();
+                // it's the correct player's turn: move the top card from the
+                // player's deck to the top of the middle deck
+                state.getDeck(thisPlayerIdx).moveTopCardTo(state.getDeck(2));
+                // if the opponent has any cards, make it the opponent's move
+                if (state.getDeck(1-thisPlayerIdx).size() > 0) {
+                    state.setToPlay(1-thisPlayerIdx);
+                }
             }
+        }*//*
 
-            } else if (grma.isDiscard()) {
-                //how do i figure out which card was discarded?
-            } else { // some unexpected action
-                return false;
-            }
+        else if (grma.isDiscard()) {
 
-        // return true, because the move was successful if we get here
+        }
+
+        else { // some unexpected action
+            return false;
+        }
+
+        // return true, because the move was successful if we get her
         return true;
-    }
+    }*/
 
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
@@ -98,6 +107,11 @@ public class GinRummyLocalGame extends LocalGame{
         return null;
     }
 
+    @Override
+    protected boolean makeMove(GameAction action) {
+        return false;
+    }
+
     public Card drawDraw() {
         if (state.getAmountDrawn() > 31) {
             return null;
@@ -107,7 +121,6 @@ public class GinRummyLocalGame extends LocalGame{
             Array.set(state.getDrawPile(), state.getAmountDrawn(), null);
             state.setAmountDrawn(state.getAmountDrawn()+1);
             state.setCurrentStage("discardStage");
-
             return returnThis;
         } else {
             return null;

@@ -2,20 +2,18 @@ package com.example.ginrummy;
 
 import com.example.game.GameFramework.GamePlayer;
 
-public class GinRummyDiscardAction extends GinRummyMoveAction {
-
-    private static final String TAG = "GinRummyDiscardAction";
+public class GinRummyGroupAction extends GinRummyMoveAction {
 
     /**
      * constructor for GameAction
      *
      * @param player the player who created the action
      */
-    public GinRummyDiscardAction(GamePlayer player) {
+    public GinRummyGroupAction(GamePlayer player) {
         super(player);
     }
 
-    public boolean isDiscard() {
+    public boolean isGroup() {
         return true;
     }
 }
