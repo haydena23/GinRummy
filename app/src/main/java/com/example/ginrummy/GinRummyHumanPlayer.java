@@ -166,36 +166,6 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
         }
     }
 
-    public boolean checkCards(Card[] cardList, int amountOfCards) {
-        int counter = 0;
-        for (int x = 0; x<amountOfCards; x++) {
-            if (cardList[x].getIsPaired()) {
-                return false;
-            }
-        }
-        for (int i = 0; i < amountOfCards - 1; i++) {
-            if (!(cardList[i].getSuit().equals(cardList[i+1].getSuit()))) { //Checks if it they're all the same suit.
-                for (int x = 0; x < amountOfCards - 1; x++) {
-                    if (!(cardList[x].getNumber()==cardList[x+1].getNumber())) { //Checks if they're all the same number.
-                        return false;
-                    } else { // if they are the same number
-                        counter ++;
-                    }
-                }
-            } else { //if they are the same suit
-                for (int y = 0; y < amountOfCards - 2; y++) {
-                    if ((cardList[y].getNumber()+1) == cardList[y+1].getNumber()) {
-                        counter ++;
-                    }
-                }
-            }
-        }
-        if (counter + 1 == amountOfCards) { //this will only return true if they are all cards are in a run, or in a set.
-            return true;
-        }
-        return false;
-    }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -209,23 +179,15 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     amountGrouped = 0;
                 } else {
                     if (amountGrouped > 2) {
-                        if (checkCards(groupedCards, amountGrouped)) {
-                            for (int x = 0; x<amountGrouped; x++) {
-                                groupedCards[x].toggleIsPaired();
-                            }
-                            for (int i = 0; i < amountGrouped; i++) {
-                                //adds a running total of the value of grouped cards in the players hand.
-                                //Currently doesn't check if the player has already grouped up certain cards
-                                //Also doesn't reduce this total if the grouped cards are thrown away.
-                                valueGrouped = valueGrouped + groupedCards[i].getNumber();
-                            }
-                        }
+                        game.sendAction(new GinRummyGroupAction
+                                (this, groupedCards, amountGrouped));
                     }
                     groupButton.setText("Group Off");
                     amountGrouped = 0;
                 }
                 groupButton.invalidate();
                 break;
+
             case R.id.discardButton:
                 if (groupOn) {
                     break;
