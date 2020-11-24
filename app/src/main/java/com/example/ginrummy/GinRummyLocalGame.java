@@ -212,6 +212,7 @@ public class GinRummyLocalGame extends LocalGame{
                 valueGrouped = valueGrouped + groupTheseCards[i].getNumber();
             }
         }
+        return valueGrouped;
     }
 
     public boolean checkCards(Card[] cardList, int amountOfCards) {
