@@ -241,8 +241,10 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     }
                 }
                 break;
+
             case R.id.discardCard:
                     game.sendAction(new GinRummyDrawDiscardAction(this));
+
             case R.id.knockButton:
                 if (!(state.equals("discardStage"))) {
                     break;
@@ -257,98 +259,143 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     scoreView.invalidate();
                 }
                 break;
+
             case R.id.drawPile:
-                    game.sendAction(new GinRummyDrawAction(this));
+                game.sendAction(new GinRummyDrawAction(this));
                 break;
+
             case R.id.card0:
                 if (discardOn) {
                     game.sendAction(new GinRummyDiscardAction(this, 0));
+                    discardOn = !discardOn;
+                    discardButton.setText("Discard Off");
                 }
+
                 if (groupOn) {
                     groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
                     amountGrouped++;
                 }
-                //updateCard(player1Cards[0], card0);
                 break;
+
             case R.id.card1:
-                new GinRummyDiscardAction(this, 1);
+                if(discardOn) {
+                    game.sendAction(new GinRummyDiscardAction(this, 1));
+                    discardOn = !discardOn;
+                    discardButton.setText("Discard Off");
+                }
+
                 if (groupOn) {
                     groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
                     amountGrouped++;
                 }
-                updateCard(player1Cards[1], card1);
                 break;
+
             case R.id.card2:
-                new GinRummyDiscardAction(this, 2);
+                if(discardOn) {
+                    game.sendAction(new GinRummyDiscardAction(this, 2));
+                    discardOn = !discardOn;
+                    discardButton.setText("Discard Off");
+                }
                 if (groupOn) {
                     groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
                     amountGrouped++;
                 }
-                updateCard(player1Cards[2], card2);
                 break;
+
             case R.id.card3:
-                new GinRummyDiscardAction(this, 3);
+                if(discardOn) {
+                    game.sendAction(new GinRummyDiscardAction(this, 3));
+                    discardOn = !discardOn;
+                    discardButton.setText("Discard Off");
+                }
                 if (groupOn) {
                     groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
                     amountGrouped++;
                 }
-                updateCard(player1Cards[3], card3);
                 break;
+
             case R.id.card4:
-                new GinRummyDiscardAction(this, 4);
+                if(discardOn) {
+                    game.sendAction(new GinRummyDiscardAction(this, 4));
+                    discardOn = !discardOn;
+                    discardButton.setText("Discard Off");
+                }
                 if (groupOn) {
                     groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
                     amountGrouped++;
                 }
-                updateCard(player1Cards[4], card4);
                 break;
+
             case R.id.card5:
-                new GinRummyDiscardAction(this, 5);
+                if(discardOn) {
+                    game.sendAction(new GinRummyDiscardAction(this, 5));
+                    discardOn = !discardOn;
+                    discardButton.setText("Discard Off");
+                }
                 if (groupOn) {
                     groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
                     amountGrouped++;
                 }
-                updateCard(player1Cards[5], card5);
                 break;
+
             case R.id.card6:
-                new GinRummyDiscardAction(this, 6);
+                if(discardOn) {
+                    game.sendAction(new GinRummyDiscardAction(this, 6));
+                    discardOn = !discardOn;
+                    discardButton.setText("Discard Off");
+                }
                 if (groupOn) {
                     groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
                     amountGrouped++;
                 }
-                updateCard(player1Cards[6], card6);
                 break;
+
             case R.id.card7:
-                new GinRummyDiscardAction(this, 7);
+                if(discardOn) {
+                    game.sendAction(new GinRummyDiscardAction(this, 7));
+                    discardOn = !discardOn;
+                    discardButton.setText("Discard Off");
+                }
                 if (groupOn) {
                     groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
                     amountGrouped++;
                 }
-                updateCard(player1Cards[7], card7);
                 break;
+
             case R.id.card8:
-                new GinRummyDiscardAction(this, 8);
+                if(discardOn) {
+                    game.sendAction(new GinRummyDiscardAction(this, 8));
+                    discardOn = !discardOn;
+                    discardButton.setText("Discard Off");
+                }
                 if (groupOn) {
                     groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
                     amountGrouped++;
                 }
-                updateCard(player1Cards[8], card8);
                 break;
+
             case R.id.card9:
-                new GinRummyDiscardAction(this, 9);
+                if(discardOn) {
+                    game.sendAction(new GinRummyDiscardAction(this, 9));
+                    discardOn = !discardOn;
+                    discardButton.setText("Discard Off");
+                }
                 if (groupOn) {
                     groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
                     amountGrouped++;
                 }
-                updateCard(player1Cards[9], card9);
                 break;
+
             case R.id.card10:
-                new GinRummyDiscardAction(this, 10);
+                if(discardOn) {
+                    game.sendAction(new GinRummyDiscardAction(this, 10));
+                    discardOn = !discardOn;
+                    discardButton.setText("Discard Off");
+                }
                 if (groupOn) {
                     groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
                     amountGrouped++;
                 }
-                updateCard(player1Cards[10], card10);
                 break;
         }
     }
