@@ -29,7 +29,7 @@ public class GinRummyLocalGame extends LocalGame{
      * @return
      * 		true if the move was legal; false otherwise
      */
-    /*@Override
+    @Override
     protected boolean makeMove(GameAction action) {
 
         // check that we have a GinRummyPlayerAction
@@ -38,7 +38,7 @@ public class GinRummyLocalGame extends LocalGame{
         }
         GinRummyMoveAction grma = (GinRummyMoveAction) action;
 
-        // get the index of the player making the move; return false
+        // get the index of the player making the move
         int thisPlayerIdx = getPlayerIdx(grma.getPlayer());
 
         if (thisPlayerIdx < 0) { // illegal player
@@ -61,20 +61,8 @@ public class GinRummyLocalGame extends LocalGame{
         }
 
         else if (grma.isDrawDiscard()) {
-            if (thisPlayerIdx != state.toPlay) {
-                // attempt to play when it's the other player's turn
-                return false;
-            }
-            else {
-                // it's the correct player's turn: move the top card from the
-                // player's deck to the top of the middle deck
-                state.getDeck(thisPlayerIdx).moveTopCardTo(state.getDeck(2));
-                // if the opponent has any cards, make it the opponent's move
-                if (state.getDeck(1-thisPlayerIdx).size() > 0) {
-                    state.setToPlay(1-thisPlayerIdx);
-                }
-            }
-        }*//*
+
+        }
 
         else if (grma.isDiscard()) {
 
@@ -86,7 +74,7 @@ public class GinRummyLocalGame extends LocalGame{
 
         // return true, because the move was successful if we get her
         return true;
-    }*/
+    }
 
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
@@ -107,16 +95,12 @@ public class GinRummyLocalGame extends LocalGame{
         return null;
     }
 
-    @Override
-    protected boolean makeMove(GameAction action) {
-        return false;
-    }
-
     public Card drawDraw() {
         if (state.getAmountDrawn() > 31) {
             return null;
+            //somehow change this into return gameOverInfo
         }
-        if (state.getCurrentStage() == "drawingStage") {
+        if (state.getCurrentStage().equals("drawingStage")) {
             Card returnThis = (Card) Array.get( state.getDrawPile(), state.getAmountDrawn() );
             Array.set(state.getDrawPile(), state.getAmountDrawn(), null);
             state.setAmountDrawn(state.getAmountDrawn()+1);

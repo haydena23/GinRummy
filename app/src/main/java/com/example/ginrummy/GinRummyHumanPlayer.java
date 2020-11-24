@@ -16,10 +16,16 @@ import com.example.game.GameFramework.utilities.Logger;
 
 
 public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
+
     private boolean discardOn = false;
     private boolean groupOn = false;
 
-    private int whichPlayer;
+    private int amountGrouped;
+    private int valueGrouped; //value of grouped cards
+
+    private Card[] groupedCards;
+
+    private String stage;
 
     private GinRummyGameState state;
     private ScoreView scoreView;
@@ -43,23 +49,19 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
     private ImageView card9;
     private ImageView card10;
     private ImageView drawPileCard;
-    private ImageView discardedCard;
+    private ImageView discardCard;
 
     private Card[] player1Cards;
-
-    /**
-     * constructor
-     *
-     * @param name the name of the player
-     */
-    /*public GinRummyHumanPlayer(String name, int whichPlayer) {
-        super(name);
-        this.whichPlayer = whichPlayer;
-    }*/
 
     public GinRummyHumanPlayer(String name, int layoutId) {
         super(name);
         this.layoutId = layoutId;
+
+        groupedCards = new Card[12];
+        amountGrouped = 0;
+        valueGrouped = 0;
+
+        stage = "drawingStage";
     }
 
     @Override
@@ -108,12 +110,20 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
         card9 = (ImageView)myActivity.findViewById(R.id.card9);
         card10 = (ImageView)myActivity.findViewById(R.id.card10);
 
-        //updateCards();
+        discardCard = (ImageView)myActivity.findViewById(R.id.discardCard);
+        drawPileCard = (ImageView)myActivity.findViewById(R.id.drawPile);
+
+        discardButton = (Button)myActivity.findViewById(R.id.discardButton);
+        groupButton = (Button)myActivity.findViewById(R.id.groupButton);
+
+        drawPileCard.setImageResource(R.drawable.blue_back);
     }
 
     public void updateCards(GinRummyGameState gameState) {
         player1Cards = gameState.getPlayer1Cards();
-        //updateCard(gameState.getDiscardedCard(), discardedCard);
+
+        updateCard(gameState.getDiscardedCard(), discardCard);
+
         updateCard(player1Cards[0], card0);
         updateCard(player1Cards[1], card1);
         updateCard(player1Cards[2], card2);
@@ -132,12 +142,37 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
         }
     }
 
-    @Override
-    public void onClick(View view) {
-
+    public boolean checkCards(Card[] cardList, int amountOfCards) {
+        int counter = 0;
+        for (int x = 0; x<amountOfCards; x++) {
+            if (cardList[x].getIsPaired()) {
+                return false;
+            }
+        }
+        for (int i = 0; i < amountOfCards - 1; i++) {
+            if (!(cardList[i].getSuit().equals(cardList[i+1].getSuit()))) { //Checks if it they're all the same suit.
+                for (int x = 0; x < amountOfCards - 1; x++) {
+                    if (!(cardList[x].getNumber()==cardList[x+1].getNumber())) { //Checks if they're all the same number.
+                        return false;
+                    } else { // if they are the same number
+                        counter ++;
+                    }
+                }
+            } else { //if they are the same suit
+                for (int y = 0; y < amountOfCards - 2; y++) {
+                    if ((cardList[y].getNumber()+1) == cardList[y+1].getNumber()) {
+                        counter ++;
+                    }
+                }
+            }
+        }
+        if (counter + 1 == amountOfCards) { //this will only return true if they are all cards are in a run, or in a set.
+            return true;
+        }
+        return false;
     }
 
-    /*@Override
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.groupButton: //WILL BREAK IF USER CLICKS CARDS MULTIPLE TIMES
@@ -146,31 +181,31 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                 }
                 this.groupOn = !this.groupOn;
                 if (groupOn) {
-                    gameState.groupButton.setText("Group On");
-                    this.groupAmount = 0;
+                    groupButton.setText("Group On");
+                    amountGrouped = 0;
                 } else {
-                    if (this.groupAmount > 2) {
-                        if (checkCards(this.groupCards, this.groupAmount)) {
-                            for (int x = 0; x<this.groupAmount; x++) {
-                                groupCards[x].toggleIsPaired();
+                    if (amountGrouped > 2) {
+                        if (checkCards(groupedCards, amountGrouped)) {
+                            for (int x = 0; x<amountGrouped; x++) {
+                                groupedCards[x].toggleIsPaired();
                             }
-                            for (int i = 0; i < this.groupAmount; i++) {
+                            for (int i = 0; i < amountGrouped; i++) {
                                 //adds a running total of the value of grouped cards in the players hand.
                                 //Currently doesn't check if the player has already grouped up certain cards
                                 //Also doesn't reduce this total if the grouped cards are thrown away.
-                                this.groupTotal = this.groupTotal + this.groupCards[i].getNumber();
+                                valueGrouped = valueGrouped + groupedCards[i].getNumber();
                             }
                         }
                     }
                     groupButton.setText("Group Off");
-                    this.groupAmount = 0;
+                    amountGrouped = 0;
                 }
                 break;
             case R.id.discardButton:
                 if (groupOn) {
                     break;
                 }
-                if (rummyGameState.getCurrentStage() == "discardStage") {
+                if (state.equals("discardStage")) {
                     discardOn = !discardOn;
                     if(discardOn) {
                         discardButton.setText("Discard On");
@@ -183,27 +218,22 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     //DOTHIS : Say something like wait until your turn!
                 }
                 break;
-            case R.id.discardedCard:
-                if (rummyGameState.getCurrentStage() == "drawingStage") {
-                    if(rummyGameState.getTurn()) {
-                        player1Cards[10] = rummyGameState.drawDiscard();
-                        updateCard(player1Cards[10], card10);
-                        discardedCard.setImageResource(R.drawable.blue_back);
-                    }
-                    else {
-                        player2Cards[10] = rummyGameState.drawDiscard();
-                    }
-                    rummyGameState.setCurrentStage("discardStage");
+            case R.id.discardCard:
+                if (stage.equals("drawingStage")) {
+                    new GinRummyDrawAction(this);
+                    updateCard(player1Cards[10], card10);
+                    discardCard.setImageResource(R.drawable.blue_back);
+                    stage = "discardStage";
                 }
             case R.id.knockButton:
-                if (!(rummyGameState.getCurrentStage().equals("discardStage"))) {
+                if (!(state.equals("discardStage"))) {
                     break;
                 }
                 int i = 0;
                 for (Card c : player1Cards) {
                     i = i + c.getNumber();
                 }
-                i = i - groupTotal;
+                i = i - valueGrouped;
                 if (i < 10) {
                     scoreView.setPlayer1("Player 1 Score : 10");
                     scoreView.invalidate();
@@ -211,119 +241,115 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                 break;
             case R.id.drawPile:
                 //Amount drawn was 30, and i drew its 31.
-                if (rummyGameState.getAmountDrawn() == 31) {
-                    int whoWon = rummyGameState.endGame(this.groupTotal);
+                if (state.getAmountDrawn() == 31) {
+                    /*int whoWon = state.endGame(this.groupTotal);
                     if (whoWon > 0) {
                         scoreView.setPlayer1("Player 2 Score : " + Integer.toString(whoWon));
                         scoreView.setPlayer2("Player 1 Score : 0");
                     } else {
                         scoreView.setPlayer1("Player 2 Score : 0");
                         scoreView.setPlayer2("Player 1 Score : " + Integer.toString(-whoWon));
-                    }
+                    }*/
                     drawPileCard.setImageResource(R.drawable.gray_back);
                     scoreView.invalidate();
                     break;
                 }
-                if (rummyGameState.getCurrentStage() == "drawingStage") {
-                    if(rummyGameState.getTurn()) {
-                        player1Cards[10] = rummyGameState.drawDraw();
-                        updateCard(player1Cards[10], card10);
-                    } else {
-                        player2Cards[10] = rummyGameState.drawDraw();
-                    }
-                    rummyGameState.setCurrentStage("discardStage");
+                if (state.equals("drawingStage")) {
+                    new GinRummyDrawAction(this);
                 }
                 break;
             case R.id.card0:
-                discardThisCard(0);
+                if (discardOn) {
+                    new GinRummyDiscardAction(this, 0);
+                }
                 if (groupOn) {
-                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
-                    this.groupAmount++;
+                    groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
+                    amountGrouped++;
                 }
                 //updateCard(player1Cards[0], card0);
                 break;
             case R.id.card1:
-                discardThisCard(1);
+                new GinRummyDiscardAction(this, 1);
                 if (groupOn) {
-                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
-                    this.groupAmount++;
+                    groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
+                    amountGrouped++;
                 }
                 updateCard(player1Cards[1], card1);
                 break;
             case R.id.card2:
-                discardThisCard(2);
+                new GinRummyDiscardAction(this, 2);
                 if (groupOn) {
-                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
-                    this.groupAmount++;
+                    groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
+                    amountGrouped++;
                 }
                 updateCard(player1Cards[2], card2);
                 break;
             case R.id.card3:
-                discardThisCard(3);
+                new GinRummyDiscardAction(this, 3);
                 if (groupOn) {
-                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
-                    this.groupAmount++;
+                    groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
+                    amountGrouped++;
                 }
                 updateCard(player1Cards[3], card3);
                 break;
             case R.id.card4:
-                discardThisCard(4);
+                new GinRummyDiscardAction(this, 4);
                 if (groupOn) {
-                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
-                    this.groupAmount++;
+                    groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
+                    amountGrouped++;
                 }
                 updateCard(player1Cards[4], card4);
                 break;
             case R.id.card5:
-                discardThisCard(5);
+                new GinRummyDiscardAction(this, 5);
                 if (groupOn) {
-                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
-                    this.groupAmount++;
+                    groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
+                    amountGrouped++;
                 }
                 updateCard(player1Cards[5], card5);
                 break;
             case R.id.card6:
-                discardThisCard(6);
+                new GinRummyDiscardAction(this, 6);
                 if (groupOn) {
-                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
-                    this.groupAmount++;
+                    groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
+                    amountGrouped++;
                 }
                 updateCard(player1Cards[6], card6);
                 break;
             case R.id.card7:
-                discardThisCard(7);
+                new GinRummyDiscardAction(this, 7);
                 if (groupOn) {
-                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
-                    this.groupAmount++;
+                    groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
+                    amountGrouped++;
                 }
                 updateCard(player1Cards[7], card7);
                 break;
             case R.id.card8:
-                discardThisCard(8);
+                new GinRummyDiscardAction(this, 8);
                 if (groupOn) {
-                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
-                    this.groupAmount++;
+                    groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
+                    amountGrouped++;
                 }
                 updateCard(player1Cards[8], card8);
                 break;
             case R.id.card9:
-                discardThisCard(9);
+                new GinRummyDiscardAction(this, 9);
                 if (groupOn) {
-                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
-                    this.groupAmount++;
+                    groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
+                    amountGrouped++;
                 }
                 updateCard(player1Cards[9], card9);
                 break;
             case R.id.card10:
-                discardThisCard(10);
+                new GinRummyDiscardAction(this, 10);
                 if (groupOn) {
-                    this.groupCards[this.groupAmount] = this.player1Cards[groupAmount];
-                    this.groupAmount++;
+                    groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
+                    amountGrouped++;
                 }
                 updateCard(player1Cards[10], card10);
                 break;
         }
-    }*/
+    }
 
     public void updateCard(Card card, ImageView cardView) {
         switch (card.getNumber()) {

@@ -55,7 +55,7 @@
                     app:srcCompat="@drawable/blue_back" />
 
                 <ImageView
-                    android:id="@+id/discardedCard"
+                    android:id="@+id/discardCard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

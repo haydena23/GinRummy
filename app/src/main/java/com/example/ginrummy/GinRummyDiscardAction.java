@@ -6,16 +6,22 @@ public class GinRummyDiscardAction extends GinRummyMoveAction {
 
     private static final String TAG = "GinRummyDiscardAction";
 
+    private int whichCard;
     /**
      * constructor for GameAction
      *
      * @param player the player who created the action
      */
-    public GinRummyDiscardAction(GamePlayer player) {
+    public GinRummyDiscardAction(GamePlayer player, int whichCard) {
         super(player);
+        this.whichCard = whichCard;
     }
 
     public boolean isDiscard() {
         return true;
+    }
+
+    public int getWhichCard() {
+        return this.whichCard;
     }
 }

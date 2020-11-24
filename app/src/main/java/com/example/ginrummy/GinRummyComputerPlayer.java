@@ -19,6 +19,5 @@ public class GinRummyComputerPlayer extends GameComputerPlayer {
 
     @Override
     protected void receiveInfo(GameInfo info) {
-
     }
 }
