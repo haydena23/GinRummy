@@ -1,11 +1,10 @@
 package com.example.ginrummy;
 
 import android.app.Activity;
-import android.view.View;
 import android.graphics.Color;
-import android.graphics.Point;
-import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.R;
 import com.example.game.GameFramework.GameHumanPlayer;
@@ -27,6 +26,26 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
     private Activity myActivity;
     private int layoutId;
     private static final String TAG = "GinRummyHumanPlayer";
+
+    Button discardButton;
+    Button groupButton;
+
+    // Instance variables for all the on screen card displays
+    private ImageView card0;
+    private ImageView card1;
+    private ImageView card2;
+    private ImageView card3;
+    private ImageView card4;
+    private ImageView card5;
+    private ImageView card6;
+    private ImageView card7;
+    private ImageView card8;
+    private ImageView card9;
+    private ImageView card10;
+    private ImageView drawPileCard;
+    private ImageView discardedCard;
+
+    private Card[] player1Cards;
 
     /**
      * constructor
@@ -66,6 +85,8 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
             Logger.log(TAG,"receiving");
         }
         state = (GinRummyGameState) info;
+        player1Cards = state.getPlayer1Cards();
+        updateCards(state);
     }
 
     @Override
@@ -74,6 +95,41 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
         activity.setContentView(layoutId);
         scoreView = (ScoreView)myActivity.findViewById(R.id.surfaceView);
         scoreView.setState(state);
+
+        card0 = (ImageView)myActivity.findViewById(R.id.card0);
+        card1 = (ImageView)myActivity.findViewById(R.id.card1);
+        card2 = (ImageView)myActivity.findViewById(R.id.card2);
+        card3 = (ImageView)myActivity.findViewById(R.id.card3);
+        card4 = (ImageView)myActivity.findViewById(R.id.card4);
+        card5 = (ImageView)myActivity.findViewById(R.id.card5);
+        card6 = (ImageView)myActivity.findViewById(R.id.card6);
+        card7 = (ImageView)myActivity.findViewById(R.id.card7);
+        card8 = (ImageView)myActivity.findViewById(R.id.card8);
+        card9 = (ImageView)myActivity.findViewById(R.id.card9);
+        card10 = (ImageView)myActivity.findViewById(R.id.card10);
+
+        //updateCards();
+    }
+
+    public void updateCards(GinRummyGameState gameState) {
+        player1Cards = gameState.getPlayer1Cards();
+        //updateCard(gameState.getDiscardedCard(), discardedCard);
+        updateCard(player1Cards[0], card0);
+        updateCard(player1Cards[1], card1);
+        updateCard(player1Cards[2], card2);
+        updateCard(player1Cards[3], card3);
+        updateCard(player1Cards[4], card4);
+        updateCard(player1Cards[5], card5);
+        updateCard(player1Cards[6], card6);
+        updateCard(player1Cards[7], card7);
+        updateCard(player1Cards[8], card8);
+        updateCard(player1Cards[9], card9);
+        if(player1Cards[10] == null) {
+            card10.setImageResource(R.drawable.blue_back);
+        }
+        else {
+            updateCard(player1Cards[10], card10);
+        }
     }
 
     @Override
@@ -268,4 +324,272 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                 break;
         }
     }*/
+
+    public void updateCard(Card card, ImageView cardView) {
+        switch (card.getNumber()) {
+            case 1:
+                switch (card.getSuit()) {
+                    case "Diamonds":
+                        cardView.setImageResource(R.drawable.acediamond);
+                        cardView.invalidate();
+                        break;
+                    case "Hearts":
+                        cardView.setImageResource(R.drawable.aceheart);
+                        cardView.invalidate();
+                        break;
+                    case "Spades":
+                        cardView.setImageResource(R.drawable.acespade);
+                        cardView.invalidate();
+                        break;
+                    case "Clubs":
+                        cardView.setImageResource(R.drawable.aceclub);
+                        cardView.invalidate();
+                        break;
+                }
+                break;
+            case 2:
+                switch (card.getSuit()) {
+                    case "Diamonds":
+                        cardView.setImageResource(R.drawable.twodiamond);
+                        cardView.invalidate();
+                        break;
+                    case "Hearts":
+                        cardView.setImageResource(R.drawable.twoheart);
+                        cardView.invalidate();
+                        break;
+                    case "Spades":
+                        cardView.setImageResource(R.drawable.twospade);
+                        cardView.invalidate();
+                        break;
+                    case "Clubs":
+                        cardView.setImageResource(R.drawable.twoclub);
+                        cardView.invalidate();
+                        break;
+                }
+                break;
+            case 3:
+                switch (card.getSuit()) {
+                    case "Diamonds":
+                        cardView.setImageResource(R.drawable.threediamond);
+                        cardView.invalidate();
+                        break;
+                    case "Hearts":
+                        cardView.setImageResource(R.drawable.threeheart);
+                        cardView.invalidate();
+                        break;
+                    case "Spades":
+                        cardView.setImageResource(R.drawable.threespade);
+                        cardView.invalidate();
+                        break;
+                    case "Clubs":
+                        cardView.setImageResource(R.drawable.threeclub);
+                        cardView.invalidate();
+                        break;
+                }
+                break;
+            case 4:
+                switch (card.getSuit()) {
+                    case "Diamonds":
+                        cardView.setImageResource(R.drawable.fourdiamond);
+                        cardView.invalidate();
+                        break;
+                    case "Hearts":
+                        cardView.setImageResource(R.drawable.fourheart);
+                        cardView.invalidate();
+                        break;
+                    case "Spades":
+                        cardView.setImageResource(R.drawable.fourspade);
+                        cardView.invalidate();
+                        break;
+                    case "Clubs":
+                        cardView.setImageResource(R.drawable.fourclub);
+                        cardView.invalidate();
+                        break;
+                }
+                break;
+            case 5:
+                switch (card.getSuit()) {
+                    case "Diamonds":
+                        cardView.setImageResource(R.drawable.fivediamond);
+                        cardView.invalidate();
+                        break;
+                    case "Hearts":
+                        cardView.setImageResource(R.drawable.fiveheart);
+                        cardView.invalidate();
+                        break;
+                    case "Spades":
+                        cardView.setImageResource(R.drawable.fivespade);
+                        cardView.invalidate();
+                        break;
+                    case "Clubs":
+                        cardView.setImageResource(R.drawable.fiveclub);
+                        cardView.invalidate();
+                        break;
+                }
+                break;
+            case 6:
+                switch (card.getSuit()) {
+                    case "Diamonds":
+                        cardView.setImageResource(R.drawable.sixdiamond);
+                        cardView.invalidate();
+                        break;
+                    case "Hearts":
+                        cardView.setImageResource(R.drawable.sixheart);
+                        cardView.invalidate();
+                        break;
+                    case "Spades":
+                        cardView.setImageResource(R.drawable.sixspade);
+                        cardView.invalidate();
+                        break;
+                    case "Clubs":
+                        cardView.setImageResource(R.drawable.sixclub);
+                        cardView.invalidate();
+                        break;
+                }
+                break;
+            case 7:
+                switch (card.getSuit()) {
+                    case "Diamonds":
+                        cardView.setImageResource(R.drawable.sevendiamond);
+                        cardView.invalidate();
+                        break;
+                    case "Hearts":
+                        cardView.setImageResource(R.drawable.sevenheart);
+                        cardView.invalidate();
+                        break;
+                    case "Spades":
+                        cardView.setImageResource(R.drawable.sevenspade);
+                        cardView.invalidate();
+                        break;
+                    case "Clubs":
+                        cardView.setImageResource(R.drawable.sevenclub);
+                        cardView.invalidate();
+                        break;
+                }
+                break;
+            case 8:
+                switch (card.getSuit()) {
+                    case "Diamonds":
+                        cardView.setImageResource(R.drawable.eightdiamond);
+                        cardView.invalidate();
+                        break;
+                    case "Hearts":
+                        cardView.setImageResource(R.drawable.eightheart);
+                        cardView.invalidate();
+                        break;
+                    case "Spades":
+                        cardView.setImageResource(R.drawable.eightspade);
+                        cardView.invalidate();
+                        break;
+                    case "Clubs":
+                        cardView.setImageResource(R.drawable.eightclub);
+                        cardView.invalidate();
+                        break;
+                }
+                break;
+            case 9:
+                switch (card.getSuit()) {
+                    case "Diamonds":
+                        cardView.setImageResource(R.drawable.ninediamond);
+                        cardView.invalidate();
+                        break;
+                    case "Hearts":
+                        cardView.setImageResource(R.drawable.nineheart);
+                        cardView.invalidate();
+                        break;
+                    case "Spades":
+                        cardView.setImageResource(R.drawable.ninespade);
+                        cardView.invalidate();
+                        break;
+                    case "Clubs":
+                        cardView.setImageResource(R.drawable.nineclub);
+                        cardView.invalidate();
+                        break;
+                }
+                break;
+            case 10:
+                switch (card.getSuit()) {
+                    case "Diamonds":
+                        cardView.setImageResource(R.drawable.tendiamond);
+                        cardView.invalidate();
+                        break;
+                    case "Hearts":
+                        cardView.setImageResource(R.drawable.tenheart);
+                        cardView.invalidate();
+                        break;
+                    case "Spades":
+                        cardView.setImageResource(R.drawable.tenspade);
+                        cardView.invalidate();
+                        break;
+                    case "Clubs":
+                        cardView.setImageResource(R.drawable.tenclub);
+                        cardView.invalidate();
+                        break;
+                }
+                break;
+            case 11:
+                switch (card.getSuit()) {
+                    case "Diamonds":
+                        cardView.setImageResource(R.drawable.jackdiamond);
+                        cardView.invalidate();
+                        break;
+                    case "Hearts":
+                        cardView.setImageResource(R.drawable.jackheart);
+                        cardView.invalidate();
+                        break;
+                    case "Spades":
+                        cardView.setImageResource(R.drawable.jackspade);
+                        cardView.invalidate();
+                        break;
+                    case "Clubs":
+                        cardView.setImageResource(R.drawable.jackclub);
+                        cardView.invalidate();
+                        break;
+                }
+                break;
+            case 12:
+                switch (card.getSuit()) {
+                    case "Diamonds":
+                        cardView.setImageResource(R.drawable.queendiamond);
+                        cardView.invalidate();
+                        break;
+                    case "Hearts":
+                        cardView.setImageResource(R.drawable.queenheart);
+                        cardView.invalidate();
+                        break;
+                    case "Spades":
+                        cardView.setImageResource(R.drawable.queenspade);
+                        cardView.invalidate();
+                        break;
+                    case "Clubs":
+                        cardView.setImageResource(R.drawable.queenclub);
+                        cardView.invalidate();
+                        break;
+                }
+                break;
+            case 13:
+                switch (card.getSuit()) {
+                    case "Diamonds":
+                        cardView.setImageResource(R.drawable.kingdiamond);
+                        cardView.invalidate();
+                        break;
+                    case "Hearts":
+                        cardView.setImageResource(R.drawable.kingheart);
+                        cardView.invalidate();
+                        break;
+                    case "Spades":
+                        cardView.setImageResource(R.drawable.kingspade);
+                        cardView.invalidate();
+                        break;
+                    case "Clubs":
+                        cardView.setImageResource(R.drawable.kingclub);
+                        cardView.invalidate();
+                        break;
+                }
+                break;
+            default:
+                cardView.setImageResource(R.drawable.blue_back);
+                break;
+        }
+    }
 }

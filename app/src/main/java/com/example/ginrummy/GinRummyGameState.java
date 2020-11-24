@@ -63,10 +63,6 @@ public class GinRummyGameState extends GameState {
     }
 
     public Card createDiscardPile() {
-
-        //Random random = new Random();
-
-        //int getThisCard = random.nextInt(32);
         Card returnMe = new Card(this.drawPile[31].getNumber(),
                 this.drawPile[31].getSuit());
         this.drawPile[31] = null;
