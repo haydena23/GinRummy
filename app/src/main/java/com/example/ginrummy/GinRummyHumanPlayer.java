@@ -256,6 +256,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                 }
                 if (state.equals("drawingStage")) {
                     new GinRummyDrawAction(this);
+                    //scoreView.invalidate();
                 }
                 break;
             case R.id.card0:

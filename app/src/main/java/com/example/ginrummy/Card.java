@@ -12,6 +12,7 @@ public class Card {
 
     //instance variables stored for each card
     private int number;
+    private int position; //this int is used for organizing hand.
     private String suit;
     private boolean isPaired;
 
@@ -25,6 +26,23 @@ public class Card {
         this.number = number;
         this.suit = suit;
         this.isPaired = false;
+        this.position = number;
+
+        switch (suit) {
+            case "Hearts":
+                break;
+            case "Diamonds":
+                position = position + 13;
+                break;
+            case "Spades":
+                position = position + 23;
+                break;
+            case "Clubs":
+                position = position + 39;
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -34,7 +52,7 @@ public class Card {
      */
     public int getNumber() {
         return this.number;
-    }
+        }
 
     /**
      * Method to manually set a card. Only used in testing

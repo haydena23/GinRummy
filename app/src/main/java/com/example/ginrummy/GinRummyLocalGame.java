@@ -56,7 +56,13 @@ public class GinRummyLocalGame extends LocalGame{
                 return false;
             }
             else {
-                drawDraw();
+                if(state.getToPlay() == 1) {
+                    Array.set(state.getPlayer1Cards(), 10, drawDraw());
+                    sendUpdatedStateTo(players[0]);
+                } else {
+                    Array.set(state.getPlayer2Cards(), 10, drawDraw());
+                    sendUpdatedStateTo(players[1]);
+                }
             }
         }
 
