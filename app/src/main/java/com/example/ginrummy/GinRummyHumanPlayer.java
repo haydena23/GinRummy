@@ -81,14 +81,13 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
             return;
         }
         else {
-            state = (GinRummyGameState)info;
+            state = (GinRummyGameState) info;
+            player1Cards = state.getPlayer1Cards();
+            updateCards(state);
             scoreView.setState(state);
             scoreView.invalidate();
             Logger.log(TAG,"receiving");
         }
-        state = (GinRummyGameState) info;
-        player1Cards = state.getPlayer1Cards();
-        updateCards(state);
     }
 
     @Override
@@ -100,24 +99,46 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
 
         card0 = (ImageView)myActivity.findViewById(R.id.card0);
         card0.setOnClickListener(this);
+
         card1 = (ImageView)myActivity.findViewById(R.id.card1);
         card1.setOnClickListener(this);
+
         card2 = (ImageView)myActivity.findViewById(R.id.card2);
+        card2.setOnClickListener(this);
+
         card3 = (ImageView)myActivity.findViewById(R.id.card3);
+        card3.setOnClickListener(this);
+
         card4 = (ImageView)myActivity.findViewById(R.id.card4);
+        card4.setOnClickListener(this);
+
         card5 = (ImageView)myActivity.findViewById(R.id.card5);
+        card5.setOnClickListener(this);
+
         card6 = (ImageView)myActivity.findViewById(R.id.card6);
+        card6.setOnClickListener(this);
+
         card7 = (ImageView)myActivity.findViewById(R.id.card7);
+        card7.setOnClickListener(this);
+
         card8 = (ImageView)myActivity.findViewById(R.id.card8);
+        card8.setOnClickListener(this);
+
         card9 = (ImageView)myActivity.findViewById(R.id.card9);
+        card9.setOnClickListener(this);
+
         card10 = (ImageView)myActivity.findViewById(R.id.card10);
+        card10.setOnClickListener(this);
 
         discardCard = (ImageView)myActivity.findViewById(R.id.discardCard);
+        discardCard.setOnClickListener(this);
         drawPileCard = (ImageView)myActivity.findViewById(R.id.drawPile);
         drawPileCard.setOnClickListener(this);
 
         discardButton = (Button)myActivity.findViewById(R.id.discardButton);
+        discardButton.setOnClickListener(this);
         groupButton = (Button)myActivity.findViewById(R.id.groupButton);
+        groupButton.setOnClickListener(this);
 
         drawPileCard.setImageResource(R.drawable.blue_back);
     }
@@ -178,7 +199,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.groupButton: //WILL BREAK IF USER CLICKS CARDS MULTIPLE TIMES
+            case R.id.groupButton:
                 if (discardOn) {
                     break;
                 }
@@ -203,12 +224,13 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     groupButton.setText("Group Off");
                     amountGrouped = 0;
                 }
+                groupButton.invalidate();
                 break;
             case R.id.discardButton:
                 if (groupOn) {
                     break;
                 }
-                if (state.equals("discardStage")) {
+                if (state.getCurrentStage().equals("discardStage")) {
                     discardOn = !discardOn;
                     if(discardOn) {
                         discardButton.setText("Discard On");
@@ -217,17 +239,10 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                         discardButton.setText("Discard Off");
                         discardButton.invalidate();
                     }
-                } else {
-                    //DOTHIS : Say something like wait until your turn!
                 }
                 break;
             case R.id.discardCard:
-                if (stage.equals("drawingStage")) {
-                    new GinRummyDrawAction(this);
-                    updateCard(player1Cards[10], card10);
-                    discardCard.setImageResource(R.drawable.blue_back);
-                    stage = "discardStage";
-                }
+                    game.sendAction(new GinRummyDrawDiscardAction(this));
             case R.id.knockButton:
                 if (!(state.equals("discardStage"))) {
                     break;
@@ -243,28 +258,11 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                 }
                 break;
             case R.id.drawPile:
-                //Amount drawn was 30, and i drew its 31.
-                /*if (state.getAmountDrawn() == 31) {
-                    int whoWon = state.endGame(this.groupTotal);
-                    if (whoWon > 0) {
-                        scoreView.setPlayer1("Player 2 Score : " + Integer.toString(whoWon));
-                        scoreView.setPlayer2("Player 1 Score : 0");
-                    } else {
-                        scoreView.setPlayer1("Player 2 Score : 0");
-                        scoreView.setPlayer2("Player 1 Score : " + Integer.toString(-whoWon));
-                    }
-                    drawPileCard.setImageResource(R.drawable.gray_back);
-                    scoreView.invalidate();
-                    break;
-                } */
-                //if (state.equals("drawingStage")) {
                     game.sendAction(new GinRummyDrawAction(this));
-                    //scoreView.invalidate();
-                //}
                 break;
             case R.id.card0:
                 if (discardOn) {
-                    new GinRummyDiscardAction(this, 0);
+                    game.sendAction(new GinRummyDiscardAction(this, 0));
                 }
                 if (groupOn) {
                     groupedCards[amountGrouped] = this.player1Cards[amountGrouped];

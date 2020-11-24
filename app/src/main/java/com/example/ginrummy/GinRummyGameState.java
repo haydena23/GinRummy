@@ -39,7 +39,7 @@ public class GinRummyGameState extends GameState {
         this.totalofP2 = 0;
         this.P1Points = 0;
         this.P2Points = 0;
-        this.toPlay = 1; // will always be player 1 that starts.
+        this.toPlay = 0; // first player gets to start
     }
 
     /**

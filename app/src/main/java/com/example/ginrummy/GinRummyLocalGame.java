@@ -32,11 +32,11 @@ public class GinRummyLocalGame extends LocalGame{
      */
     @Override
     protected boolean makeMove(GameAction action) {
-
         // check that we have a GinRummyPlayerAction
         if (!(action instanceof GinRummyMoveAction)) {
             return false;
         }
+
         GinRummyMoveAction grma = (GinRummyMoveAction) action;
 
         // get the index of the player making the move
@@ -46,33 +46,69 @@ public class GinRummyLocalGame extends LocalGame{
             return false;
         }
 
-        if (grma.isDraw()) {
+        if (grma instanceof GinRummyDrawAction) {
             if (thisPlayerIdx != state.toPlay) {
                 // attempt to play when it's the other player's turn
                 return false;
             }
-            //Check if legal
-            if (state.getAmountDrawn() == 32) {
-                // empty deck: return false, as move is illegal
+            if (!(state.getCurrentStage().equals("drawingStage"))) {
                 return false;
             }
-            else {
-                if(state.getToPlay() == 1) {
+            if (state.getAmountDrawn() == 31) {
+                // empty deck: return false, as move is illegal
+                return false;
+            } else {
+                if(state.getToPlay() == 0) {
                     Array.set(state.getPlayer1Cards(), 10, drawDraw());
                     sendUpdatedStateTo(players[0]);
-                } else {
+                } else { // toPlay == 1
                     Array.set(state.getPlayer2Cards(), 10, drawDraw());
                     sendUpdatedStateTo(players[1]);
                 }
             }
         }
 
-        else if (grma.isDrawDiscard()) {
-
+        else if (grma instanceof GinRummyDrawDiscardAction) {
+            if (thisPlayerIdx != state.toPlay) {
+                // attempt to play when it's the other player's turn
+                return false;
+            }
+            if (!(state.getCurrentStage().equals("drawingStage"))) {
+                return false;
+            }
+            if (state.getAmountDrawn() == 31) {
+                // game should be over, false.
+                return false;
+            } else {
+                if(state.getToPlay() == 0) {
+                    Array.set(state.getPlayer1Cards(), 10, drawDiscard());
+                    sendUpdatedStateTo(players[0]);
+                } else { // toPlay == 1
+                    Array.set(state.getPlayer2Cards(), 10, drawDiscard());
+                    sendUpdatedStateTo(players[1]);
+                }
+            }
         }
 
-        else if (grma.isDiscard()) {
-
+        else if (grma instanceof GinRummyDiscardAction) {
+            if (thisPlayerIdx != state.toPlay) {
+                // attempt to play when it's the other player's turn
+                return false;
+            }
+            if (!(state.getCurrentStage().equals("discardStage"))) {
+                return false;
+            }
+            else {
+                if(state.getToPlay() == 0) {
+                    discardCard(state.getPlayer1Cards(),
+                            ((GinRummyDiscardAction) grma).getWhichCard());
+                    sendUpdatedStateTo(players[0]);
+                } else { // toPlay == 1
+                    discardCard(state.getPlayer2Cards(),
+                            ((GinRummyDiscardAction) grma).getWhichCard());
+                    sendUpdatedStateTo(players[1]);
+                }
+            }
         }
 
         else { // some unexpected action
@@ -88,10 +124,17 @@ public class GinRummyLocalGame extends LocalGame{
         p.sendInfo(state);
     }
 
-    //not sure how to do this
     @Override
     protected boolean canMove(int playerIdx) {
-        return false;
+        if (playerIdx < 0 || playerIdx > 1) {
+            // if our player-number is out of range, return false
+            return false;
+        }
+        else {
+            // player can move if it's their turn, or if the middle deck is non-empty
+            // so they can slap
+            return state.getAmountDrawn() < 31 && state.getToPlay() == playerIdx;
+        }
     }
 
     @Override

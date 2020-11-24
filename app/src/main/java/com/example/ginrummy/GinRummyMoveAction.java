@@ -12,16 +12,4 @@ public class GinRummyMoveAction extends GameAction {
     public GinRummyMoveAction(GamePlayer player) {
         super(player);
     }
-
-    public boolean isDiscard() {
-        return true;
-    }
-
-    public boolean isDraw() {
-        return true;
-    }
-
-    public boolean isDrawDiscard() {
-        return true;
-    }
 }

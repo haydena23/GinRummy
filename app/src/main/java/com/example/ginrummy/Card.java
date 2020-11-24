@@ -14,7 +14,9 @@ public class Card {
     private int number;
     private int position; //this int is used for organizing hand.
     private String suit;
-    private boolean isPaired;
+
+    private boolean isPaired; //is grouped
+
 
     /**
      * constructor for objects of  card class
@@ -35,7 +37,7 @@ public class Card {
                 position = position + 13;
                 break;
             case "Spades":
-                position = position + 23;
+                position = position + 26;
                 break;
             case "Clubs":
                 position = position + 39;
