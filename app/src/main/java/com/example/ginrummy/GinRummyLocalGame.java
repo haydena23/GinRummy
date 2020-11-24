@@ -17,6 +17,7 @@ public class GinRummyLocalGame extends LocalGame{
      */
     public GinRummyLocalGame() {
         Log.i("GinRummyLocalGame", "creating game");
+
         // create the state for the beginning of the game
         state = new GinRummyGameState();
     }

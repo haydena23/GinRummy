@@ -99,7 +99,9 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
         scoreView.setState(state);
 
         card0 = (ImageView)myActivity.findViewById(R.id.card0);
+        card0.setOnClickListener(this);
         card1 = (ImageView)myActivity.findViewById(R.id.card1);
+        card1.setOnClickListener(this);
         card2 = (ImageView)myActivity.findViewById(R.id.card2);
         card3 = (ImageView)myActivity.findViewById(R.id.card3);
         card4 = (ImageView)myActivity.findViewById(R.id.card4);
@@ -112,6 +114,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
 
         discardCard = (ImageView)myActivity.findViewById(R.id.discardCard);
         drawPileCard = (ImageView)myActivity.findViewById(R.id.drawPile);
+        drawPileCard.setOnClickListener(this);
 
         discardButton = (Button)myActivity.findViewById(R.id.discardButton);
         groupButton = (Button)myActivity.findViewById(R.id.groupButton);
@@ -241,23 +244,23 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                 break;
             case R.id.drawPile:
                 //Amount drawn was 30, and i drew its 31.
-                if (state.getAmountDrawn() == 31) {
-                    /*int whoWon = state.endGame(this.groupTotal);
+                /*if (state.getAmountDrawn() == 31) {
+                    int whoWon = state.endGame(this.groupTotal);
                     if (whoWon > 0) {
                         scoreView.setPlayer1("Player 2 Score : " + Integer.toString(whoWon));
                         scoreView.setPlayer2("Player 1 Score : 0");
                     } else {
                         scoreView.setPlayer1("Player 2 Score : 0");
                         scoreView.setPlayer2("Player 1 Score : " + Integer.toString(-whoWon));
-                    }*/
+                    }
                     drawPileCard.setImageResource(R.drawable.gray_back);
                     scoreView.invalidate();
                     break;
-                }
-                if (state.equals("drawingStage")) {
-                    new GinRummyDrawAction(this);
+                } */
+                //if (state.equals("drawingStage")) {
+                    game.sendAction(new GinRummyDrawAction(this));
                     //scoreView.invalidate();
-                }
+                //}
                 break;
             case R.id.card0:
                 if (discardOn) {
