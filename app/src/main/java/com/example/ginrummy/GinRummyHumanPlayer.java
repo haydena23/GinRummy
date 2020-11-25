@@ -234,7 +234,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                 }
 
                 if (groupOn) {
-                    groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
+                    groupedCards[amountGrouped] = this.player1Cards[0];
                     amountGrouped++;
                 }
                 break;
@@ -247,7 +247,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                 }
 
                 if (groupOn) {
-                    groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
+                    groupedCards[amountGrouped] = this.player1Cards[1];
                     amountGrouped++;
                 }
                 break;
@@ -259,7 +259,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     discardButton.setText("Discard Off");
                 }
                 if (groupOn) {
-                    groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
+                    groupedCards[amountGrouped] = this.player1Cards[2];
                     amountGrouped++;
                 }
                 break;
@@ -271,7 +271,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     discardButton.setText("Discard Off");
                 }
                 if (groupOn) {
-                    groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
+                    groupedCards[amountGrouped] = this.player1Cards[3];
                     amountGrouped++;
                 }
                 break;
@@ -283,7 +283,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     discardButton.setText("Discard Off");
                 }
                 if (groupOn) {
-                    groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
+                    groupedCards[amountGrouped] = this.player1Cards[4];
                     amountGrouped++;
                 }
                 break;
@@ -295,7 +295,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     discardButton.setText("Discard Off");
                 }
                 if (groupOn) {
-                    groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
+                    groupedCards[amountGrouped] = this.player1Cards[5];
                     amountGrouped++;
                 }
                 break;
@@ -307,7 +307,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     discardButton.setText("Discard Off");
                 }
                 if (groupOn) {
-                    groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
+                    groupedCards[amountGrouped] = this.player1Cards[6];
                     amountGrouped++;
                 }
                 break;
@@ -319,7 +319,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     discardButton.setText("Discard Off");
                 }
                 if (groupOn) {
-                    groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
+                    groupedCards[amountGrouped] = this.player1Cards[7];
                     amountGrouped++;
                 }
                 break;
@@ -331,7 +331,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     discardButton.setText("Discard Off");
                 }
                 if (groupOn) {
-                    groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
+                    groupedCards[amountGrouped] = this.player1Cards[8];
                     amountGrouped++;
                 }
                 break;
@@ -343,7 +343,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     discardButton.setText("Discard Off");
                 }
                 if (groupOn) {
-                    groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
+                    groupedCards[amountGrouped] = this.player1Cards[9];
                     amountGrouped++;
                 }
                 break;
@@ -355,7 +355,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     discardButton.setText("Discard Off");
                 }
                 if (groupOn) {
-                    groupedCards[amountGrouped] = this.player1Cards[amountGrouped];
+                    groupedCards[amountGrouped] = this.player1Cards[10];
                     amountGrouped++;
                 }
                 break;
