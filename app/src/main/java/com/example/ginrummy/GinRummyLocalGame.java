@@ -12,6 +12,7 @@ import com.example.ginrummy.GRActions.GinRummyGinAction;
 import com.example.ginrummy.GRActions.GinRummyGroupAction;
 import com.example.ginrummy.GRActions.GinRummyKnockAction;
 import com.example.ginrummy.GRActions.GinRummyMoveAction;
+import com.example.ginrummy.GRActions.GinRummyNoDrawsAction;
 
 import java.lang.reflect.Array;
 
@@ -173,6 +174,9 @@ public class GinRummyLocalGame extends LocalGame{
             P2HandValue = P2HandValue - state.getP2ValueOfGrouped();
 
             if (state.getToPlay() == 0 ) { //Player 1 turn
+                if (P1HandValue > 10) {
+                    return false;
+                }
                 if (P1HandValue < P2HandValue) { //P1 wins knock, p1 knocked
                     state.setP1Points(state.getP1Points() +
                             P2HandValue - P1HandValue);
@@ -181,6 +185,9 @@ public class GinRummyLocalGame extends LocalGame{
                             P1HandValue - P2HandValue + 10);
                 }
             } else { //Players 2 turn
+                if (P2HandValue > 10) {
+                    return false;
+                }
                 if (P2HandValue < P1HandValue) { //P2 wins knock, p2 knocked
                     state.setP2Points(state.getP2Points() +
                             P2HandValue - P1HandValue);
@@ -191,7 +198,36 @@ public class GinRummyLocalGame extends LocalGame{
                 }
             }
 
-        } else { // some unexpected action
+        } else if (grma instanceof GinRummyNoDrawsAction) {
+            if (state.getAmountDrawn() < 31) {
+                return false;
+            }
+            int P1HandValue = 0;
+            int P2HandValue = 0;
+
+            for (Card c : state.getPlayer1Cards()) {
+                if (!(c.getSuit().equals("Trash"))) {
+                    P1HandValue = P1HandValue + c.getNumber();
+                }
+            }
+            P1HandValue = P1HandValue - state.getP1ValueOfGrouped();
+
+            for (Card c : state.getPlayer2Cards()) {
+                if (!(c.getSuit().equals("Trash"))) {
+                    P2HandValue = P2HandValue + c.getNumber();
+                }
+            }
+            P2HandValue = P2HandValue - state.getP2ValueOfGrouped();
+
+            if (P2HandValue > P1HandValue) { // P2 loses
+                state.setP1Points(state.getP1Points() +
+                        P2HandValue - P1HandValue);
+            } else {
+                state.setP2Points(state.getP2Points() +
+                        P1HandValue - P2HandValue);
+            }
+        }
+        else { // some unexpected action
             return false;
         }
 
@@ -219,10 +255,6 @@ public class GinRummyLocalGame extends LocalGame{
 
     @Override
     protected String checkIfGameOver() {
-        if (state.getAmountDrawn() == 31) {
-            //gotta compute points for this
-            return "Game Over";
-        }
         if (state.getP1Points() > 0) {
             return "Game Over, P1 has won! ";
         }

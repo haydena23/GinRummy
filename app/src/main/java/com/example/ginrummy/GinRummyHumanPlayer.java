@@ -19,6 +19,7 @@ import com.example.ginrummy.GRActions.GinRummyDrawDiscardAction;
 import com.example.ginrummy.GRActions.GinRummyGinAction;
 import com.example.ginrummy.GRActions.GinRummyGroupAction;
 import com.example.ginrummy.GRActions.GinRummyKnockAction;
+import com.example.ginrummy.GRActions.GinRummyNoDrawsAction;
 
 
 public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
@@ -252,7 +253,11 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                 break;
 
             case R.id.drawPile:
-                game.sendAction(new GinRummyDrawAction(this));
+                if (state.getAmountDrawn() < 31) {
+                    game.sendAction(new GinRummyDrawAction(this));
+                } else {
+                    game.sendAction(new GinRummyNoDrawsAction(this));
+                }
                 break;
 
             case R.id.card0:
