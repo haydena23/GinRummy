@@ -3,6 +3,9 @@
  *                             and creates the players and the config for the game. Adds the players,
  *                             and creates the local game
  *
+ * Status of the game:
+ *
+ *
  * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
  * @version 18 Nov 2020
  */
