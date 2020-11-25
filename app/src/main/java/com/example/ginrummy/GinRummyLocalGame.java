@@ -218,34 +218,40 @@ public class GinRummyLocalGame extends LocalGame{
                 groupTheseCards[x].setIsPaired(true);
                 updatedCards[x] = groupTheseCards[x];
             }
+        } else {
+            return 0;
         }
 
         //updating algorithm
         if (state.getToPlay() == 0) {
-            for (int x = amountGrouped; x < 11;) {
-                for (Card c : state.getPlayer1Cards()) {
-                    currentCard = c;
+            int counter = amountGrouped;
+
+            for (Card c : state.getPlayer1Cards()) {
+                dontPut = false;
+                for (int x = 0; x < amountGrouped; x++) {
                     if (c.equals(updatedCards[x])) {
                         dontPut = true;
                     }
                 }
                 if (!dontPut) {
-                    updatedCards[x] = currentCard;
-                    x++;
+                    updatedCards[counter] = c;
+                    counter++;
                 }
-                x++;
             }
             state.setPlayer1Cards(updatedCards);
         } else {
-            for (int x = amountGrouped; x < 11 ; x++) {
-                for (Card c : state.getPlayer2Cards()) {
-                    currentCard = c;
+            int counter = amountGrouped;
+
+            for (Card c : state.getPlayer2Cards()) {
+                dontPut = false;
+                for (int x = 0; x < amountGrouped; x++) {
                     if (c.equals(updatedCards[x])) {
                         dontPut = true;
                     }
                 }
                 if (!dontPut) {
-                    updatedCards[x] = currentCard;
+                    updatedCards[counter] = c;
+                    counter++;
                 }
             }
             state.setPlayer2Cards(updatedCards);
@@ -257,24 +263,35 @@ public class GinRummyLocalGame extends LocalGame{
         int counter = 0;
 
         for (int i = 0; i < amountOfCards - 1; i++) {
-            if (!(cardList[i].getSuit().equals(cardList[i+1].getSuit()))) { //Checks if it they're all not the same suit.
-                for (int x = 0; x < amountOfCards - 1; x++) {
-                    if (!(cardList[x].getNumber()==cardList[x+1].getNumber())) { //Checks if they're the same number
-                        return false;
-                    } else { //
-                        counter ++;
-                    }
-                }
-            } else { //if they are the same suit
-                for (int y = 0; y < amountOfCards - 2; y++) {
-                    if ((cardList[y].getNumber()+1) == cardList[y+1].getNumber()) { //checks if they're a run
-                        counter ++;
-                    }
-                }
+            if (cardList[i].getNumber()==cardList[i+1].getNumber()) { //Checks if they're the same number
+                counter++;
+            } else { //
+                counter = 0;
+                break;
             }
         }
-        if (counter + 1 == amountOfCards) { //this will only return true if they are all cards are in a run, or in a set.
+        if (counter + 1 == amountOfCards) {
             return true;
+        }
+
+        for (int x = 0; x < amountOfCards - 1; x++) {
+            if (cardList[x].getSuit().equals(cardList[x+1].getSuit())) { //Checks if they're all the same suit.
+                counter++;
+            } else {
+                counter = 0;
+                break;
+            }
+        }
+        if (counter + 1 == amountOfCards) {
+            counter = 0;
+            for (int y = 0; y < amountOfCards - 1; y++ ) {
+                if (cardList[y].getNumber() == cardList[y].getNumber()+1 ) {
+                    counter ++;
+                }
+            }
+            if (counter + 1 == amountOfCards) {
+                return true;
+            }
         }
         return false;
     }
