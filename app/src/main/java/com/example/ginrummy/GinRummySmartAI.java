@@ -1,8 +1,8 @@
 /**
- * ScoreView.java - utilized to display the current score of the game
+ * GinRummySmartAI - Class for the SmartAI in the game, which contains a more complex algorithm for the AI to play by
  *
  * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
- * @version 12 Nov 2020
+ * @version 25 Nov 2020
  */
 
 package com.example.ginrummy;
@@ -11,11 +11,12 @@ import com.example.game.GameFramework.GameComputerPlayer;
 import com.example.game.GameFramework.infoMessage.GameInfo;
 
 public class GinRummySmartAI extends GameComputerPlayer {
+    //Instance variables
     GinRummyGameState state;
     private Card[] cardChecker;
 
     /**
-     * constructor
+     * Constructor for the SmartAI extending from the game framework
      *
      * @param name the player's name (e.g., "John")
      */
@@ -30,6 +31,12 @@ public class GinRummySmartAI extends GameComputerPlayer {
         }
     }
 
+    /**
+     * Method to identify if there is a possible run between cards in the AI hand
+     *
+     * @param card1 Card 1 to check
+     * @param card2 Card 2 to check
+     */
     public void identifyPossibleRun(Card card1, Card card2) {
         if (card1.getSuit().equals(card2.getSuit())) {
             if (card1.getSuit().equals("Hearts")) {
@@ -186,6 +193,10 @@ public class GinRummySmartAI extends GameComputerPlayer {
         }
     }
 
+    /**
+     * Recieve info from the GameState, and set the card checker based on the game state Player2Cards
+     * @param info
+     */
     @Override
     protected void receiveInfo(GameInfo info) {
         state = (GinRummyGameState) info;
