@@ -83,8 +83,8 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
     }
 
     /**
-     *
-     * @return
+     * Method to get the top view GUI
+     * @return The top view GUI
      */
     @Override
     public View getTopView() {
@@ -117,8 +117,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
     }
 
     /**
-     * A method to set the GUI based on the main activity, and establishes the listeners for each component of the GUI
-     *
+     * A method to set the GUI based on the main activity, and establishes the listeners for each component of the GUI     *
      * @param activity The main activity
      */
     @Override
@@ -194,8 +193,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
     }
 
     /**
-     * Method to update the visual used for the cards on the GUI
-     *
+     * Method to update the visual used for the cards on the GUI     *
      * @param gameState The current game state
      */
     public void updateCards(GinRummyGameState gameState) {
@@ -233,8 +231,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
     }
 
     /**
-     * onClick method to determine what course of action to take based on what is pressed on the GUI
-     *
+     * onClick method to determine what course of action to take based on what is pressed on the GUI     *
      * @param view This determines which button or imageview was pressed
      */
     @Override
