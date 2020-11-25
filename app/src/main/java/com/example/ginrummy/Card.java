@@ -85,20 +85,59 @@ public class Card {
         return this.suit;
     }
 
+    /**
+     * Getter method on if a card is paired
+     *
+     * @return whether a given card is paired in a run/set etc.
+     */
     public boolean getIsPaired() {
         return this.isPaired;
     }
 
+    /**
+     * Setter method for the isPaired variable
+     *
+     * @param isPaired Sets status of isPaired
+     */
     public void setIsPaired(boolean isPaired) {
         this.isPaired = isPaired;
     }
 
+    /**
+     * Getter method to return the position of a card
+     *
+     * @return an X value position of the card in the hand
+     */
     public int getPosition() { return this.position; }
+
+    /**
+     * Setter method to set the position of a card in the hand
+     *
+     * @param position
+     */
     public void setPosition(int position) { this.position = position; }
 
+    /**
+     *  Getter method to say if a card is part of a possible set
+     * @return boolean
+     */
     public boolean getIsPossibleSet() { return this.isPossibleSet; }
+
+    /**
+     * Setter method to set if this card is part of a possible set
+     * @param isPossibleSet
+     */
     public void setIsPossibleSet(boolean isPossibleSet) { this.isPossibleSet = isPossibleSet; }
 
+    /**
+     * Getter method on if the this card is a possible run
+     * @return boolean
+     */
     public boolean getIsPossibleRun() { return this.isPossibleRun; }
+
+    /**
+     * Setter method to set if this card is part of a possible set
+     * @param isPossibleRun
+     */
     public void setIsPossibleRun(boolean isPossibleRun) { this.isPossibleRun = isPossibleRun;}
 }
