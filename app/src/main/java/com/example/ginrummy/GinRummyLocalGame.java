@@ -144,16 +144,13 @@ public class GinRummyLocalGame extends LocalGame{
             }
             P2HandValue = P2HandValue - state.getP2ValueOfGrouped();
 
-            if (state.getToPlay() == 0 ) { //Player 1 turn
-                if (P1HandValue == 0) {
-                    state.setP1Points(state.getP1Points() +
-                            P2HandValue + 20);
-                }
-            } else { //Players 2 turn
-                if (P2HandValue == 0) {
-                    state.setP2Points(state.getP2Points() +
-                         P1HandValue + 20);
-                }
+            if (P1HandValue == 0) {
+                state.setP1Points(state.getP1Points() +
+                        P2HandValue + 20);
+            }
+            if (P2HandValue == 0) {
+                state.setP2Points(state.getP2Points() +
+                        P1HandValue + 20);
             }
 
         } else if (grma instanceof GinRummyKnockAction) {
