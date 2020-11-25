@@ -50,8 +50,7 @@ public class Card {
     }
 
     /**
-     * Getter method to get the value of a card
-     *
+     * Getter method to get the value of a card     *
      * @return The value of the card, 1-13
      */
     public int getNumber() {
@@ -59,8 +58,7 @@ public class Card {
         }
 
     /**
-     * Method to manually set a card. Only used in testing
-     *
+     * Method to manually set a card. Only used in testing     *
      * @param number Value of card to set
      */
     public void setNumber(int number) {
@@ -68,8 +66,7 @@ public class Card {
     }
 
     /**
-     * Method to manually set a card suit. Only used in testing
-     *
+     * Method to manually set a card suit. Only used in testing     *
      * @param suit String for suit of the card
      */
     public void setSuit(String suit) {
@@ -77,8 +74,7 @@ public class Card {
     }
 
     /**
-     * Getter method to get the suit of a card
-     *
+     * Getter method to get the suit of a card     *
      * @return The suit of the card
      */
     public String getSuit() {
@@ -86,8 +82,7 @@ public class Card {
     }
 
     /**
-     * Getter method on if a card is paired
-     *
+     * Getter method on if a card is paired     *
      * @return whether a given card is paired in a run/set etc.
      */
     public boolean getIsPaired() {
@@ -95,8 +90,7 @@ public class Card {
     }
 
     /**
-     * Setter method for the isPaired variable
-     *
+     * Setter method for the isPaired variable     *
      * @param isPaired Sets status of isPaired
      */
     public void setIsPaired(boolean isPaired) {
@@ -104,15 +98,13 @@ public class Card {
     }
 
     /**
-     * Getter method to return the position of a card
-     *
+     * Getter method to return the position of a card     *
      * @return an X value position of the card in the hand
      */
     public int getPosition() { return this.position; }
 
     /**
-     * Setter method to set the position of a card in the hand
-     *
+     * Setter method to set the position of a card in the hand     *
      * @param position
      */
     public void setPosition(int position) { this.position = position; }
