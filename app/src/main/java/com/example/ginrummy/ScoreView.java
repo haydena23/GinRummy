@@ -37,8 +37,8 @@ public class ScoreView extends FlashSurfaceView {
         setWillNotDraw(false);
         setBackgroundColor(Color.WHITE);
 
-        player1 = "Player 2 Score: 0";
-        player2 = "Player 1 Score: 0";
+        player1 = "Player 1 Score: 0";
+        player2 = "Player 2 Score: 0";
     }
 
     public ScoreView(Context context) {
@@ -93,7 +93,7 @@ public class ScoreView extends FlashSurfaceView {
      */
     public void setPlayer2(String player2) {
         this.player2 =
-                "Player 1 score: " + player2;
+                "Player 2 score: " + player2;
     }
 
     /**

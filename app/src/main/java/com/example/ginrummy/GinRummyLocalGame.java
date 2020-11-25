@@ -120,6 +120,7 @@ public class GinRummyLocalGame extends LocalGame{
                 state.setP1ValueOfGrouped(state.getP1ValueOfGrouped() +
                         groupMethod(((GinRummyGroupAction) grma).getGroupTheseCard(),
                                 ((GinRummyGroupAction) grma).getAmountOfCards()));
+                return true;
             } else {
                 state.setP2ValueOfGrouped(state.getP2ValueOfGrouped() +
                         groupMethod(((GinRummyGroupAction) grma).getGroupTheseCard(),
@@ -158,12 +159,16 @@ public class GinRummyLocalGame extends LocalGame{
             int P2HandValue = 0;
 
             for (Card c : state.getPlayer1Cards()) {
-                P1HandValue = P1HandValue + c.getNumber();
+                if (!(c.getSuit().equals("Trash"))) {
+                    P1HandValue = P1HandValue + c.getNumber();
+                }
             }
             P1HandValue = P1HandValue - state.getP1ValueOfGrouped();
 
             for (Card c : state.getPlayer2Cards()) {
-                P2HandValue = P2HandValue + c.getNumber();
+                if (!(c.getSuit().equals("Trash"))) {
+                    P2HandValue = P2HandValue + c.getNumber();
+                }
             }
             P2HandValue = P2HandValue - state.getP2ValueOfGrouped();
 
@@ -214,7 +219,8 @@ public class GinRummyLocalGame extends LocalGame{
 
     @Override
     protected String checkIfGameOver() {
-        if (state.getAmountDrawn() > 31) {
+        if (state.getAmountDrawn() == 31) {
+            //gotta compute points for this
             return "Game Over";
         }
         if (state.getP1Points() > 0) {
