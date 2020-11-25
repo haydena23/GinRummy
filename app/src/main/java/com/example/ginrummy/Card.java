@@ -93,7 +93,12 @@ public class Card {
         this.isPaired = isPaired;
     }
 
+    public int getPosition() { return this.position; }
+    public void setPosition(int position) { this.position = position; }
+
     public boolean getIsPossibleSet() { return this.isPossibleSet; }
+    public void setIsPossibleSet(boolean isPossibleSet) { this.isPossibleSet = isPossibleSet; }
 
     public boolean getIsPossibleRun() { return this.isPossibleRun; }
+    public void setIsPossibleRun(boolean isPossibleRun) { this.isPossibleRun = isPossibleRun;}
 }
