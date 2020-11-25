@@ -3,7 +3,14 @@
  *                             and creates the players and the config for the game. Adds the players,
  *                             and creates the local game
  *
- * Status of the game:
+ * Status of the game: As of this commit, the game runs one round.
+ * In this round, the player can do all necessary actions to complete
+ * this round that is in the original Gin Rummy, including drawing
+ * drawing from discard, discarding cards, grouping cards, knocking,
+ * and finally ginning. The bugs are as follows : Grouping the same card twice,
+ * and attempting to group a card with itself. The following are what we
+ * need to implement : Correct values for each card, the quit button,
+ * multiple rounds, a Smart AI, and a vertical screen layout.
  *
  *
  * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
