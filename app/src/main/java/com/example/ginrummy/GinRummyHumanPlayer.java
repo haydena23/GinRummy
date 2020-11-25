@@ -16,7 +16,9 @@ import com.example.game.GameFramework.utilities.Logger;
 import com.example.ginrummy.GRActions.GinRummyDiscardAction;
 import com.example.ginrummy.GRActions.GinRummyDrawAction;
 import com.example.ginrummy.GRActions.GinRummyDrawDiscardAction;
+import com.example.ginrummy.GRActions.GinRummyGinAction;
 import com.example.ginrummy.GRActions.GinRummyGroupAction;
+import com.example.ginrummy.GRActions.GinRummyKnockAction;
 
 
 public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
@@ -39,6 +41,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
 
     Button discardButton;
     Button groupButton;
+    Button knockButton;
 
     // Instance variables for all the on screen card displays
     private ImageView card0;
@@ -143,6 +146,9 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
         discardButton.setOnClickListener(this);
         groupButton = (Button)myActivity.findViewById(R.id.groupButton);
         groupButton.setOnClickListener(this);
+        knockButton = (Button)myActivity.findViewById(R.id.knockButton);
+        knockButton.setOnClickListener(this);
+
 
         drawPileCard.setImageResource(R.drawable.blue_back);
     }
@@ -211,21 +217,17 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                 break;
 
             case R.id.discardCard:
-                    game.sendAction(new GinRummyDrawDiscardAction(this));
+                game.sendAction(new GinRummyDrawDiscardAction(this));
+                game.sendAction(new GinRummyGinAction(this));
+                break;
 
             case R.id.knockButton:
-                if (!(state.equals("discardStage"))) {
-                    break;
-                }
-                int i = 0;
-                for (Card c : player1Cards) {
-                    i = i + c.getNumber();
-                }
-                i = i - valueGrouped;
-                if (i < 10) {
-                    scoreView.setPlayer1("Player 1 Score : 10");
-                    scoreView.invalidate();
-                }
+                game.sendAction(new GinRummyKnockAction(this));
+                scoreView.setPlayer1(Integer.toString(
+                        state.getP1Points()));
+                scoreView.setPlayer2(Integer.toString(
+                        state.getP2Points()));
+                scoreView.invalidate();
                 break;
 
             case R.id.drawPile:
