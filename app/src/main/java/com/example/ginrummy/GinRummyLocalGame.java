@@ -106,7 +106,13 @@ public class GinRummyLocalGame extends LocalGame{
                 }
             }
         } else if (grma instanceof GinRummyGroupAction) {
-            //man im too lazy
+            if (state.getToPlay() == 0) {
+                state.setP1Points(state.getP1Points() +
+                        groupMethod(((GinRummyGroupAction) grma).getGroupTheseCard(),
+                                ((GinRummyGroupAction) grma).getAmountOfCards()));
+            } else {
+
+            }
 
         } else { // some unexpected action
             return false;
@@ -200,40 +206,68 @@ public class GinRummyLocalGame extends LocalGame{
 
     public int groupMethod(Card[] groupTheseCards, int amountGrouped) {
         int valueGrouped = 0;
+        Card[] updatedCards = new Card[11];
+        boolean dontPut = true;
+        Card currentCard = new Card(100, "trash");
 
-        if (checkCards(groupTheseCards, amountGrouped)) {
-            for (int x = 0; x<amountGrouped; x++) {
-                groupTheseCards[x].toggleIsPaired();
+        if (isPairable(groupTheseCards, amountGrouped)) {
+            for (int x = 0; x < amountGrouped; x++) {
+                if (!groupTheseCards[x].getIsPaired()) { //if they're not already paired, count the value.
+                    valueGrouped = valueGrouped + groupTheseCards[x].getNumber();
+                }
+                groupTheseCards[x].setIsPaired(true);
+                updatedCards[x] = groupTheseCards[x];
             }
-            for (int i = 0; i < amountGrouped; i++) {
-                //adds a running total of the value of grouped cards in the players hand.
-                //Currently doesn't check if the player has already grouped up certain cards
-                //Also doesn't reduce this total if the grouped cards are thrown away.
-                valueGrouped = valueGrouped + groupTheseCards[i].getNumber();
+        }
+
+        //updating algorithm
+        if (state.getToPlay() == 0) {
+            for (int x = amountGrouped; x < 11;) {
+                for (Card c : state.getPlayer1Cards()) {
+                    currentCard = c;
+                    if (c.equals(updatedCards[x])) {
+                        dontPut = true;
+                    }
+                }
+                if (!dontPut) {
+                    updatedCards[x] = currentCard;
+                    x++;
+                }
+                x++;
             }
+            state.setPlayer1Cards(updatedCards);
+        } else {
+            for (int x = amountGrouped; x < 11 ; x++) {
+                for (Card c : state.getPlayer2Cards()) {
+                    currentCard = c;
+                    if (c.equals(updatedCards[x])) {
+                        dontPut = true;
+                    }
+                }
+                if (!dontPut) {
+                    updatedCards[x] = currentCard;
+                }
+            }
+            state.setPlayer2Cards(updatedCards);
         }
         return valueGrouped;
     }
 
-    public boolean checkCards(Card[] cardList, int amountOfCards) {
+    public boolean isPairable(Card[] cardList, int amountOfCards) {
         int counter = 0;
-        for (int x = 0; x<amountOfCards; x++) {
-            if (cardList[x].getIsPaired()) {
-                return false;
-            }
-        }
+
         for (int i = 0; i < amountOfCards - 1; i++) {
-            if (!(cardList[i].getSuit().equals(cardList[i+1].getSuit()))) { //Checks if it they're all the same suit.
+            if (!(cardList[i].getSuit().equals(cardList[i+1].getSuit()))) { //Checks if it they're all not the same suit.
                 for (int x = 0; x < amountOfCards - 1; x++) {
-                    if (!(cardList[x].getNumber()==cardList[x+1].getNumber())) { //Checks if they're all the same number.
+                    if (!(cardList[x].getNumber()==cardList[x+1].getNumber())) { //Checks if they're the same number
                         return false;
-                    } else { // if they are the same number
+                    } else { //
                         counter ++;
                     }
                 }
             } else { //if they are the same suit
                 for (int y = 0; y < amountOfCards - 2; y++) {
-                    if ((cardList[y].getNumber()+1) == cardList[y+1].getNumber()) {
+                    if ((cardList[y].getNumber()+1) == cardList[y+1].getNumber()) { //checks if they're a run
                         counter ++;
                     }
                 }

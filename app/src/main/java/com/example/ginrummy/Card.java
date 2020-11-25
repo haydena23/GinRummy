@@ -87,7 +87,7 @@ public class Card {
         return this.isPaired;
     }
 
-    public void toggleIsPaired() {
-        this.isPaired = !this.isPaired;
+    public void setIsPaired(boolean isPaired) {
+        this.isPaired = isPaired;
     }
 }
