@@ -1,3 +1,12 @@
+/**
+ * GinRummyHumanPlayer.java - Extending from the GameFramework, here lies the listener
+ *                            for the buttons and cards, and calls the methods the player
+ *                            needs when taking actions
+ *
+ * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
+ * @version 25 Nov 2020
+ */
+
 package com.example.ginrummy;
 
 import android.app.Activity;
@@ -24,6 +33,7 @@ import com.example.ginrummy.GRActions.GinRummyNoDrawsAction;
 
 public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
 
+    // Instance variables store in the player
     private boolean discardOn = false;
     private boolean groupOn = false;
 
@@ -58,6 +68,12 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
 
     private Card[] player1Cards;
 
+    /**
+     * Constructor for the HumanPlayer, extending from the game framework
+     *
+     * @param name String for the name of the player
+     * @param layoutId What GUI for the player to be shown
+     */
     public GinRummyHumanPlayer(String name, int layoutId) {
         super(name);
         this.layoutId = layoutId;
@@ -66,11 +82,19 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
         amountGrouped = 0;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public View getTopView() {
         return myActivity.findViewById(R.id.top_gui_layout);
     }
 
+    /**
+     * Determine what sort of info is received, and provide an error and flash the screen if said info is not currently allowed
+     * @param info
+     */
     @Override
     public void receiveInfo(GameInfo info) {
         if(scoreView == null) {
@@ -92,6 +116,11 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
         }
     }
 
+    /**
+     * A method to set the GUI based on the main activity, and establishes the listeners for each component of the GUI
+     *
+     * @param activity The main activity
+     */
     @Override
     public void setAsGui(GameMainActivity activity) {
         myActivity = activity;
@@ -148,6 +177,9 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
         drawPileCard.setImageResource(R.drawable.blue_back);
     }
 
+    /**
+     * Method to calculate an automatic Gin action in the game, and then updating the scoreboard
+     */
     public void autoGin() {
         int handValue = 0;
         for (Card c : state.getPlayer1Cards()) {
@@ -161,6 +193,11 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
         }
     }
 
+    /**
+     * Method to update the visual used for the cards on the GUI
+     *
+     * @param gameState The current game state
+     */
     public void updateCards(GinRummyGameState gameState) {
         player1Cards = gameState.getPlayer1Cards();
 
@@ -184,6 +221,9 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
         }
     }
 
+    /**
+     * Method to set the players score on the SurfaceView by using the states instance variables
+     */
     public void updateScoreView() {
         scoreView.setPlayer1(Integer.toString(
                 state.getP1Points()));
@@ -192,6 +232,11 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
         scoreView.invalidate();
     }
 
+    /**
+     * onClick method to determine what course of action to take based on what is pressed on the GUI
+     *
+     * @param view This determines which button or imageview was pressed
+     */
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -417,6 +462,12 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
         }
     }
 
+    /**
+     * Method to take in a card and an imageview, and set the appropriate image for said card
+     *
+     * @param card The card object
+     * @param cardView The card on the GUI
+     */
     public void updateCard(Card card, ImageView cardView) {
         switch (card.getNumber()) {
             case 1:

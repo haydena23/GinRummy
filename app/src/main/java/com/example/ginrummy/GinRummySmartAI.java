@@ -1,3 +1,10 @@
+/**
+ * ScoreView.java - utilized to display the current score of the game
+ *
+ * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
+ * @version 12 Nov 2020
+ */
+
 package com.example.ginrummy;
 
 import com.example.game.GameFramework.GameComputerPlayer;

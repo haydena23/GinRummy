@@ -11,7 +11,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.view.SurfaceView;
 
 import com.example.game.GameFramework.utilities.FlashSurfaceView;
 
