@@ -257,8 +257,10 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                 }
 
                 if (groupOn) {
-                    groupedCards[amountGrouped] = this.player1Cards[0];
-                    amountGrouped++;
+                    if(amountGrouped < 11) {
+                        groupedCards[amountGrouped] = this.player1Cards[0];
+                        amountGrouped++;
+                    }
                 }
                 break;
 
@@ -271,8 +273,10 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                 }
 
                 if (groupOn) {
-                    groupedCards[amountGrouped] = this.player1Cards[1];
-                    amountGrouped++;
+                    if(amountGrouped < 11) {
+                        groupedCards[amountGrouped] = this.player1Cards[1];
+                        amountGrouped++;
+                    }
                 }
                 break;
 
@@ -284,8 +288,10 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     autoGin();
                 }
                 if (groupOn) {
-                    groupedCards[amountGrouped] = this.player1Cards[2];
-                    amountGrouped++;
+                    if(amountGrouped < 11) {
+                        groupedCards[amountGrouped] = this.player1Cards[2];
+                        amountGrouped++;
+                    }
                 }
                 break;
 
@@ -297,8 +303,10 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     autoGin();
                 }
                 if (groupOn) {
-                    groupedCards[amountGrouped] = this.player1Cards[3];
-                    amountGrouped++;
+                    if(amountGrouped < 11) {
+                        groupedCards[amountGrouped] = this.player1Cards[3];
+                        amountGrouped++;
+                    }
                 }
                 break;
 
@@ -310,8 +318,10 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     autoGin();
                 }
                 if (groupOn) {
-                    groupedCards[amountGrouped] = this.player1Cards[4];
-                    amountGrouped++;
+                    if(amountGrouped < 11) {
+                        groupedCards[amountGrouped] = this.player1Cards[4];
+                        amountGrouped++;
+                    }
                 }
                 break;
 
@@ -323,8 +333,10 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     autoGin();
                 }
                 if (groupOn) {
-                    groupedCards[amountGrouped] = this.player1Cards[5];
-                    amountGrouped++;
+                    if(amountGrouped < 11) {
+                        groupedCards[amountGrouped] = this.player1Cards[5];
+                        amountGrouped++;
+                    }
                 }
                 break;
 
@@ -336,8 +348,10 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     autoGin();
                 }
                 if (groupOn) {
-                    groupedCards[amountGrouped] = this.player1Cards[6];
-                    amountGrouped++;
+                    if(amountGrouped < 11) {
+                        groupedCards[amountGrouped] = this.player1Cards[6];
+                        amountGrouped++;
+                    }
                 }
                 break;
 
@@ -349,8 +363,10 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     autoGin();
                 }
                 if (groupOn) {
-                    groupedCards[amountGrouped] = this.player1Cards[7];
-                    amountGrouped++;
+                    if(amountGrouped < 11) {
+                        groupedCards[amountGrouped] = this.player1Cards[7];
+                        amountGrouped++;
+                    }
                 }
                 break;
 
@@ -362,8 +378,10 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     autoGin();
                 }
                 if (groupOn) {
-                    groupedCards[amountGrouped] = this.player1Cards[8];
-                    amountGrouped++;
+                    if(amountGrouped < 11) {
+                        groupedCards[amountGrouped] = this.player1Cards[8];
+                        amountGrouped++;
+                    }
                 }
                 break;
 
@@ -375,8 +393,10 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     autoGin();
                 }
                 if (groupOn) {
-                    groupedCards[amountGrouped] = this.player1Cards[9];
-                    amountGrouped++;
+                    if(amountGrouped < 11) {
+                        groupedCards[amountGrouped] = this.player1Cards[9];
+                        amountGrouped++;
+                    }
                 }
                 break;
 
@@ -388,8 +408,10 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     autoGin();
                 }
                 if (groupOn) {
-                    groupedCards[amountGrouped] = this.player1Cards[10];
-                    amountGrouped++;
+                    if(amountGrouped < 11) {
+                        groupedCards[amountGrouped] = this.player1Cards[10];
+                        amountGrouped++;
+                    }
                 }
                 break;
         }

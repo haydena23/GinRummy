@@ -40,6 +40,8 @@ public class GinRummyLocalGame extends LocalGame{
      */
     @Override
     protected boolean makeMove(GameAction action) {
+        int P1HandValue = 0;
+        int P2HandValue = 0;
         // check that we have a GinRummyPlayerAction
         if (!(action instanceof GinRummyMoveAction)) {
             return false;
@@ -121,7 +123,6 @@ public class GinRummyLocalGame extends LocalGame{
                 state.setP1ValueOfGrouped(state.getP1ValueOfGrouped() +
                         groupMethod(((GinRummyGroupAction) grma).getGroupTheseCard(),
                                 ((GinRummyGroupAction) grma).getAmountOfCards()));
-                return true;
             } else {
                 state.setP2ValueOfGrouped(state.getP2ValueOfGrouped() +
                         groupMethod(((GinRummyGroupAction) grma).getGroupTheseCard(),
@@ -129,22 +130,8 @@ public class GinRummyLocalGame extends LocalGame{
             }
 
         } else if (grma instanceof GinRummyGinAction) {
-            int P1HandValue = 0;
-            int P2HandValue = 0;
-
-            for (Card c : state.getPlayer1Cards()) {
-                if (!(c.getSuit().equals("Trash"))) {
-                    P1HandValue = P1HandValue + c.getNumber();
-                }
-            }
-            P1HandValue = P1HandValue - state.getP1ValueOfGrouped();
-
-            for (Card c : state.getPlayer2Cards()) {
-                if (!(c.getSuit().equals("Trash"))) {
-                    P2HandValue = P2HandValue + c.getNumber();
-                }
-            }
-            P2HandValue = P2HandValue - state.getP2ValueOfGrouped();
+            P1HandValue = getP1HandValue() - state.getP1ValueOfGrouped();
+            P2HandValue = getP2HandValue() - state.getP2ValueOfGrouped();
 
             if (P1HandValue == 0) {
                 state.setP1Points(state.getP1Points() +
@@ -156,30 +143,16 @@ public class GinRummyLocalGame extends LocalGame{
             }
 
         } else if (grma instanceof GinRummyKnockAction) {
-            int P1HandValue = 0;
-            int P2HandValue = 0;
-
-            for (Card c : state.getPlayer1Cards()) {
-                if (!(c.getSuit().equals("Trash"))) {
-                    P1HandValue = P1HandValue + c.getNumber();
-                }
-            }
-            P1HandValue = P1HandValue - state.getP1ValueOfGrouped();
-
-            for (Card c : state.getPlayer2Cards()) {
-                if (!(c.getSuit().equals("Trash"))) {
-                    P2HandValue = P2HandValue + c.getNumber();
-                }
-            }
-            P2HandValue = P2HandValue - state.getP2ValueOfGrouped();
+            P1HandValue = getP1HandValue() - state.getP1ValueOfGrouped();
+            P2HandValue = getP2HandValue() - state.getP2ValueOfGrouped();
 
             if (state.getToPlay() == 0 ) { //Player 1 turn
                 if (P1HandValue > 10) {
-                    return false;
+                    return false; //Hand too large!
                 }
-                if (P1HandValue < P2HandValue) { //P1 wins knock, p1 knocked
+                if (P1HandValue < P2HandValue) { //P1 wins knock, P1 knocked
                     state.setP1Points(state.getP1Points() +
-                            P2HandValue - P1HandValue);
+                            P2HandValue - P1HandValue); //no extra points
                 } else {
                     state.setP2Points(state.getP2Points() +
                             P1HandValue - P2HandValue + 10);
@@ -190,11 +163,10 @@ public class GinRummyLocalGame extends LocalGame{
                 }
                 if (P2HandValue < P1HandValue) { //P2 wins knock, p2 knocked
                     state.setP2Points(state.getP2Points() +
-                            P2HandValue - P1HandValue);
-
+                            P1HandValue - P2HandValue);
                 } else {
                     state.setP1Points(state.getP1Points() +
-                            P1HandValue - P2HandValue + 10);
+                            P2HandValue - P1HandValue + 10);
                 }
             }
 
@@ -202,22 +174,9 @@ public class GinRummyLocalGame extends LocalGame{
             if (state.getAmountDrawn() < 31) {
                 return false;
             }
-            int P1HandValue = 0;
-            int P2HandValue = 0;
 
-            for (Card c : state.getPlayer1Cards()) {
-                if (!(c.getSuit().equals("Trash"))) {
-                    P1HandValue = P1HandValue + c.getNumber();
-                }
-            }
-            P1HandValue = P1HandValue - state.getP1ValueOfGrouped();
-
-            for (Card c : state.getPlayer2Cards()) {
-                if (!(c.getSuit().equals("Trash"))) {
-                    P2HandValue = P2HandValue + c.getNumber();
-                }
-            }
-            P2HandValue = P2HandValue - state.getP2ValueOfGrouped();
+            P1HandValue = getP1HandValue() - state.getP1ValueOfGrouped();
+            P2HandValue = getP2HandValue() - state.getP2ValueOfGrouped();
 
             if (P2HandValue > P1HandValue) { // P2 loses
                 state.setP1Points(state.getP1Points() +
@@ -231,8 +190,28 @@ public class GinRummyLocalGame extends LocalGame{
             return false;
         }
 
-        // return true, because the move was successful if we get her
+        // return true, because the move was successful if we get here
         return true;
+    }
+
+    public int getP1HandValue() {
+        int P1HandValue = 0;
+        for (Card c : state.getPlayer1Cards()) {
+            if (!(c.getSuit().equals("Trash"))) {
+                P1HandValue = P1HandValue + c.getNumber();
+            }
+        }
+        return P1HandValue;
+    }
+
+    public int getP2HandValue() {
+        int P2HandValue = 0;
+        for (Card c : state.getPlayer2Cards()) {
+            if (!(c.getSuit().equals("Trash"))) {
+                P2HandValue = P2HandValue + c.getNumber();
+            }
+        }
+        return P2HandValue;
     }
 
     @Override
