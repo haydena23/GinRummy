@@ -34,7 +34,7 @@ public class GinRummyMainActivity extends GameMainActivity {
             }
         });
 
-        // Create a game configuration class for SlapJack
+        // Create a game configuration class for GinRummy
         GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "GinRummy", PORT_NUMBER);
 
         // Add the default players

@@ -1,6 +1,7 @@
-package com.example.ginrummy;
+package com.example.ginrummy.GRActions;
 
 import com.example.game.GameFramework.GamePlayer;
+import com.example.ginrummy.Card;
 import com.example.ginrummy.GRActions.GinRummyMoveAction;
 
 public class GinRummyGroupAction extends GinRummyMoveAction {

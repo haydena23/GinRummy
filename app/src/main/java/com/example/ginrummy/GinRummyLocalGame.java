@@ -9,6 +9,7 @@ import com.example.ginrummy.GRActions.GinRummyDiscardAction;
 import com.example.ginrummy.GRActions.GinRummyDrawAction;
 import com.example.ginrummy.GRActions.GinRummyDrawDiscardAction;
 import com.example.ginrummy.GRActions.GinRummyGinAction;
+import com.example.ginrummy.GRActions.GinRummyGroupAction;
 import com.example.ginrummy.GRActions.GinRummyKnockAction;
 import com.example.ginrummy.GRActions.GinRummyMoveAction;
 
@@ -104,27 +105,65 @@ public class GinRummyLocalGame extends LocalGame{
                 if(state.getToPlay() == 0) {
                     discardCard(state.getPlayer1Cards(),
                             ((GinRummyDiscardAction) grma).getWhichCard());
+                    state.setToPlay(1);
                     sendUpdatedStateTo(players[0]);
+
                 } else { // toPlay == 1
                     discardCard(state.getPlayer2Cards(),
                             ((GinRummyDiscardAction) grma).getWhichCard());
+                    state.setToPlay(0);
                     sendUpdatedStateTo(players[1]);
                 }
             }
         } else if (grma instanceof GinRummyGroupAction) {
             if (state.getToPlay() == 0) {
-                state.setP1Points(state.getP1Points() +
+                state.setP1ValueOfGrouped(state.getP1ValueOfGrouped() +
                         groupMethod(((GinRummyGroupAction) grma).getGroupTheseCard(),
                                 ((GinRummyGroupAction) grma).getAmountOfCards()));
             } else {
-                state.setP2Points(state.getP2Points() +
+                state.setP2ValueOfGrouped(state.getP2ValueOfGrouped() +
                         groupMethod(((GinRummyGroupAction) grma).getGroupTheseCard(),
                                 ((GinRummyGroupAction) grma).getAmountOfCards()));
             }
 
         } else if (grma instanceof GinRummyGinAction) {
-            
+            if (state.getToPlay() == 0 ) {
+
+            } else {
+
+            }
+
         } else if (grma instanceof GinRummyKnockAction) {
+            int P1HandValue = 0;
+            int P2HandValue = 0;
+
+            for (Card c : state.getPlayer1Cards()) {
+                P1HandValue = P1HandValue + c.getNumber();
+            }
+            P1HandValue = P1HandValue - state.getP1ValueOfGrouped();
+
+            for (Card c : state.getPlayer2Cards()) {
+                P2HandValue = P2HandValue + c.getNumber();
+            }
+            P2HandValue = P2HandValue - state.getP2ValueOfGrouped();
+
+            if (state.getToPlay() == 0 ) { //Player 1 turn
+                if (P1HandValue < P2HandValue) { //P1 wins knock, p1 knocked
+                    state.setP1Points(state.getP1Points() +
+                            P1HandValue - P2HandValue);
+                } else {
+                    state.setP2Points(state.getP2Points() +
+                            P2HandValue - P1HandValue + 10);
+                }
+            } else { //Players 2 turn
+                if (P2HandValue < P1HandValue) { //P2 wins knock, p2 knocked
+                    state.setP2Points(state.getP2Points() +
+                            P2HandValue - P1HandValue);
+                } else {
+                    state.setP1Points(state.getP1Points() +
+                            P1HandValue - P2HandValue + 10);
+                }
+            }
 
         } else { // some unexpected action
             return false;
@@ -238,7 +277,7 @@ public class GinRummyLocalGame extends LocalGame{
         if (state.getToPlay() == 0) {
             int counter = amountGrouped;
 
-            for (Card c : state.getPlayer1Cards()) {
+            for (Card c : state.getPlayer1Cards()) { //
                 dontPut = false;
                 for (int x = 0; x < amountGrouped; x++) {
                     if (c.equals(updatedCards[x])) {
