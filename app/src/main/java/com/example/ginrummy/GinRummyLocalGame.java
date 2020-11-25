@@ -40,12 +40,10 @@ public class GinRummyLocalGame extends LocalGame{
     }
 
     /**
-     * makes a move on behalf of a player
+     * Makes a move on behalf of a player
      *
-     * @param action
-     * 		the action denoting the move to be made
-     * @return
-     * 		true if the move was legal; false otherwise
+     * @param action the action denoting the move to be made
+     * @return true if the move was legal; false otherwise
      */
     @Override
     protected boolean makeMove(GameAction action) {
@@ -242,7 +240,9 @@ public class GinRummyLocalGame extends LocalGame{
 
     /**
      * Method to check on whether or not the player is allowed to make a move
+     *
      * @param playerIdx the player's player-number (ID)
+     *
      * @return Whether or not the player can move
      */
     @Override
@@ -311,6 +311,7 @@ public class GinRummyLocalGame extends LocalGame{
      * Method for discarding a card from your hand
      *
      * @param cardPile Array containing user's hand
+     *
      * @param toRemove Card selected in cardPile by position
      *                 subject to be removed
      */

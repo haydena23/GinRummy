@@ -16,8 +16,7 @@ public class GinRummySmartAI extends GameComputerPlayer {
     private Card[] cardChecker;
 
     /**
-     * Constructor for the SmartAI extending from the game framework
-     *
+     * Constructor for the SmartAI extending from the game framework     *
      * @param name the player's name (e.g., "John")
      */
     public GinRummySmartAI(String name) {
@@ -194,7 +193,7 @@ public class GinRummySmartAI extends GameComputerPlayer {
     }
 
     /**
-     * Recieve info from the GameState, and set the card checker based on the game state Player2Cards
+     * Receive info from the GameState, and set the card checker based on the game state Player2Cards
      * @param info
      */
     @Override

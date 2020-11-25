@@ -4,6 +4,7 @@
  * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
  * @version 25 Nov 2020
  */
+
 package com.example.ginrummy;
 
 import android.content.Context;
@@ -73,8 +74,7 @@ public class ScoreView extends FlashSurfaceView {
     }
 
     /**
-     * Simple on draw method to draw to the screen
-     *
+     * Simple on draw method to draw to the screen     *
      * @param canvas Reference to the canvas
      */
     public void onDraw(Canvas canvas) {
@@ -87,8 +87,7 @@ public class ScoreView extends FlashSurfaceView {
     }
 
     /**
-     * Reference to player 1
-     *
+     * Reference to player 1     *
      * @param player1 Takes in player name
      */
     public void setPlayer1(String player1) {
@@ -97,8 +96,7 @@ public class ScoreView extends FlashSurfaceView {
     }
 
     /**
-     * Reference to player 2
-     *
+     * Reference to player 2     *
      * @param player2 Takes in player name
      */
     public void setPlayer2(String player2) {
@@ -107,13 +105,11 @@ public class ScoreView extends FlashSurfaceView {
     }
 
     /**
-     * Draws on a surface view the correct player score
-     *
+     * Draws on a surface view the correct player score     *
      * @param canvas Reference to the canvas
      */
     public void drawScore(Canvas canvas) {
         canvas.drawText(player1, 120f,70f,playerTwoScore);
         canvas.drawText(player2, 120f,500f,playerOneScore);
     }
-
 }

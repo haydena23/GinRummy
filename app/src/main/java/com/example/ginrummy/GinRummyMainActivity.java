@@ -63,8 +63,7 @@ public class GinRummyMainActivity extends GameMainActivity {
     }
 
     /**
-     * Method to create a new GinRummyLocalGame to start the game
-     *
+     * Method to create a new GinRummyLocalGame to start the game     *
      * @return A GinRummyLocalGame
      */
     @Override
