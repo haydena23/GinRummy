@@ -1,8 +1,10 @@
 /**
- * ScoreView.java - utilized to display the current score of the game
+ * GinRummyMainActivity.java - The main activity for the program, that starts up the program
+ *                             and creates the players and the config for the game. Adds the players,
+ *                             and creates the local game
  *
  * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
- * @version 12 Nov 2020
+ * @version 18 Nov 2020
  */
 
 package com.example.ginrummy;
@@ -18,8 +20,13 @@ import java.util.ArrayList;
 
 public class GinRummyMainActivity extends GameMainActivity {
 
+    //Instance variable
     public static final int PORT_NUMBER = 8585;
 
+    /**
+     * Method extended from the game framework. Creates the default configuration for the game
+     * @return The default config
+     */
     @Override
     public GameConfig createDefaultConfig() {
         // Define the allowed player types
@@ -55,6 +62,11 @@ public class GinRummyMainActivity extends GameMainActivity {
         return defaultConfig;
     }
 
+    /**
+     * Method to create a new GinRummyLocalGame to start the game
+     *
+     * @return A GinRummyLocalGame
+     */
     @Override
     public LocalGame createLocalGame() {
         return new GinRummyLocalGame();
