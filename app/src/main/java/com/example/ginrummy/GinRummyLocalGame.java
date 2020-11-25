@@ -1,6 +1,7 @@
 /**
- * GinRummyLocalGame.java - Class extended from the game framework that creates a local game to allow the state
- *                          to be built and the game to be played.
+ * GinRummyLocalGame.java - Class extended from the game framework that
+ * creates a local game to allow the state
+ * to be built and the game to be played.
  *
  * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
  * @version 25 Nov 2020
@@ -350,7 +351,8 @@ public class GinRummyLocalGame extends LocalGame{
 
         if (isPairable(groupTheseCards, amountGrouped)) {
             for (int x = 0; x < amountGrouped; x++) {
-                if (!groupTheseCards[x].getIsPaired()) { //if they're not already paired, count the value.
+                if (!groupTheseCards[x].getIsPaired()) { //if they're not
+                                                         // already paired, count the value.
                     valueGrouped = valueGrouped + groupTheseCards[x].getNumber();
                 }
                 groupTheseCards[x].setIsPaired(true);
@@ -409,7 +411,8 @@ public class GinRummyLocalGame extends LocalGame{
         int counter = 0;
 
         for (int i = 0; i < amountOfCards - 1; i++) {
-            if (cardList[i].getNumber()==cardList[i+1].getNumber()) { //Checks if they're the same number
+            if (cardList[i].getNumber()==cardList[i+1].getNumber()) { //Checks if
+                                                                      // they're the same number
                 counter++;
             } else { //
                 counter = 0;
@@ -421,7 +424,8 @@ public class GinRummyLocalGame extends LocalGame{
         }
 
         for (int x = 0; x < amountOfCards - 1; x++) {
-            if (cardList[x].getSuit().equals(cardList[x+1].getSuit())) { //Checks if they're all the same suit.
+            if (cardList[x].getSuit().equals(cardList[x+1].getSuit())) { //Checks if they're
+                                                                         // all the same suit.
                 counter++;
             } else {
                 counter = 0;

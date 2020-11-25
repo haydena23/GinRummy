@@ -92,7 +92,8 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
     }
 
     /**
-     * Determine what sort of info is received, and provide an error and flash the screen if said info is not currently allowed
+     * Determine what sort of info is received, and
+     * provide an error and flash the screen if said info is not currently allowed
      * @param info
      */
     @Override
@@ -117,7 +118,8 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
     }
 
     /**
-     * A method to set the GUI based on the main activity, and establishes the listeners for each component of the GUI     *
+     * A method to set the GUI based on the main activity,
+     * and establishes the listeners for each component of the GUI     *
      * @param activity The main activity
      */
     @Override
@@ -177,7 +179,8 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
     }
 
     /**
-     * Method to calculate an automatic Gin action in the game, and then updating the scoreboard
+     * Method to calculate an automatic Gin action in the game,
+     * then updating the scoreboard
      */
     public void autoGin() {
         int handValue = 0;
@@ -220,7 +223,8 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
     }
 
     /**
-     * Method to set the players score on the SurfaceView by using the states instance variables
+     * Method to set the players score on the SurfaceView
+     * by using the states instance variables
      */
     public void updateScoreView() {
         scoreView.setPlayer1(Integer.toString(
@@ -231,7 +235,8 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
     }
 
     /**
-     * onClick method to determine what course of action to take based on what is pressed on the GUI     *
+     * onClick method to determine what course of action to take
+     * based on what is pressed on the GUI     *
      * @param view This determines which button or imageview was pressed
      */
     @Override
@@ -460,7 +465,8 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
     }
 
     /**
-     * Method to take in a card and an imageview, and set the appropriate image for said card
+     * Method to take in a card and an imageview,
+     * and set the appropriate image for said card
      *
      * @param card The card object
      * @param cardView The card on the GUI

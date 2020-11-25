@@ -1,20 +1,24 @@
 /**
  * GinRummyMainActivity.java - The main activity for the program, that starts up the program
- *                             and creates the players and the config for the game. Adds the players,
- *                             and creates the local game
+ *                             and creates the players and the config for the game.
+ *                             Adds the players, and creates the local game
  *
  * Status of the game: As of this commit, the game runs one round.
  * In this round, the player can do all necessary actions to complete
- * this round that is in the original Gin Rummy, including drawing
+ * this round that is in the original Gin Rummy, including
  * drawing from discard, discarding cards, grouping cards, knocking,
- * and finally ginning. The bugs are as follows : Grouping the same card twice,
- * and attempting to group a card with itself. The following are what we
+ * and finally ginning.
+ *
+ * The bugs are as follows: Grouping the same card twice,
+ * and attempting to group a card with itself.
+ *
+ * The following are what we
  * need to implement : Correct values for each card, the quit button,
  * multiple rounds, a Smart AI, and a vertical screen layout.
  *
  *
  * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
- * @version 18 Nov 2020
+ * @version 25 Nov 2020
  */
 
 package com.example.ginrummy;
@@ -59,7 +63,8 @@ public class GinRummyMainActivity extends GameMainActivity {
         });
 
         // Create a game configuration class for GinRummy
-        GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "GinRummy", PORT_NUMBER);
+        GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2,
+                "GinRummy", PORT_NUMBER);
 
         // Add the default players
         defaultConfig.addPlayer("Human", 0);

@@ -1,5 +1,6 @@
 /**
- * GinRummyGameState.java - Class that holds all the data for the current state of the game
+ * GinRummyGameState.java - Class that holds all the data for the
+ * current state of the game
  *
  * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
  * @version 25 Nov 2020
@@ -91,7 +92,8 @@ public class GinRummyGameState extends GameState {
     }
 
     /**
-     * Method that creates the draw pile based on the cards that are not currently in the players hand
+     * Method that creates the draw pile based on the cards that are
+     * not currently in the players hand
      *
      * @return The cards left in the draw pile
      */
@@ -113,8 +115,8 @@ public class GinRummyGameState extends GameState {
     }
 
     /**
-     * Method that establishes all 52 cards that are going to be used in the game. This is assigns their value
-     * and the suit that each card is in
+     * Method that establishes all 52 cards that are going to be used in the game.
+     * This is assigns their value and the suit that each card is in
      *
      * @return The entire deck that is going to be used
      */
@@ -313,7 +315,8 @@ public class GinRummyGameState extends GameState {
     }
 
     /**
-     * Setter method to set the value of the card being played || Not changing the value of the card object
+     * Setter method to set the value of the card being played ||
+     * Not changing the value of the card object
      * @param toPlay the value
      */
     public void setToPlay(int toPlay) {
