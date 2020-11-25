@@ -2,7 +2,7 @@
  * ScoreView.java - utilized to display the current score of the game
  *
  * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
- * @version 12 Nov 2020
+ * @version 25 Nov 2020
  */
 package com.example.ginrummy;
 
@@ -40,23 +40,34 @@ public class ScoreView extends FlashSurfaceView {
         player2 = "Player 2 Score: 0";
     }
 
+    /**
+     * Second constructor for the score view that extends from the game framework
+     * @param context
+     */
     public ScoreView(Context context) {
         super(context);
         init();
     }
 
+    /**
+     * Method to set the initial background color
+     */
     private void init() {
         setBackgroundColor(backgroundColor());
     }
 
+    /**
+     * Method that decides what the background color is
+     * @return The background color
+     */
     public int backgroundColor() {
         return Color.BLUE;
     }
 
-    public int foregroundColor() {
-        return Color.YELLOW;
-    }
-
+    /**
+     * Method to set the current state of the game for the ScoreView to reference
+     * @param state The current state of the game
+     */
     public void setState(GinRummyGameState state) {
         this.state = state;
     }
