@@ -1,4 +1,4 @@
-package com.example.ginrummy;
+package com.example.ginrummy.GRActions;
 
 import com.example.game.GameFramework.GamePlayer;
 

@@ -1,18 +1,18 @@
-package com.example.ginrummy;
+package com.example.ginrummy.GRActions;
 
 import com.example.game.GameFramework.GamePlayer;
 
-public class GinRummyDrawAction extends GinRummyMoveAction {
+public class GinRummyGinAction extends GinRummyMoveAction {
     /**
      * constructor for GameAction
      *
      * @param player the player who created the action
      */
-    public GinRummyDrawAction(GamePlayer player) {
+    public GinRummyGinAction(GamePlayer player) {
         super(player);
     }
 
-    public boolean isDraw() {
+    public boolean isGin() {
         return true;
     }
 }

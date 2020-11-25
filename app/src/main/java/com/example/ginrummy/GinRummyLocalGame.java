@@ -5,6 +5,12 @@ import android.util.Log;
 import com.example.game.GameFramework.GamePlayer;
 import com.example.game.GameFramework.LocalGame;
 import com.example.game.GameFramework.actionMessage.GameAction;
+import com.example.ginrummy.GRActions.GinRummyDiscardAction;
+import com.example.ginrummy.GRActions.GinRummyDrawAction;
+import com.example.ginrummy.GRActions.GinRummyDrawDiscardAction;
+import com.example.ginrummy.GRActions.GinRummyGinAction;
+import com.example.ginrummy.GRActions.GinRummyKnockAction;
+import com.example.ginrummy.GRActions.GinRummyMoveAction;
 
 import java.lang.reflect.Array;
 
@@ -111,8 +117,14 @@ public class GinRummyLocalGame extends LocalGame{
                         groupMethod(((GinRummyGroupAction) grma).getGroupTheseCard(),
                                 ((GinRummyGroupAction) grma).getAmountOfCards()));
             } else {
-
+                state.setP2Points(state.getP2Points() +
+                        groupMethod(((GinRummyGroupAction) grma).getGroupTheseCard(),
+                                ((GinRummyGroupAction) grma).getAmountOfCards()));
             }
+
+        } else if (grma instanceof GinRummyGinAction) {
+            
+        } else if (grma instanceof GinRummyKnockAction) {
 
         } else { // some unexpected action
             return false;
@@ -285,7 +297,7 @@ public class GinRummyLocalGame extends LocalGame{
         if (counter + 1 == amountOfCards) {
             counter = 0;
             for (int y = 0; y < amountOfCards - 1; y++ ) {
-                if (cardList[y].getNumber() == cardList[y].getNumber()+1 ) {
+                if (cardList[y].getNumber() == cardList[y+1].getNumber()-1) {
                     counter ++;
                 }
             }

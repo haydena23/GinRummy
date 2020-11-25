@@ -13,6 +13,9 @@ import com.example.game.GameFramework.infoMessage.GameInfo;
 import com.example.game.GameFramework.infoMessage.IllegalMoveInfo;
 import com.example.game.GameFramework.infoMessage.NotYourTurnInfo;
 import com.example.game.GameFramework.utilities.Logger;
+import com.example.ginrummy.GRActions.GinRummyDiscardAction;
+import com.example.ginrummy.GRActions.GinRummyDrawAction;
+import com.example.ginrummy.GRActions.GinRummyDrawDiscardAction;
 
 
 public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
@@ -173,17 +176,19 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                 if (discardOn) {
                     break;
                 }
-                this.groupOn = !this.groupOn;
-                if (groupOn) {
-                    groupButton.setText("Group On");
-                    amountGrouped = 0;
-                } else {
-                    if (amountGrouped > 2) {
-                        game.sendAction(new GinRummyGroupAction
-                                (this, groupedCards, amountGrouped));
+                if (state.getCurrentStage().equals("discardStage")) {
+                    this.groupOn = !this.groupOn;
+                    if (groupOn) {
+                        groupButton.setText("Group On");
+                        amountGrouped = 0;
+                    } else {
+                        if (amountGrouped > 2) {
+                            game.sendAction(new GinRummyGroupAction
+                                    (this, groupedCards, amountGrouped));
+                        }
+                        groupButton.setText("Group Off");
+                        amountGrouped = 0;
                     }
-                    groupButton.setText("Group Off");
-                    amountGrouped = 0;
                 }
                 groupButton.invalidate();
                 break;
