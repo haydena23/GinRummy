@@ -14,8 +14,10 @@ public class GinRummyGameState extends GameState {
     //Depending on which player, the current total of hand will display.
     private int totalOfP1;
     private int P1Points;
+    private int P1ValueOfGrouped;
     private int totalofP2;
     private int P2Points;
+    private int P2ValueOfGrouped;
     private int amountDrawn;
 
     protected int toPlay;
@@ -40,6 +42,9 @@ public class GinRummyGameState extends GameState {
         this.P1Points = 0;
         this.P2Points = 0;
         this.toPlay = 0; // first player gets to start
+
+        this.P1ValueOfGrouped = 0;
+        this.P2ValueOfGrouped = 0;
     }
 
     /**
@@ -246,5 +251,21 @@ public class GinRummyGameState extends GameState {
 
     public void setToPlay(int toPlay) {
         this.toPlay = toPlay;
+    }
+
+    public int getP1ValueOfGrouped() {
+        return P1ValueOfGrouped;
+    }
+
+    public void setP1ValueOfGrouped(int p1ValueOfGrouped) {
+        P1ValueOfGrouped = p1ValueOfGrouped;
+    }
+
+    public int getP2ValueOfGrouped() {
+        return P2ValueOfGrouped;
+    }
+
+    public void setP2ValueOfGrouped(int p2ValueOfGrouped) {
+        P2ValueOfGrouped = p2ValueOfGrouped;
     }
 }
