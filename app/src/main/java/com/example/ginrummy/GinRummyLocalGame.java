@@ -16,6 +16,7 @@ import com.example.game.GameFramework.actionMessage.GameAction;
 import com.example.ginrummy.GRActions.GinRummyDiscardAction;
 import com.example.ginrummy.GRActions.GinRummyDrawAction;
 import com.example.ginrummy.GRActions.GinRummyDrawDiscardAction;
+import com.example.ginrummy.GRActions.GinRummyEndTurnAction;
 import com.example.ginrummy.GRActions.GinRummyGinAction;
 import com.example.ginrummy.GRActions.GinRummyGroupAction;
 import com.example.ginrummy.GRActions.GinRummyKnockAction;
@@ -115,13 +116,11 @@ public class GinRummyLocalGame extends LocalGame{
                 if(state.getToPlay() == 0) {
                     discardCard(state.getPlayer1Cards(),
                             ((GinRummyDiscardAction) grma).getWhichCard());
-                    state.setToPlay(1);
                     sendUpdatedStateTo(players[0]);
 
                 } else { // toPlay == 1
                     discardCard(state.getPlayer2Cards(),
                             ((GinRummyDiscardAction) grma).getWhichCard());
-                    state.setToPlay(0);
                     sendUpdatedStateTo(players[1]);
                 }
             }
@@ -192,6 +191,14 @@ public class GinRummyLocalGame extends LocalGame{
                 state.setP2Points(state.getP2Points() +
                         P1HandValue - P2HandValue);
             }
+        } else if (grma instanceof GinRummyEndTurnAction) {
+            if (state.getToPlay() == 0) {
+                state.setToPlay(1);
+                sendUpdatedStateTo(players[1]);
+            } else {
+                state.setToPlay(0);
+                sendUpdatedStateTo(players[0]);
+            }
         }
         else { // some unexpected action
             return false;
@@ -235,7 +242,15 @@ public class GinRummyLocalGame extends LocalGame{
      */
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
-        p.sendInfo(state);
+        // if there is no state to send, ignore
+        if (state == null) {
+            return;
+        }
+
+        GinRummyGameState stateForPlayer = new GinRummyGameState(state); // copy of state
+
+        // send the modified copy of the state to the player
+        p.sendInfo(stateForPlayer);
     }
 
     /**

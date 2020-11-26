@@ -25,6 +25,7 @@ import com.example.game.GameFramework.utilities.Logger;
 import com.example.ginrummy.GRActions.GinRummyDiscardAction;
 import com.example.ginrummy.GRActions.GinRummyDrawAction;
 import com.example.ginrummy.GRActions.GinRummyDrawDiscardAction;
+import com.example.ginrummy.GRActions.GinRummyEndTurnAction;
 import com.example.ginrummy.GRActions.GinRummyGinAction;
 import com.example.ginrummy.GRActions.GinRummyGroupAction;
 import com.example.ginrummy.GRActions.GinRummyKnockAction;
@@ -296,6 +297,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     discardOn = !discardOn;
                     discardButton.setText("Discard Off");
                     autoGin();
+                    game.sendAction(new GinRummyEndTurnAction(this));
                 }
 
                 if (groupOn) {
@@ -312,6 +314,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     discardOn = !discardOn;
                     discardButton.setText("Discard Off");
                     autoGin();
+                    game.sendAction(new GinRummyEndTurnAction(this));
                 }
 
                 if (groupOn) {
@@ -328,6 +331,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     discardOn = !discardOn;
                     discardButton.setText("Discard Off");
                     autoGin();
+                    game.sendAction(new GinRummyEndTurnAction(this));
                 }
                 if (groupOn) {
                     if(amountGrouped < 11) {
@@ -343,6 +347,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     discardOn = !discardOn;
                     discardButton.setText("Discard Off");
                     autoGin();
+                    game.sendAction(new GinRummyEndTurnAction(this));
                 }
                 if (groupOn) {
                     if(amountGrouped < 11) {
@@ -358,6 +363,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     discardOn = !discardOn;
                     discardButton.setText("Discard Off");
                     autoGin();
+                    game.sendAction(new GinRummyEndTurnAction(this));
                 }
                 if (groupOn) {
                     if(amountGrouped < 11) {
@@ -373,6 +379,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     discardOn = !discardOn;
                     discardButton.setText("Discard Off");
                     autoGin();
+                    game.sendAction(new GinRummyEndTurnAction(this));
                 }
                 if (groupOn) {
                     if(amountGrouped < 11) {
@@ -388,6 +395,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     discardOn = !discardOn;
                     discardButton.setText("Discard Off");
                     autoGin();
+                    game.sendAction(new GinRummyEndTurnAction(this));
                 }
                 if (groupOn) {
                     if(amountGrouped < 11) {
@@ -403,6 +411,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     discardOn = !discardOn;
                     discardButton.setText("Discard Off");
                     autoGin();
+                    game.sendAction(new GinRummyEndTurnAction(this));
                 }
                 if (groupOn) {
                     if(amountGrouped < 11) {
@@ -418,6 +427,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     discardOn = !discardOn;
                     discardButton.setText("Discard Off");
                     autoGin();
+                    game.sendAction(new GinRummyEndTurnAction(this));
                 }
                 if (groupOn) {
                     if(amountGrouped < 11) {
@@ -433,6 +443,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     discardOn = !discardOn;
                     discardButton.setText("Discard Off");
                     autoGin();
+                    game.sendAction(new GinRummyEndTurnAction(this));
                 }
                 if (groupOn) {
                     if(amountGrouped < 11) {
@@ -448,6 +459,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
                     discardOn = !discardOn;
                     discardButton.setText("Discard Off");
                     autoGin();
+                    game.sendAction(new GinRummyEndTurnAction(this));
                 }
                 if (groupOn) {
                     if(amountGrouped < 11) {

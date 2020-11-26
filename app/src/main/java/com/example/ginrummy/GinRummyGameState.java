@@ -56,6 +56,45 @@ public class GinRummyGameState extends GameState {
     }
 
     /**
+     * Deep Copy Constructor for gamestate,
+     * lets us send copies of the actual state
+     */
+    public GinRummyGameState(GinRummyGameState gameState) {
+        if (gameState.toPlay == 0) {
+            this.player1Cards = new Card[11];
+            for (int i = 0; i < gameState.player1Cards.length; i++) {
+                this.player1Cards[i] = new Card(gameState.player1Cards[i].getNumber(),
+                        gameState.player1Cards[i].getSuit());
+                this.player1Cards[i].setIsPaired(
+                        gameState.player1Cards[i].getIsPaired());
+            }
+        } else {
+            this.player2Cards = new Card[11];
+            for (int i = 0; i < gameState.player2Cards.length; i++) {
+                this.player2Cards[i] = new Card(gameState.player2Cards[i].getNumber(),
+                        gameState.player2Cards[i].getSuit());
+                this.player2Cards[i].setIsPaired(
+                        gameState.player2Cards[i].getIsPaired());
+            }
+        }
+        this.drawPile = new Card[32];
+        for (int i = 0; i < gameState.drawPile.length-1; i++) {
+            if (gameState.drawPile[i]!= null) {
+                this.drawPile[i] = new Card(gameState.drawPile[i].getNumber(),
+                        gameState.drawPile[i].getSuit());
+            }
+        }
+        this.currentStage = gameState.getCurrentStage();
+        this.discardedCard = new Card(gameState.discardedCard.getNumber(),
+                gameState.discardedCard.getSuit());
+        this.totalOfP1 = gameState.totalOfP1;
+        this.P1Points = gameState.P1Points;
+        this.P2Points = gameState.P2Points;
+        this.toPlay = gameState.toPlay;
+        this.amountDrawn= gameState.amountDrawn;
+    }
+
+    /**
      * Method that creates a players hand based on the set of 52 cards
      *
      * @return Returns a fully created player value that has 10 random cards
