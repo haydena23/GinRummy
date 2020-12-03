@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -10,26 +11,40 @@
         android:orientation="vertical"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
+        tools:layout_editor_absoluteY="1dp"
+        android:background="@color/black">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/gin_rummy_image" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Welcome to Gin Rummy, the default AI is a dumb AI" />
+            android:layout_height="71dp"
+            android:text=" Welcome to Gin Rummy, the  default AI is a dumb AI"
+            android:textColor="#0E0E0E"
+            android:textColorLink="#151515"
+            android:textSize="24sp" />
 
         <Switch
             android:id="@+id/switchAI"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Smart AI" />
+            android:layout_height="62dp"
+            android:text="Smart AI"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/startButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="422dp"
+            android:layout_height="221dp"
+            android:background="#00FF00"
             android:onClick="onClick"
-            android:text="Start the Game" />
+            android:text="Start the Game"
+            android:textColor="#101010"
+            android:textstyle="bold|italic" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
