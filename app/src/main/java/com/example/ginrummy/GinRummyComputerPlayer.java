@@ -41,6 +41,7 @@ public class GinRummyComputerPlayer extends GameComputerPlayer {
     @Override
     protected void receiveInfo(GameInfo info) {
         if(info instanceof IllegalMoveInfo || info instanceof NotYourTurnInfo) {
+            return;
         }
         else if (!(info instanceof GinRummyGameState)) {
             return;
@@ -62,7 +63,7 @@ public class GinRummyComputerPlayer extends GameComputerPlayer {
                 state.setToPlay(0);
             }
         } else {
-            //if smart
+            // Put Smart AI code in here.
         }
     }
 }

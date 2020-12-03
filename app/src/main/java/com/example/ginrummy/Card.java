@@ -10,11 +10,16 @@ package com.example.ginrummy;
 
 public class Card {
 
-    //instance variables stored for each card
+    //Instance Variables
     private int number;
-    private int position; //this int is used for organizing hand.
+    private int value;
+    private int position;
+
     private String suit;
-    private boolean isPaired; //is grouped
+
+    private boolean isInSet;
+    private boolean isInRun;
+
     private boolean isPossibleSet;
     private boolean isPossibleRun;
 
@@ -26,15 +31,11 @@ public class Card {
      */
     public Card (int number, String suit) {
         this.number = number;
-        this.suit = suit;
-        this.isPaired = false;
-        this.position = number;
-        this.isPossibleSet = false;
-        this.isPossibleRun = false;
 
+        this.value = Math.min(number, 10);
+
+        this.position = number;
         switch (suit) {
-            case "Hearts":
-                break;
             case "Diamonds":
                 position = position + 13;
                 break;
@@ -47,6 +48,13 @@ public class Card {
             default:
                 break;
         }
+
+        this.suit = suit;
+
+        this.isInSet = false;
+        this.isInRun = false;
+        this.isPossibleSet = false;
+        this.isPossibleRun = false;
     }
 
     /**
@@ -79,22 +87,6 @@ public class Card {
      */
     public String getSuit() {
         return this.suit;
-    }
-
-    /**
-     * Getter method on if a card is paired     *
-     * @return whether a given card is paired in a run/set etc.
-     */
-    public boolean getIsPaired() {
-        return this.isPaired;
-    }
-
-    /**
-     * Setter method for the isPaired variable     *
-     * @param isPaired Sets status of isPaired
-     */
-    public void setIsPaired(boolean isPaired) {
-        this.isPaired = isPaired;
     }
 
     /**
@@ -132,4 +124,28 @@ public class Card {
      * @param isPossibleRun
      */
     public void setIsPossibleRun(boolean isPossibleRun) { this.isPossibleRun = isPossibleRun;}
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public boolean getIsInSet() {
+        return isInSet;
+    }
+
+    public void setInSet(boolean inSet) {
+        isInSet = inSet;
+    }
+
+    public boolean getIsInRun() {
+        return isInRun;
+    }
+
+    public void setInRun(boolean inRun) {
+        isInRun = inRun;
+    }
 }

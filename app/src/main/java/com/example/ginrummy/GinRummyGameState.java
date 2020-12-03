@@ -20,15 +20,15 @@ public class GinRummyGameState extends GameState {
     private Card[] drawPile;
     private Card discardedCard;
 
-    //Instance variables for values and such for the player
+    //Instance variables for the players
     private int totalOfP1;
-    private int P1Points;
-    private int P1ValueOfGrouped;
     private int totalofP2;
+    private int P1Points;
     private int P2Points;
+    private int P1ValueOfGrouped;
     private int P2ValueOfGrouped;
-    private int amountDrawn;
 
+    private int amountDrawn;
     protected int toPlay;
 
     private String currentStage;
@@ -37,6 +37,7 @@ public class GinRummyGameState extends GameState {
      * Constructor for the game state, which sets all of the initial variable values
      */
     public GinRummyGameState () {
+        Random random = new Random();
         this.startingDeck = createStartingDeck();
         this.player1Cards = createPlayerHand();
         this.player2Cards = createPlayerHand();
@@ -50,7 +51,7 @@ public class GinRummyGameState extends GameState {
         this.totalofP2 = 0;
         this.P1Points = 0;
         this.P2Points = 0;
-        this.toPlay = 0; // first player gets to start
+        this.toPlay = random.nextInt(2);
 
         this.P1ValueOfGrouped = 0;
         this.P2ValueOfGrouped = 0;
@@ -66,25 +67,31 @@ public class GinRummyGameState extends GameState {
             for (int i = 0; i < gameState.player1Cards.length; i++) {
                 this.player1Cards[i] = new Card(gameState.player1Cards[i].getNumber(),
                         gameState.player1Cards[i].getSuit());
-                this.player1Cards[i].setIsPaired(
-                        gameState.player1Cards[i].getIsPaired());
+                this.player1Cards[i].setInRun(
+                        gameState.player1Cards[i].getIsInRun());
+                this.player1Cards[i].setInSet(
+                        gameState.player1Cards[i].getIsInRun());
             }
         } else {
             this.player2Cards = new Card[11];
             for (int i = 0; i < gameState.player2Cards.length; i++) {
                 this.player2Cards[i] = new Card(gameState.player2Cards[i].getNumber(),
                         gameState.player2Cards[i].getSuit());
-                this.player2Cards[i].setIsPaired(
-                        gameState.player2Cards[i].getIsPaired());
+                this.player2Cards[i].setInRun(
+                        gameState.player2Cards[i].getIsInRun());
+                this.player2Cards[i].setInSet(
+                        gameState.player2Cards[i].getIsInRun());
             }
         }
+
         this.drawPile = new Card[32];
-        for (int i = 0; i < gameState.drawPile.length-1; i++) {
+        for (int i = 0; i < gameState.drawPile.length; i++) {
             if (gameState.drawPile[i]!= null) {
                 this.drawPile[i] = new Card(gameState.drawPile[i].getNumber(),
                         gameState.drawPile[i].getSuit());
             }
         }
+
         this.currentStage = gameState.getCurrentStage();
         this.discardedCard = new Card(gameState.discardedCard.getNumber(),
                 gameState.discardedCard.getSuit());

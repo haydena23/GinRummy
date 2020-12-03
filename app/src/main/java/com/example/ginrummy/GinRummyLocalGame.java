@@ -65,9 +65,8 @@ public class GinRummyLocalGame extends LocalGame{
         }
 
         if (grma instanceof GinRummyDrawAction) {
-
-            if (thisPlayerIdx != state.getToPlay()) {
-                // Attempts to draw when it's the other player's turn
+            if (thisPlayerIdx != state.toPlay) {
+                // attempt to play when it's the other player's turn
                 return false;
             }
 
@@ -79,15 +78,14 @@ public class GinRummyLocalGame extends LocalGame{
             if (state.getAmountDrawn() == 31) {
                 // Attempts to draw when there are no cards left
                 return false;
-            }
-
-            //If it reaches this point, then the player should be able to draw.
-            if(state.getToPlay() == 0) { // Checks if P1
-                Array.set(state.getPlayer1Cards(), 10, drawDraw());
-                sendUpdatedStateTo(players[0]);
-            } else { // If not, it's P2
-                Array.set(state.getPlayer2Cards(), 10, drawDraw());
-                sendUpdatedStateTo(players[1]);
+            } else {
+                if(state.getToPlay() == 0) {
+                    Array.set(state.getPlayer1Cards(), 10, drawDraw());
+                    sendUpdatedStateTo(players[0]);
+                } else { // toPlay == 1
+                    Array.set(state.getPlayer2Cards(), 10, drawDraw());
+                    sendUpdatedStateTo(players[1]);
+                }
             }
 
         } else if (grma instanceof GinRummyDrawDiscardAction) {
@@ -242,8 +240,7 @@ public class GinRummyLocalGame extends LocalGame{
      */
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
-        GinRummyGameState copy = new GinRummyGameState(state);
-        p.sendInfo(copy);
+        p.sendInfo(state);
     }
 
     /**
@@ -345,39 +342,58 @@ public class GinRummyLocalGame extends LocalGame{
     /**
      * Method to group a set of cards together and set whether or not those cards are grouped
      *
-     * @param groupTheseCards The cards selected to check for grouping
-     * @param amountGrouped The value of the cards grouped together
+     * @param cardList The cards selected to check for grouping
+     * @param amountOfCards The value of the cards grouped together
      *
      * @return The value of the grouped cards to subtract from the total player hand total
      */
-    public int groupMethod(Card[] groupTheseCards, int amountGrouped) {
-        int valueGrouped = 0;
-        Card[] updatedCards = new Card[11];
-        boolean dontPut = true;
-        Card currentCard = new Card(100, "trash");
+    public int groupMethod(Card[] cardList, int amountOfCards) {
+        boolean runPossible = canBeInRun(cardList, amountOfCards);
+        boolean setPossible = canBeInSet(cardList, amountOfCards);
 
-        if (isPairable(groupTheseCards, amountGrouped)) {
-            for (int x = 0; x < amountGrouped; x++) {
-                if (!groupTheseCards[x].getIsPaired()) { //if they're not
-                                                         // already paired, count the value.
-                    valueGrouped = valueGrouped + groupTheseCards[x].getNumber();
-                }
-                groupTheseCards[x].setIsPaired(true);
-                updatedCards[x] = groupTheseCards[x];
-            }
-        } else {
+        if (!runPossible && !setPossible) {
             return 0;
         }
 
-        //updating algorithm
+        // Anything beyond this means that the cards being input
+        // Can be put in either a run or a set.
+        int valueGrouped = 0;
+        Card[] updatedCards = new Card[11];
+        boolean dontPut = true;
+
+        // Therefore, we do exactly that. Put them in a group.
         if (state.getToPlay() == 0) {
-            int counter = amountGrouped;
+            if (runPossible) {
+                for (int i = 0; i < amountOfCards; i++) {
+                    if (!cardList[i].getIsInRun()) {
+                        valueGrouped = valueGrouped + cardList[i].getValue();
+                    }
+                    cardList[i].setInRun(true);
+                }
+            }
+
+            if (setPossible) {
+                for (int i = 0; i < amountOfCards; i++) {
+                    if (!cardList[i].getIsInSet()) {
+                        valueGrouped = valueGrouped + cardList[i].getValue();
+                    }
+                    cardList[i].setInSet(true);
+                }
+            }
+
+            for (int x = 0; x < amountOfCards; x++) {
+                updatedCards[x] = cardList[x];
+                valueGrouped = valueGrouped + cardList[x].getValue();
+            }
+
+            int counter = amountOfCards;
 
             for (Card c : state.getPlayer1Cards()) { //
                 dontPut = false;
-                for (int x = 0; x < amountGrouped; x++) {
+                for (int x = 0; x < amountOfCards; x++) {
                     if (c.equals(updatedCards[x])) {
                         dontPut = true;
+                        break;
                     }
                 }
                 if (!dontPut) {
@@ -386,14 +402,16 @@ public class GinRummyLocalGame extends LocalGame{
                 }
             }
             state.setPlayer1Cards(updatedCards);
+
         } else {
-            int counter = amountGrouped;
+            int counter = amountOfCards;
 
             for (Card c : state.getPlayer2Cards()) {
                 dontPut = false;
-                for (int x = 0; x < amountGrouped; x++) {
+                for (int x = 0; x < amountOfCards; x++) {
                     if (c.equals(updatedCards[x])) {
                         dontPut = true;
+                        break;
                     }
                 }
                 if (!dontPut) {
@@ -402,41 +420,48 @@ public class GinRummyLocalGame extends LocalGame{
                 }
             }
             state.setPlayer2Cards(updatedCards);
+
         }
         return valueGrouped;
     }
 
-    /**
-     * Method to check whether or not a set of cards is allowed to be paired, through suits and values
-     *
-     * @param cardList The set of cards that are being checked
-     * @param amountOfCards The number of cards that are being checked
-     *
-     * @return Whether or not that set of cards is allowed to be paired
-     */
-    public boolean isPairable(Card[] cardList, int amountOfCards) {
+    // This checks if sent in cards can be in a set.
+    public boolean canBeInSet(Card[] cardList, int amountOfCards) {
         int counter = 0;
 
         for (int i = 0; i < amountOfCards - 1; i++) {
-            if (cardList[i].getNumber()==cardList[i+1].getNumber()) { //Checks if
-                                                                      // they're the same number
-                counter++;
-            } else { //
-                counter = 0;
-                break;
-            }
-        }
-        if (counter + 1 == amountOfCards) {
-            return true;
-        }
-
-        for (int x = 0; x < amountOfCards - 1; x++) {
-            if (cardList[x].getSuit().equals(cardList[x+1].getSuit())) { //Checks if they're
-                                                                         // all the same suit.
+            if (cardList[i].getNumber()==cardList[i+1].getNumber()) {
+                // Checks if they're the same number
                 counter++;
             } else {
-                counter = 0;
-                break;
+                for (int x = 0; i < amountOfCards; i++) {
+                    cardList[x].setIsPossibleSet(true);
+                }
+                return false;
+            }
+        }
+        if (counter + 1 == amountOfCards) { // This means they are all the same number
+            for (int i = 0; i < amountOfCards; i++) {
+                if (cardList[i].getIsInRun()) {
+                    // If any of the cards are in a run, return false.
+                    return false;
+                }
+            }
+            //It will only reach this far if each card is the same number AND none of them are in a run.
+            return true;
+        }
+        return false;
+    }
+
+    // This checks if the cards sent in can be in a Run
+    public boolean canBeInRun(Card[] cardList, int amountOfCards) {
+        int counter = 0;
+
+        for (int x = 0; x < amountOfCards - 1; x++) {
+            if (cardList[x].getSuit().equals(cardList[x+1].getSuit())) { //Checks if they're all the same suit.
+                counter++;
+            } else {
+                return false;
             }
         }
         if (counter + 1 == amountOfCards) {
@@ -447,6 +472,9 @@ public class GinRummyLocalGame extends LocalGame{
                 }
             }
             if (counter + 1 == amountOfCards) {
+                for (int i = 0; i < amountOfCards; i++) {
+                    cardList[i].setIsPossibleRun(true);
+                }
                 return true;
             }
         }
