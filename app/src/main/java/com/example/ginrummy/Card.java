@@ -3,7 +3,7 @@
  * of a card that is relevant in Gin Rummy
  *
  * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
- * @version 12 Nov 2020
+ * @version 25 Nov 2020
  */
 
 package com.example.ginrummy;

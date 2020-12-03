@@ -2,7 +2,7 @@
  * GinRummyComputerPlayer.java - utilized to display the current score of the game
  *
  * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
- * @version 24 Nov 2020
+ * @version 25 Nov 2020
  */
 
 package com.example.ginrummy;
@@ -34,7 +34,8 @@ public class GinRummyComputerPlayer extends GameComputerPlayer {
     }
 
     /**
-     * Determine what sort of info is received, and provide an error and flash the screen if said info is not currently allowed
+     * Determine what sort of info is received, and provide an error and flash the screen
+     * if said info is not currently allowed
      * @param info
      */
     @Override

@@ -1,5 +1,6 @@
 /**
- * GinRummySmartAI - Class for the SmartAI in the game, which contains a more complex algorithm for the AI to play by
+ * GinRummySmartAI - Class for the SmartAI in the game, which contains
+ * a more complex algorithm for the AI to play by
  *
  * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
  * @version 25 Nov 2020
@@ -193,7 +194,8 @@ public class GinRummySmartAI extends GameComputerPlayer {
     }
 
     /**
-     * Receive info from the GameState, and set the card checker based on the game state Player2Cards
+     * Receive info from the GameState, and set the card checker
+     * based on the game state Player2Cards
      * @param info
      */
     @Override

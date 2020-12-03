@@ -1,3 +1,12 @@
+/**
+ * GinRummyLocalGame.java - Class extended from the game framework that
+ * creates a local game to allow the state
+ * to be built and the game to be played.
+ *
+ * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
+ * @version 25 Nov 2020
+ */
+
 package com.example.ginrummy;
 
 import android.util.Log;
@@ -18,10 +27,11 @@ import java.lang.reflect.Array;
 
 public class GinRummyLocalGame extends LocalGame{
 
+    //Instance variable
     GinRummyGameState state;
 
     /**
-     * Constructor for the SJLocalGame.
+     * Constructor for the GinRummyLocalGame class
      */
     public GinRummyLocalGame() {
         Log.i("GinRummyLocalGame", "creating game");
@@ -31,12 +41,10 @@ public class GinRummyLocalGame extends LocalGame{
     }
 
     /**
-     * makes a move on behalf of a player
+     * Makes a move on behalf of a player
      *
-     * @param action
-     * 		the action denoting the move to be made
-     * @return
-     * 		true if the move was legal; false otherwise
+     * @param action the action denoting the move to be made
+     * @return true if the move was legal; false otherwise
      */
     @Override
     protected boolean makeMove(GameAction action) {
@@ -200,6 +208,10 @@ public class GinRummyLocalGame extends LocalGame{
         return true;
     }
 
+    /**
+     * Method to calculate the value of Player1Hand
+     * @return Integer of the player hand
+     */
     public int getP1HandValue() {
         int P1HandValue = 0;
         for (Card c : state.getPlayer1Cards()) {
@@ -210,6 +222,10 @@ public class GinRummyLocalGame extends LocalGame{
         return P1HandValue;
     }
 
+    /**
+     * Method to calculate the value of Player2Hand
+     * @return Integer of the player 2 hand
+     */
     public int getP2HandValue() {
         int P2HandValue = 0;
         for (Card c : state.getPlayer2Cards()) {
@@ -220,12 +236,23 @@ public class GinRummyLocalGame extends LocalGame{
         return P2HandValue;
     }
 
+    /**
+     * Sends the new updated state to a player based on who made an action
+     * @param p The player to send the info to
+     */
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
         GinRummyGameState copy = new GinRummyGameState(state);
         p.sendInfo(copy);
     }
 
+    /**
+     * Method to check on whether or not the player is allowed to make a move
+     *
+     * @param playerIdx the player's player-number (ID)
+     *
+     * @return Whether or not the player can move
+     */
     @Override
     protected boolean canMove(int playerIdx) {
         if (playerIdx < 0 || playerIdx > 1) {
@@ -233,23 +260,30 @@ public class GinRummyLocalGame extends LocalGame{
             return false;
         }
         else {
-            // player can move if it's their turn, or if the middle deck is non-empty
-            // so they can slap
+            // player can move if it's their turn
             return state.getAmountDrawn() < 31 && state.getToPlay() == playerIdx;
         }
     }
 
+    /**
+     * Method to check if the game is over
+     * @return Who won the game
+     */
     @Override
     protected String checkIfGameOver() {
         if (state.getP1Points() > 0) {
-            return "Game Over, P1 has won! ";
+            return "Game Over, Player 1 has won! ";
         }
         if (state.getP2Points() > 0) {
-            return "Game Over, P2 has won! ";
+            return "Game Over, Player 2 has won! ";
         }
         return null;
     }
 
+    /**
+     * Method for a player to draw a card from the draw pile
+     * @return The card that the player drew
+     */
     public Card drawDraw() {
         if (state.getAmountDrawn() > 31) {
             return null;
@@ -267,7 +301,8 @@ public class GinRummyLocalGame extends LocalGame{
     }
 
     /**
-     * Method for drawing the discarded card
+     * Method for a player to draw a card from the discard pile
+     * @return The card that the player drew
      */
     public Card drawDiscard() {
         if (state.getCurrentStage().equals("drawingStage")) {
@@ -284,6 +319,7 @@ public class GinRummyLocalGame extends LocalGame{
      * Method for discarding a card from your hand
      *
      * @param cardPile Array containing user's hand
+     *
      * @param toRemove Card selected in cardPile by position
      *                 subject to be removed
      */
@@ -306,6 +342,14 @@ public class GinRummyLocalGame extends LocalGame{
         return cardPile;
     }
 
+    /**
+     * Method to group a set of cards together and set whether or not those cards are grouped
+     *
+     * @param groupTheseCards The cards selected to check for grouping
+     * @param amountGrouped The value of the cards grouped together
+     *
+     * @return The value of the grouped cards to subtract from the total player hand total
+     */
     public int groupMethod(Card[] groupTheseCards, int amountGrouped) {
         int valueGrouped = 0;
         Card[] updatedCards = new Card[11];
@@ -314,7 +358,8 @@ public class GinRummyLocalGame extends LocalGame{
 
         if (isPairable(groupTheseCards, amountGrouped)) {
             for (int x = 0; x < amountGrouped; x++) {
-                if (!groupTheseCards[x].getIsPaired()) { //if they're not already paired, count the value.
+                if (!groupTheseCards[x].getIsPaired()) { //if they're not
+                                                         // already paired, count the value.
                     valueGrouped = valueGrouped + groupTheseCards[x].getNumber();
                 }
                 groupTheseCards[x].setIsPaired(true);
@@ -361,11 +406,20 @@ public class GinRummyLocalGame extends LocalGame{
         return valueGrouped;
     }
 
+    /**
+     * Method to check whether or not a set of cards is allowed to be paired, through suits and values
+     *
+     * @param cardList The set of cards that are being checked
+     * @param amountOfCards The number of cards that are being checked
+     *
+     * @return Whether or not that set of cards is allowed to be paired
+     */
     public boolean isPairable(Card[] cardList, int amountOfCards) {
         int counter = 0;
 
         for (int i = 0; i < amountOfCards - 1; i++) {
-            if (cardList[i].getNumber()==cardList[i+1].getNumber()) { //Checks if they're the same number
+            if (cardList[i].getNumber()==cardList[i+1].getNumber()) { //Checks if
+                                                                      // they're the same number
                 counter++;
             } else { //
                 counter = 0;
@@ -377,7 +431,8 @@ public class GinRummyLocalGame extends LocalGame{
         }
 
         for (int x = 0; x < amountOfCards - 1; x++) {
-            if (cardList[x].getSuit().equals(cardList[x+1].getSuit())) { //Checks if they're all the same suit.
+            if (cardList[x].getSuit().equals(cardList[x+1].getSuit())) { //Checks if they're
+                                                                         // all the same suit.
                 counter++;
             } else {
                 counter = 0;
