@@ -60,7 +60,7 @@ public class GinRummyGameState extends GameState {
      * lets us send copies of the actual state
      */
     public GinRummyGameState(GinRummyGameState gameState) {
-        if (gameState.toPlay == 0) {
+        if (gameState.getToPlay() == 0) {
             this.player1Cards = new Card[11];
             for (int i = 0; i < gameState.player1Cards.length; i++) {
                 this.player1Cards[i] = new Card(gameState.player1Cards[i].getNumber(),
