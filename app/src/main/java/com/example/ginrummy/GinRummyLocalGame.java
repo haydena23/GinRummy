@@ -65,25 +65,31 @@ public class GinRummyLocalGame extends LocalGame{
         }
 
         if (grma instanceof GinRummyDrawAction) {
-            if (thisPlayerIdx != state.toPlay) {
-                // attempt to play when it's the other player's turn
+
+            if (thisPlayerIdx != state.getToPlay()) {
+                // Attempts to draw when it's the other player's turn
                 return false;
             }
+
             if (!(state.getCurrentStage().equals("drawingStage"))) {
+                // Attempts to draw when they've already drawn
                 return false;
             }
+
             if (state.getAmountDrawn() == 31) {
-                // empty deck: return false, as move is illegal
+                // Attempts to draw when there are no cards left
                 return false;
-            } else {
-                if(state.getToPlay() == 0) {
-                    Array.set(state.getPlayer1Cards(), 10, drawDraw());
-                    sendUpdatedStateTo(players[0]);
-                } else { // toPlay == 1
-                    Array.set(state.getPlayer2Cards(), 10, drawDraw());
-                    sendUpdatedStateTo(players[1]);
-                }
             }
+
+            //If it reaches this point, then the player should be able to draw.
+            if(state.getToPlay() == 0) { // Checks if P1
+                Array.set(state.getPlayer1Cards(), 10, drawDraw());
+                sendUpdatedStateTo(players[0]);
+            } else { // If not, it's P2
+                Array.set(state.getPlayer2Cards(), 10, drawDraw());
+                sendUpdatedStateTo(players[1]);
+            }
+
         } else if (grma instanceof GinRummyDrawDiscardAction) {
             if (thisPlayerIdx != state.toPlay) {
                 // attempt to play when it's the other player's turn
@@ -236,7 +242,8 @@ public class GinRummyLocalGame extends LocalGame{
      */
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
-        p.sendInfo(state);
+        GinRummyGameState copy = new GinRummyGameState(state);
+        p.sendInfo(copy);
     }
 
     /**
