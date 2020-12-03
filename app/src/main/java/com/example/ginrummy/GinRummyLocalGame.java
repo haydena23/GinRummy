@@ -350,18 +350,16 @@ public class GinRummyLocalGame extends LocalGame{
 
     /**
      * Method for discarding a card from your hand
-     *
-     * @param cardPile Array containing user's hand
+     *  @param cardPile Array containing user's hand
      *
      * @param toRemove Card selected in cardPile by position
-     *                 subject to be removed
      */
-    public Card[] discardCard(Card[] cardPile, int toRemove) {
+    public void discardCard(Card[] cardPile, int toRemove) {
         if(toRemove == 10) {
             state.setDiscardedCard(cardPile[10]);
             state.setCurrentStage("drawingStage");
             cardPile[10] = new Card (100, "Trash");
-            return cardPile;
+            return;
         }
 
         state.setDiscardedCard(cardPile[toRemove]);
@@ -372,7 +370,6 @@ public class GinRummyLocalGame extends LocalGame{
 
         cardPile[10] = new Card(100, "Trash");
         state.setCurrentStage("drawingStage");
-        return cardPile;
     }
 
     /**
