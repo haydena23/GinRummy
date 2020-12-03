@@ -187,7 +187,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
         int handValue = 0;
         for (Card c : state.getPlayer1Cards()) {
             if (!(c.getSuit().equals("Trash"))) {
-                handValue = handValue + c.getNumber();
+                handValue = handValue + c.getValue();
             }
         }
         if (handValue - state.getP1ValueOfGrouped() == 0) {
