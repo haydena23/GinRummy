@@ -436,7 +436,7 @@ public class GinRummyLocalGame extends LocalGame{
                 dontPut = false;
                 for (int x = 0; x < amountOfCards; x++) {
                     // If a card already exists in updated cards, don't put it in.
-                    if (c.equals(updatedCards[x])) {
+                    if (c.getPosition() == updatedCards[x].getPosition()) {
                         dontPut = true;
                         break;
                     }

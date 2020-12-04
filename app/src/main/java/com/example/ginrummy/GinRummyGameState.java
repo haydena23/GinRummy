@@ -70,7 +70,7 @@ public class GinRummyGameState extends GameState {
                 this.player1Cards[i].setInRun(
                         gameState.player1Cards[i].getIsInRun());
                 this.player1Cards[i].setInSet(
-                        gameState.player1Cards[i].getIsInRun());
+                        gameState.player1Cards[i].getIsInSet());
             }
         } else {
             this.player2Cards = new Card[11];
@@ -80,7 +80,7 @@ public class GinRummyGameState extends GameState {
                 this.player2Cards[i].setInRun(
                         gameState.player2Cards[i].getIsInRun());
                 this.player2Cards[i].setInSet(
-                        gameState.player2Cards[i].getIsInRun());
+                        gameState.player2Cards[i].getIsInSet());
             }
         }
 
