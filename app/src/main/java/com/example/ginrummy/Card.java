@@ -1,6 +1,8 @@
 /**
- * Card.java - utilized to describe necessary attributes and operations
- * of a card that is relevant in Gin Rummy
+ * Card.java - A class that is used to simulate cards
+ *
+ * Most of the methods here were used for error checking / debugging.
+ * As such, some of them are unused.
  *
  * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
  * @version 25 Nov 2020
@@ -9,22 +11,25 @@
 package com.example.ginrummy;
 
 public class Card {
-
     //Instance Variables
-    private int number;
     private int value;
-    private int position;
-
+    private int number;
     private String suit;
 
+    // Position is used for sorting the cards
+    // and checking if cards are the same suit and number
+    private int position;
+
+    // Boolean to see if a card is grouped in a set or a run
     private boolean isInSet;
     private boolean isInRun;
 
+    // Variables used by the smartAI to determine which card to discard
     private boolean isPossibleSet;
     private boolean isPossibleRun;
 
     /**
-     * constructor for objects of  card class
+     * Constructor that makes a card with the given number and suit
      *
      * @param number number value of a card
      * @param suit suit value of a card
@@ -34,6 +39,8 @@ public class Card {
 
         this.value = Math.min(number, 10);
 
+        //This calculates the position of the card if it's in a sorted deck.
+        //1-13 is Diamonds, 14-26 is Spades, etc.
         this.position = number;
         switch (suit) {
             case "Diamonds":
@@ -57,95 +64,31 @@ public class Card {
         this.isPossibleRun = false;
     }
 
-    /**
-     * Getter method to get the value of a card     *
-     * @return The value of the card, 1-13
-     */
-    public int getNumber() {
-        return this.number;
-        }
+    // Getters and Setters are below, self explanatory.
+    // Methods to set the values, and return the values, of instance variables.
+    public int getNumber() { return this.number; }
+    public void setNumber(int number) { this.number = number; }
 
-    /**
-     * Method to manually set a card. Only used in testing     *
-     * @param number Value of card to set
-     */
-    public void setNumber(int number) {
-        this.number = number;
-    }
+    public void setSuit(String suit) { this.suit = suit; }
+    public String getSuit() { return this.suit; }
 
-    /**
-     * Method to manually set a card suit. Only used in testing     *
-     * @param suit String for suit of the card
-     */
-    public void setSuit(String suit) {
-        this.suit = suit;
-    }
-
-    /**
-     * Getter method to get the suit of a card     *
-     * @return The suit of the card
-     */
-    public String getSuit() {
-        return this.suit;
-    }
-
-    /**
-     * Getter method to return the position of a card     *
-     * @return an X value position of the card in the hand
-     */
     public int getPosition() { return this.position; }
-
-    /**
-     * Setter method to set the position of a card in the hand     *
-     * @param position
-     */
     public void setPosition(int position) { this.position = position; }
 
-    /**
-     *  Getter method to say if a card is part of a possible set
-     * @return boolean
-     */
     public boolean getIsPossibleSet() { return this.isPossibleSet; }
+    public void setIsPossibleSet(boolean isPossibleSet) {
+        this.isPossibleSet = isPossibleSet; }
 
-    /**
-     * Setter method to set if this card is part of a possible set
-     * @param isPossibleSet
-     */
-    public void setIsPossibleSet(boolean isPossibleSet) { this.isPossibleSet = isPossibleSet; }
-
-    /**
-     * Getter method on if the this card is a possible run
-     * @return boolean
-     */
     public boolean getIsPossibleRun() { return this.isPossibleRun; }
+    public void setIsPossibleRun(boolean isPossibleRun) {
+        this.isPossibleRun = isPossibleRun; }
 
-    /**
-     * Setter method to set if this card is part of a possible set
-     * @param isPossibleRun
-     */
-    public void setIsPossibleRun(boolean isPossibleRun) { this.isPossibleRun = isPossibleRun;}
+    public int getValue() { return value; }
+    public void setValue(int value) { this.value = value; }
 
-    public int getValue() {
-        return value;
-    }
+    public boolean getIsInSet() { return isInSet; }
+    public void setInSet(boolean inSet) { isInSet = inSet; }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
-
-    public boolean getIsInSet() {
-        return isInSet;
-    }
-
-    public void setInSet(boolean inSet) {
-        isInSet = inSet;
-    }
-
-    public boolean getIsInRun() {
-        return isInRun;
-    }
-
-    public void setInRun(boolean inRun) {
-        isInRun = inRun;
-    }
+    public boolean getIsInRun() { return isInRun; }
+    public void setInRun(boolean inRun) { isInRun = inRun; }
 }

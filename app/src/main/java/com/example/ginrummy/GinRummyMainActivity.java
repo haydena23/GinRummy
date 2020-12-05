@@ -16,6 +16,10 @@
  * need to implement : Correct values for each card, the quit button,
  * multiple rounds, a Smart AI, and a vertical screen layout.
  *
+ * For the playerTypes.add(new GamePlayerType(_______)) I can't
+ * use capital letters because of a resource error. This is an unknown bug
+ * that we couldn't figure out
+ *
  *
  * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
  * @version 25 Nov 2020

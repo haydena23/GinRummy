@@ -1,5 +1,6 @@
 /**
- * GinRummyComputerPlayer.java - utilized to display the current score of the game
+ * GinRummyComputerPlayer.java - A type of Player which contains the
+ * methods that the AI will use depending if it's smart or dumb.
  *
  * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
  * @version 25 Nov 2020
@@ -25,7 +26,7 @@ public class GinRummyComputerPlayer extends GameComputerPlayer {
     /**
      * Constructor for the GinRummyComputerPlayer extending from the game framework
      *
-     * @param name the player's name (e.g., "John")
+     * @param name the given AI name (e.g., "John")
      * @param isSmart Whether or not the AI is going to be smart or not
      */
     public GinRummyComputerPlayer(String name, boolean isSmart) {
@@ -34,8 +35,10 @@ public class GinRummyComputerPlayer extends GameComputerPlayer {
     }
 
     /**
-     * Determine what sort of info is received, and provide an error and flash the screen
-     * if said info is not currently allowed
+     * This is the method called when the Local Game sends information
+     * to the Computer Player. This determines if the right
+     * info was called, and if so, chooses an action to take based on
+     * if the AI was smart or dumb.
      * @param info
      */
     @Override
