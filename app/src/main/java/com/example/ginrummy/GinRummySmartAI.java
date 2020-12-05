@@ -14,6 +14,7 @@ import com.example.game.GameFramework.infoMessage.GameInfo;
 public class GinRummySmartAI extends GameComputerPlayer {
     //Instance variables
     GinRummyGameState state;
+    GinRummyLocalGame decide;
     private Card[] cardChecker;
 
     /**
@@ -193,6 +194,30 @@ public class GinRummySmartAI extends GameComputerPlayer {
         }
     }
 
+    public void loopPossibleRun(Card card1) {
+        for (int i = 0; i < cardChecker.length; i++) {
+            identifyPossibleRun(card1, cardChecker[i]);
+        }
+    }
+
+    public void loopPossibleSet(Card card1) {
+        for (int i = 0; i < cardChecker.length; i++) {
+            identifyPossibleSet(card1, cardChecker[i]);
+        }
+    }
+
+    public void discardOrDrawPile(Card cardTester, Card card1, Card card2) {
+        cardTester = state.getDiscardedCard();
+        loopPossibleRun(cardTester);
+        loopPossibleSet(cardTester);
+        if (cardTester.getIsPossibleRun() == true ||
+                cardTester.getIsPossibleSet() == true) {
+            decide.drawDiscard();
+        }
+        else {
+            decide.drawDraw();
+        }
+    }
     /**
      * Receive info from the GameState, and set the card checker
      * based on the game state Player2Cards
