@@ -13,14 +13,14 @@ import com.example.game.GameFramework.infoMessage.GameState;
 import java.util.Random;
 
 public class GinRummyGameState extends GameState {
-    //Instance variables for the cards
+    // Instance variables that uses the Card Class
     private Card[] startingDeck;
     private Card[] player1Cards;
     private Card[] player2Cards;
     private Card[] drawPile;
     private Card discardedCard;
 
-    //Instance variables for the players
+    // Instance variables for the players
     private int totalOfP1;
     private int totalofP2;
     private int P1Points;
@@ -28,13 +28,15 @@ public class GinRummyGameState extends GameState {
     private int P1ValueOfGrouped;
     private int P2ValueOfGrouped;
 
+    // Important GameState information
     private int amountDrawn;
     protected int toPlay;
-
     private String currentStage;
 
     /**
      * Constructor for the game state, which sets all of the initial variable values
+     * This calls methods defined below that randomly decides the drawPile, both
+     * player hands, and the discarded card.
      */
     public GinRummyGameState () {
         Random random = new Random();
@@ -51,6 +53,8 @@ public class GinRummyGameState extends GameState {
         this.totalofP2 = 0;
         this.P1Points = 0;
         this.P2Points = 0;
+
+        //This randomly decides who starts
         this.toPlay = random.nextInt(2);
 
         this.P1ValueOfGrouped = 0;
@@ -58,10 +62,12 @@ public class GinRummyGameState extends GameState {
     }
 
     /**
-     * Deep Copy Constructor for gamestate,
+     * Deep Copy Constructor for gamestate, which
      * lets us send copies of the actual state
      */
     public GinRummyGameState(GinRummyGameState gameState) {
+        // This copies the specific player's turn's hand correctly
+        // (By creating new card instances)
         if (gameState.getToPlay() == 0) {
             this.player1Cards = new Card[11];
             for (int i = 0; i < gameState.player1Cards.length; i++) {
@@ -84,6 +90,7 @@ public class GinRummyGameState extends GameState {
             }
         }
 
+        // This copies the current drawPile correctly by creating new Cards.
         this.drawPile = new Card[32];
         for (int i = 0; i < gameState.drawPile.length; i++) {
             if (gameState.drawPile[i]!= null) {
@@ -92,6 +99,7 @@ public class GinRummyGameState extends GameState {
             }
         }
 
+        // The rest doesn't need to create new instances of the card class.
         this.currentStage = gameState.getCurrentStage();
         this.discardedCard = new Card(gameState.discardedCard.getNumber(),
                 gameState.discardedCard.getSuit());
@@ -103,7 +111,7 @@ public class GinRummyGameState extends GameState {
     }
 
     /**
-     * Method that creates a players hand based on the set of 52 cards
+     * Method that creates a players hand based on the initial 52 cards
      *
      * @return Returns a fully created player value that has 10 random cards
      */
@@ -112,6 +120,9 @@ public class GinRummyGameState extends GameState {
         Card[] returnThis = new Card[11];
         int handCount = 0;
 
+        // Since we didn't use a listArray, there are null values.
+        // Due to this, we need to use a while loop which checks if a
+        // randomly "drawn" card is null or not.
         while (handCount < 10) {
             int getThisCard = random.nextInt(52);
             if (this.startingDeck[getThisCard] != null) {
@@ -120,14 +131,16 @@ public class GinRummyGameState extends GameState {
                 handCount++;
             }
         }
+
+        // Instead of a null card, we used a 100 Trash card to prevent errors.
         returnThis[10] = new Card(100, "Trash") ;
         return returnThis;
     }
 
     /**
-     * Method that creates the discard pile
+     * Returns a randomly chosen card for the discard pile.
      *
-     * @return The cards that are to be in the discard pile
+     * @return the randomly chosen card.
      */
     public Card createDiscardPile() {
         Card returnMe = new Card(this.drawPile[31].getNumber(),
@@ -138,10 +151,10 @@ public class GinRummyGameState extends GameState {
     }
 
     /**
-     * Method that creates the draw pile based on the cards that are
-     * not currently in the players hand
+     * Method that takes the remaining cards (after the player hands)
+     * and returns it
      *
-     * @return The cards left in the draw pile
+     * @return an array of cards to be used for the draw pile.
      */
     public Card[] createDrawPile() {
         Random random = new Random();
@@ -161,10 +174,9 @@ public class GinRummyGameState extends GameState {
     }
 
     /**
-     * Method that establishes all 52 cards that are going to be used in the game.
-     * This is assigns their value and the suit that each card is in
+     * Method that recreates a standard deck of cards to be used.
      *
-     * @return The entire deck that is going to be used
+     * @return an array of 52 cards.
      */
     public Card[] createStartingDeck() {
         Card[] startingDeck = new Card[52];
@@ -232,172 +244,77 @@ public class GinRummyGameState extends GameState {
         return startingDeck;
     }
 
-    /**
-     * Getter method to get the cards that are currently in player 1's hand     *
-     * @return The cards in P1 hand
-     */
+    // Getters and Setters methods for the instance variables
+    // Which sets and returns values for the variables.
     public Card[] getPlayer1Cards() {
         return player1Cards;
     }
-
-    /**
-     * Setter method that sets player1Hand based on an ArrayList of cards
-     * @param player1Cards the cards to set the hand with
-     */
     public void setPlayer1Cards(Card[] player1Cards) {
         this.player1Cards = player1Cards;
     }
 
-    /**
-     * Getter method to get the cards that are currently in the player 2's hand     *
-     * @return The cards in P2 hand
-     */
     public Card[] getPlayer2Cards() {
         return player2Cards;
     }
-
-    /**
-     * Setter method that sets player2Hand based on an ArrayList of cards
-     * @param player2Cards the cards to set the hand with
-     */
     public void setPlayer2Cards(Card[] player2Cards) {
         this.player2Cards = player2Cards;
     }
 
-    /**
-     * Method to get the card that is currently being discarded
-     * @return the card being discarded
-     */
     public Card getDiscardedCard() {
         return discardedCard;
     }
-
-    /**
-     * Method to set which card is going to be discarded
-     * @param discardedCard The card to be discarded
-     */
     public void setDiscardedCard(Card discardedCard) {
-        this.discardedCard = discardedCard;
-    }
+        this.discardedCard = discardedCard; }
 
-    /**
-     * Getter method to return the value of the total of Player 1's points
-     * @return Value of P1 points as an integer
-     */
     public int getP1Points() {
         return P1Points;
     }
-
-    /**
-     * Setter method to set the value of P1's points
-     * @param p1Points What value to set the points to
-     */
     public void setP1Points(int p1Points) {
         P1Points = p1Points;
     }
 
-    /**
-     * Getter method to return the value of the total of Player 2's points
-     * @return Value of P2 points as an integer
-     */
     public int getP2Points() {
         return P2Points;
     }
-
-    /**
-     * Setter method to set the value of P2's points
-     * @param p2Points What value to set the points to
-     */
     public void setP2Points(int p2Points) {
         P2Points = p2Points;
     }
 
-    /**
-     * Getter method to get the number of cards that have been drawn
-     * @return How many cards have been drawn
-     */
     public int getAmountDrawn() {
         return amountDrawn;
     }
-
-    /**
-     * Setter method to set the total amount of cards drawn
-     * @param amountDrawn How many cards have been drawn
-     */
     public void setAmountDrawn(int amountDrawn) {
         this.amountDrawn = amountDrawn;
     }
 
-    /**
-     * Getter method to determine at what stage the turn is at
-     * @return The stage of the turn
-     */
     public String getCurrentStage() {
         return currentStage;
     }
-
-    /**
-     * Setter method to set which stage the turn is at
-     * @param currentStage The stage of the turn
-     */
     public void setCurrentStage(String currentStage) {
         this.currentStage = currentStage;
     }
 
-    /**
-     * Getter method to get the ArrayList of cards that are currently in the drawPile
-     * @return The cards in the drawPile
-     */
+    //No setDrawPile method
     public Card[] getDrawPile() {
         return drawPile;
     }
 
-    /**
-     * Getter method to get the value of the card being played
-     * @return The value
-     */
     public int getToPlay() {
         return toPlay;
     }
-
-    /**
-     * Setter method to set the value of the card being played ||
-     * Not changing the value of the card object
-     * @param toPlay the value
-     */
     public void setToPlay(int toPlay) {
         this.toPlay = toPlay;
     }
 
-    /**
-     * Getter method of the total value of a set group of cards for player 1
-     * @return The value of a group of cards
-     */
     public int getP1ValueOfGrouped() {
         return P1ValueOfGrouped;
     }
-
-    /**
-     * Setter method to set the value of a group of cards for player 1
-     * @param p1ValueOfGrouped The value of the group of cards
-     */
     public void setP1ValueOfGrouped(int p1ValueOfGrouped) {
-        P1ValueOfGrouped = p1ValueOfGrouped;
-    }
+        P1ValueOfGrouped = p1ValueOfGrouped; }
 
-    /**
-     * Getter method of the total value of a set group of cards for player 2
-     * @return The value of a group of cards
-     */
     public int getP2ValueOfGrouped() {
         return P2ValueOfGrouped;
     }
-
-    /**
-     * Setter method to set the value of a group of cards for player 2
-     * @param p2ValueOfGrouped The value of the group of cards
-     */
     public void setP2ValueOfGrouped(int p2ValueOfGrouped) {
-        P2ValueOfGrouped = p2ValueOfGrouped;
-    }
+        P2ValueOfGrouped = p2ValueOfGrouped; }
 }
