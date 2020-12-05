@@ -120,6 +120,7 @@ public class GinRummyLocalGame extends LocalGame{
 
             //This is if the action was a discard action.
         } else if (grma instanceof GinRummyDiscardAction) {
+            Card attemptOnThis;
             // Similar checks to all of the other actions. Checks if it was the right
             // player, and checks if they should be discarding.
             if (thisPlayerIdx != state.toPlay) {
@@ -129,21 +130,27 @@ public class GinRummyLocalGame extends LocalGame{
             if (!(state.getCurrentStage().equals("discardStage"))) {
                 return false;
             }
-            else {
-                if(state.getToPlay() == 0) {
-                    discardCard(state.getPlayer1Cards(),
-                            ((GinRummyDiscardAction) grma).getWhichCard());
-                    // Since discarding ends your turn, it switches the toPlay value.
-                    state.setToPlay(1);
-                    sendUpdatedStateTo(players[0]);
+            if (state.getToPlay() == 0) {
+                attemptOnThis = (Card)Array.get(state.getPlayer1Cards(),((GinRummyDiscardAction) grma).getWhichCard());
+            } else {
+                attemptOnThis = (Card)Array.get(state.getPlayer2Cards(),((GinRummyDiscardAction) grma).getWhichCard());
+            }
+            if (attemptOnThis.getIsInSet() || attemptOnThis.getIsInRun()) {
+                return false;
+            }
+            if(state.getToPlay() == 0) {
+                discardCard(state.getPlayer1Cards(),
+                        ((GinRummyDiscardAction) grma).getWhichCard());
+                // Since discarding ends your turn, it switches the toPlay value.
+                state.setToPlay(1);
+                sendUpdatedStateTo(players[0]);
 
-                } else { // toPlay == 1
-                    discardCard(state.getPlayer2Cards(),
-                            ((GinRummyDiscardAction) grma).getWhichCard());
-                    // Since discarding ends your turn, it switches the toPlay value.
-                    state.setToPlay(0);
-                    sendUpdatedStateTo(players[1]);
-                }
+            } else { // toPlay == 1
+                discardCard(state.getPlayer2Cards(),
+                        ((GinRummyDiscardAction) grma).getWhichCard());
+                // Since discarding ends your turn, it switches the toPlay value.
+                state.setToPlay(0);
+                sendUpdatedStateTo(players[1]);
             }
 
             // If it was an instance of Group Action
