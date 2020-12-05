@@ -4,7 +4,8 @@ import com.example.game.GameFramework.GamePlayer;
 
 public class GinRummyNoDrawsAction extends GinRummyMoveAction {
     /**
-     * constructor for GameAction
+     * Constructor automatically given due to extending move action,
+     * which defines who sent that action. This is to end the game
      *
      * @param player the player who created the action
      */

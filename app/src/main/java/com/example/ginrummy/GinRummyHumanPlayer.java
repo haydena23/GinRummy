@@ -1,7 +1,6 @@
 /**
- * GinRummyHumanPlayer.java - Extending from the GameFramework, here lies the listener
- *                            for the buttons and cards, and calls the methods the player
- *                            needs when taking actions
+ * GinRummyHumanPlayer.java - Methods that are used for
+ * a human player which includes the listener and updating the GUI.
  *
  * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
  * @version 25 Nov 2020
@@ -79,6 +78,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
         super(name);
         this.layoutId = layoutId;
 
+        // Initializes variables used for the grouping algo
         groupedCards = new Card[12];
         amountGrouped = 0;
     }
@@ -95,16 +95,19 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
     /**
      * Determine what sort of info is received, and
      * provide an error and flash the screen if said info is not currently allowed
-     * @param info
+     * @param info information sent by the Local Game
      */
     @Override
     public void receiveInfo(GameInfo info) {
         if(scoreView == null) {
             return;
         }
+        // Flashes the scoreView red if the player tries to do something wrong
         if(info instanceof IllegalMoveInfo || info instanceof NotYourTurnInfo) {
+            //TODO : ScoreView updates a message depending on the error
             scoreView.flash(Color.RED, 50);
         }
+        // Updates the player's hand when it becomes their turn
         else if (!(info instanceof GinRummyGameState)) {
             return;
         }
@@ -125,6 +128,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
      */
     @Override
     public void setAsGui(GameMainActivity activity) {
+        // Methods to display the GUI while also setting the listeners
         myActivity = activity;
         activity.setContentView(layoutId);
         scoreView = myActivity.findViewById(R.id.surfaceView);
@@ -181,7 +185,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
 
     /**
      * Method to calculate an automatic Gin action in the game,
-     * then updating the scoreboard
+     * which also updates the ScoreView depending on who won
      */
     public void autoGin() {
         int handValue = 0;

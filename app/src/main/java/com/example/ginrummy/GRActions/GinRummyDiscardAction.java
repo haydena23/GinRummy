@@ -8,17 +8,14 @@ public class GinRummyDiscardAction extends GinRummyMoveAction {
 
     private int whichCard;
     /**
-     * constructor for GameAction
+     * Constructor automatically given due to extending move action,
+     * which defines who sent that action, and which card they want to discard
      *
      * @param player the player who created the action
      */
     public GinRummyDiscardAction(GamePlayer player, int whichCard) {
         super(player);
         this.whichCard = whichCard;
-    }
-
-    public boolean isDiscard() {
-        return true;
     }
 
     public int getWhichCard() {

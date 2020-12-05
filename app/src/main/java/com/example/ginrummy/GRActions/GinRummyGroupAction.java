@@ -10,7 +10,9 @@ public class GinRummyGroupAction extends GinRummyMoveAction {
     private int amountOfCards;
 
     /**
-     * constructor for GameAction
+     * Constructor automatically given due to extending move action, which
+     * defines who sent that action, which cards to check to group, and how many.
+     * This is for an attempt to knock
      *
      * @param player the player who created the action
      */
@@ -18,10 +20,6 @@ public class GinRummyGroupAction extends GinRummyMoveAction {
         super(player);
         this.groupTheseCard = groupTheseCards;
         this.amountOfCards = amountOfCards;
-    }
-
-    public boolean isGroup() {
-        return true;
     }
 
     public Card[] getGroupTheseCard() {
