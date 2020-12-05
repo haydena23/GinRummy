@@ -21,8 +21,6 @@ public class GinRummyGameState extends GameState {
     private Card discardedCard;
 
     // Instance variables for the players
-    private int totalOfP1;
-    private int totalofP2;
     private int P1Points;
     private int P2Points;
     private int P1ValueOfGrouped;
@@ -49,8 +47,6 @@ public class GinRummyGameState extends GameState {
         this.currentStage = "drawingStage";
 
         this.amountDrawn = 0;
-        this.totalOfP1 = 0;
-        this.totalofP2 = 0;
         this.P1Points = 0;
         this.P2Points = 0;
 
@@ -103,7 +99,6 @@ public class GinRummyGameState extends GameState {
         this.currentStage = gameState.getCurrentStage();
         this.discardedCard = new Card(gameState.discardedCard.getNumber(),
                 gameState.discardedCard.getSuit());
-        this.totalOfP1 = gameState.totalOfP1;
         this.P1Points = gameState.P1Points;
         this.P2Points = gameState.P2Points;
         this.toPlay = gameState.toPlay;
