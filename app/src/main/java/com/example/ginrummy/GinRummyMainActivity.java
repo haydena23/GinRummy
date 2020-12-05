@@ -14,7 +14,8 @@
  *
  * The following are what we are missing :
  * Quit/Reset Button, Multiple Rounds, Smart AI,
- * A message on the ScoreView.
+ * A message on the ScoreView, highlighting cards when grouped
+ * and an instruction button.
  *
  * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
  * @version 25 Nov 2020
