@@ -10,8 +10,6 @@ package com.example.ginrummy;
 
 import com.example.game.GameFramework.GameComputerPlayer;
 import com.example.game.GameFramework.infoMessage.GameInfo;
-import com.example.game.GameFramework.infoMessage.IllegalMoveInfo;
-import com.example.game.GameFramework.infoMessage.NotYourTurnInfo;
 import com.example.ginrummy.GRActions.GinRummyDiscardAction;
 import com.example.ginrummy.GRActions.GinRummyDrawAction;
 import com.example.ginrummy.GRActions.GinRummyDrawDiscardAction;
@@ -43,17 +41,18 @@ public class GinRummyComputerPlayer extends GameComputerPlayer {
      */
     @Override
     protected void receiveInfo(GameInfo info) {
-        if(info instanceof IllegalMoveInfo || info instanceof NotYourTurnInfo) {
-            return;
-        }
-        else if (!(info instanceof GinRummyGameState)) {
+        // This updates the state if the right info was sent.
+        if (!(info instanceof GinRummyGameState)) {
             return;
         } else {
             state = (GinRummyGameState) info;
         }
 
-        if (!isSmart) {
-            if (state.getToPlay() == 1) {
+        if (!isSmart) { // DumbAI Algorithm
+            // Checks if it's the computer's turn.
+            if (state.getToPlay() == playerNum) {
+
+                // Randomly draws the discard or drawPile
                 Random rand  = new Random();
                 if (rand.nextBoolean()) {
                     game.sendAction(new GinRummyDrawAction(this));
@@ -61,12 +60,12 @@ public class GinRummyComputerPlayer extends GameComputerPlayer {
                     game.sendAction(new GinRummyDrawDiscardAction(this));
                 }
 
+                // Randomly discards a card in its hand.
                 game.sendAction(new GinRummyDiscardAction(this,
                         rand.nextInt(11)));
-                state.setToPlay(0);
             }
-        } else {
-            // Put Smart AI code in here.
+
+        } else { // SmartAI Algorithm
         }
     }
 }
