@@ -56,11 +56,11 @@ public class GinRummyMainActivity extends GameMainActivity {
                 return new GinRummyComputerPlayer(name, false);
             }
         });
-        /*playerTypes.add(new GamePlayerType("computer player (smart)") {
+        playerTypes.add(new GamePlayerType("computer player (smart)") {
             public GamePlayer createPlayer(String name) {
                 return new GinRummyComputerPlayer(name, true);
             }
-        });*/
+        });
 
         // Create a game configuration class for GinRummy
         GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2,

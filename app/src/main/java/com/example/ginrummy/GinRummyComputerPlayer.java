@@ -77,104 +77,106 @@ public class GinRummyComputerPlayer extends GameComputerPlayer {
             }
 
         } else { // SmartAI Algorithm
-            Card discardedCard = state.getDiscardedCard();
-            Card drawCard;
-            Card[] discardedCardMatches = new Card[11];
-            int matchesCounters = 0;
-            int discardedCardNumber = discardedCard.getNumber();
-            int drawCardNumber = 0;
+            if (state.getToPlay() == playerNum) {
+                Card discardedCard = state.getDiscardedCard();
+                Card drawCard;
+                Card[] discardedCardMatches = new Card[11];
+                int matchesCounters = 0;
+                int discardedCardNumber = discardedCard.getNumber();
+                int drawCardNumber = 0;
 
-            loopPossibleRun(discardedCard);
-            loopPossibleSet(discardedCard);
+                loopPossibleRun(discardedCard);
+                loopPossibleSet(discardedCard);
 
-            if (discardedCard.getIsPossibleRun() || discardedCard.getIsPossibleSet()) {
-                game.sendAction(new GinRummyDrawDiscardAction(this));
+                if (discardedCard.getIsPossibleRun() || discardedCard.getIsPossibleSet()) {
+                    game.sendAction(new GinRummyDrawDiscardAction(this));
 
-                // If the discarded card is in a possible set, check the hand and group if possible.
-                if (discardedCard.getIsPossibleSet()) {
-                    //This checks for sets for the drawn discarded Card
-                    for (int x = 0; x < playerHand.length; x++) {
-                        if (playerHand[x].getNumber() == discardedCardNumber) {
-                            discardedCardMatches[matchesCounters] = playerHand[x];
-                            matchesCounters++;
-                        }
-                        discardedCardMatches[matchesCounters] = discardedCard;
-                    }
-                    if (matchesCounters > 2) {
-                        game.sendAction(new GinRummyGroupAction(
-                                this, discardedCardMatches, matchesCounters));
-                    }
-                }
-                if (discardedCard.getIsPossibleRun()) {
-                    //Sorting algorithm
-                    Card[] updatedHand = new Card[11];
-                    int counter = 0;
-                    for (int y = 0; y < 52; y++) {
+                    // If the discarded card is in a possible set, check the hand and group if possible.
+                    if (discardedCard.getIsPossibleSet()) {
+                        //This checks for sets for the drawn discarded Card
                         for (int x = 0; x < playerHand.length; x++) {
-                            if (playerHand[x].getPosition() == y) {
-                                updatedHand[counter] = playerHand[x];
-                                counter++;
+                            if (playerHand[x].getNumber() == discardedCardNumber) {
+                                discardedCardMatches[matchesCounters] = playerHand[x];
+                                matchesCounters++;
+                            }
+                            discardedCardMatches[matchesCounters] = discardedCard;
+                        }
+                        if (matchesCounters > 2) {
+                            game.sendAction(new GinRummyGroupAction(
+                                    this, discardedCardMatches, matchesCounters));
+                        }
+                    }
+                    if (discardedCard.getIsPossibleRun()) {
+                        //Sorting algorithm
+                        Card[] updatedHand = new Card[11];
+                        int counter = 0;
+                        for (int y = 0; y < 52; y++) {
+                            for (int x = 0; x < playerHand.length; x++) {
+                                if (playerHand[x].getPosition() == y) {
+                                    updatedHand[counter] = playerHand[x];
+                                    counter++;
+                                }
                             }
                         }
                     }
-                }
-            } else {
-                game.sendAction(new GinRummyDrawAction(this));
-                drawCard = playerHand[10];
-                drawCardNumber = drawCard.getNumber();
-                Card[] drawCardMatches = new Card[11];
-
-                if (drawCard.getIsPossibleSet()) {
-                    for (int x = 0; x < playerHand.length; x++) {
-                        if (playerHand[x].getNumber() == drawCardNumber) {
-                            playerHand[matchesCounters] = playerHand[x];
-                            matchesCounters++;
-                        }
-                        drawCardMatches[matchesCounters] = drawCard;
-                    }
-                    if (matchesCounters > 2) {
-                        game.sendAction(new GinRummyGroupAction(
-                                this, drawCardMatches, matchesCounters));
-                    }
                 } else {
+                    game.sendAction(new GinRummyDrawAction(this));
+                    drawCard = playerHand[10];
+                    drawCardNumber = drawCard.getNumber();
+                    Card[] drawCardMatches = new Card[11];
 
-                }
-            }
+                    if (drawCard.getIsPossibleSet()) {
+                        for (int x = 0; x < playerHand.length; x++) {
+                            if (playerHand[x].getNumber() == drawCardNumber) {
+                                playerHand[matchesCounters] = playerHand[x];
+                                matchesCounters++;
+                            }
+                            drawCardMatches[matchesCounters] = drawCard;
+                        }
+                        if (matchesCounters > 2) {
+                            game.sendAction(new GinRummyGroupAction(
+                                    this, drawCardMatches, matchesCounters));
+                        }
+                    } else {
 
-            Card discardThis = new Card(0, "Trash");
-            int discardThisElement = -1;
-
-            for (int x = 0; x < playerHand.length; x++) {
-                if (!(playerHand[x].getIsPossibleSet() && (!(playerHand[x].getIsPossibleRun())))) {
-                    if (discardThis.getNumber() < playerHand[x].getNumber()) {
-                        discardThis = playerHand[x];
-                        discardThisElement = x;
                     }
                 }
-            }
 
-            if (discardThis.getNumber() == 0) {
+                Card discardThis = new Card(0, "Trash");
+                int discardThisElement = -1;
 
-                Card highestPairedCard = new Card(0, "Trash");
-                int highestPairedElement = 0;
                 for (int x = 0; x < playerHand.length; x++) {
-                    if (playerHand[x].getNumber() > highestPairedCard.getNumber()) {
-                        if (!(playerHand[x].getIsInRun() || playerHand[x].getIsInSet())) {
-                            highestPairedCard = playerHand[x];
-                            highestPairedElement = x;
+                    if (!(playerHand[x].getIsPossibleSet() && (!(playerHand[x].getIsPossibleRun())))) {
+                        if (discardThis.getNumber() < playerHand[x].getNumber()) {
+                            discardThis = playerHand[x];
+                            discardThisElement = x;
                         }
                     }
                 }
 
-                for (int x = 0; x < playerHand.length; x++) {
-                    if (playerHand[x].getNumber() == highestPairedCard.getNumber()) {
-                        playerHand[x].setIsPossibleSet(false);
-                    }
-                }
+                if (discardThis.getNumber() == 0) {
 
-                game.sendAction(new GinRummyDiscardAction(this, highestPairedElement));
-            } else {
-                game.sendAction(new GinRummyDiscardAction(this, discardThisElement));
+                    Card highestPairedCard = new Card(0, "Trash");
+                    int highestPairedElement = 0;
+                    for (int x = 0; x < playerHand.length; x++) {
+                        if (playerHand[x].getNumber() > highestPairedCard.getNumber()) {
+                            if (!(playerHand[x].getIsInRun() || playerHand[x].getIsInSet())) {
+                                highestPairedCard = playerHand[x];
+                                highestPairedElement = x;
+                            }
+                        }
+                    }
+
+                    for (int x = 0; x < playerHand.length; x++) {
+                        if (playerHand[x].getNumber() == highestPairedCard.getNumber()) {
+                            playerHand[x].setIsPossibleSet(false);
+                        }
+                    }
+
+                    game.sendAction(new GinRummyDiscardAction(this, highestPairedElement));
+                } else {
+                    game.sendAction(new GinRummyDiscardAction(this, discardThisElement));
+                }
             }
         }
     }
