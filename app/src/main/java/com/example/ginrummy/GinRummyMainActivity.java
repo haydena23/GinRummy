@@ -56,7 +56,7 @@ public class GinRummyMainActivity extends GameMainActivity {
                 return new GinRummyComputerPlayer(name, false);
             }
         });
-        playerTypes.add(new GamePlayerType("computer player (smart)") {
+        playerTypes.add(new GamePlayerType("computer player (half-dumb)") {
             public GamePlayer createPlayer(String name) {
                 return new GinRummyComputerPlayer(name, true);
             }
