@@ -130,10 +130,14 @@ public class GinRummyLocalGame extends LocalGame{
             if (!(state.getCurrentStage().equals("discardStage"))) {
                 return false;
             }
+            // This just checks if the card the user is trying to throw away
+            // Has already been grouped. Which we aren't allowing for now.
             if (state.getToPlay() == 0) {
-                attemptOnThis = (Card)Array.get(state.getPlayer1Cards(),((GinRummyDiscardAction) grma).getWhichCard());
+                attemptOnThis = (Card)Array.get(state.getPlayer1Cards(),
+                        ((GinRummyDiscardAction) grma).getWhichCard());
             } else {
-                attemptOnThis = (Card)Array.get(state.getPlayer2Cards(),((GinRummyDiscardAction) grma).getWhichCard());
+                attemptOnThis = (Card)Array.get(state.getPlayer2Cards(),
+                        ((GinRummyDiscardAction) grma).getWhichCard());
             }
             if (attemptOnThis.getIsInSet() || attemptOnThis.getIsInRun()) {
                 return false;
