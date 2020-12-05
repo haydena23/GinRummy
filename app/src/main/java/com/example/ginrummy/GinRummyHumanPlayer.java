@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.R;
 import com.example.game.GameFramework.GameHumanPlayer;
@@ -178,7 +179,6 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
         groupButton.setOnClickListener(this);
         knockButton = myActivity.findViewById(R.id.knockButton);
         knockButton.setOnClickListener(this);
-
 
         drawPileCard.setImageResource(R.drawable.blue_back);
     }

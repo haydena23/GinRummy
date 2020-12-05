@@ -20,6 +20,7 @@ public class GinRummyComputerPlayer extends GameComputerPlayer {
     //Instance variables
     GinRummyGameState state;
     private boolean isSmart;
+    private String name;
 
     /**
      * Constructor for the GinRummyComputerPlayer extending from the game framework
