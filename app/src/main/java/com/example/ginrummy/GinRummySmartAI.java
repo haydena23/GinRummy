@@ -194,6 +194,7 @@ public class GinRummySmartAI extends GameComputerPlayer {
         }
     }
 
+
     public void loopPossibleRun(Card card1) {
         for (int i = 0; i < cardChecker.length; i++) {
             identifyPossibleRun(card1, cardChecker[i]);
@@ -206,18 +207,23 @@ public class GinRummySmartAI extends GameComputerPlayer {
         }
     }
 
-    public void discardOrDrawPile(Card cardTester, Card card1, Card card2) {
+    public void discardOrDrawPile(Card cardTester) {
         cardTester = state.getDiscardedCard();
+        int cardValue = cardTester.getNumber();
+        for (int x = 0; x < cardChecker.length;)
         loopPossibleRun(cardTester);
         loopPossibleSet(cardTester);
-        if (cardTester.getIsPossibleRun() == true ||
-                cardTester.getIsPossibleSet() == true) {
+
+        if (cardTester.getIsPossibleRun() || cardTester.getIsPossibleSet() ||
+                cardTester.getIsInRun() || cardTester.getIsInSet() ) {
             decide.drawDiscard();
         }
         else {
             decide.drawDraw();
         }
     }
+
+
     /**
      * Receive info from the GameState, and set the card checker
      * based on the game state Player2Cards
