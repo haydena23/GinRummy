@@ -209,8 +209,11 @@ public class GinRummySmartAI extends GameComputerPlayer {
 
     public void discardOrDrawPile(Card cardTester) {
         cardTester = state.getDiscardedCard();
+        int cardValue = cardTester.getNumber();
+        for (int x = 0; x < cardChecker.length;)
         loopPossibleRun(cardTester);
         loopPossibleSet(cardTester);
+
         if (cardTester.getIsPossibleRun() || cardTester.getIsPossibleSet() ||
                 cardTester.getIsInRun() || cardTester.getIsInSet() ) {
             decide.drawDiscard();
