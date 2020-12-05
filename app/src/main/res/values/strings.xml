@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">GinRummy</string>
     <string name="hello_world">Hello world!</string>
+    <string name="textTitle">Instructions</string>
+    <string name="textButton">Test</string>
+    <string name="instructions">1. To begin your turn, tap the draw pile on the left or the discard pile on the right. This will add a card to your hand.
+        \n2. After that action, you can either choose to discard a card or proceed to group cards in your hand. Once you discard a card, your turn is over.
+        \n3. To group cards, press the group button. Proceed to tap once each of the cards you wish to group. Then tap the group button again. This will slide your grouped cards to the left.
+        \n4. If you want to see if you can knock, select the “knock” button to try and earn points on your opponent at the end of the game.
+        \n5. To win the game you need to successfully knock and you can only knock if you have 10 or less points of unmatched cards in your hand.
+        \n6. The game will automatically “gin” for you so you do not need to worry about that.
+        \nNOTE: Your discarded card will not appear in the discard pile, simply because after you finish your turn, the AI discards a card right after you, therefore the card you see is the AIs.
+    </string>
 </resources>

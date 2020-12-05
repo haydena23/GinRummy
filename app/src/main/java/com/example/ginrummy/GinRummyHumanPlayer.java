@@ -10,6 +10,7 @@ package com.example.ginrummy;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -51,6 +52,7 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
     Button discardButton;
     Button groupButton;
     Button knockButton;
+    Button instructionsButton;
 
     // Instance variables for all the on screen card displays
     private ImageView card0;
@@ -180,6 +182,9 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
         knockButton = myActivity.findViewById(R.id.knockButton);
         knockButton.setOnClickListener(this);
 
+        instructionsButton = myActivity.findViewById(R.id.instructions);
+        instructionsButton.setOnClickListener(this);
+
         drawPileCard.setImageResource(R.drawable.blue_back);
     }
 
@@ -248,6 +253,17 @@ public class GinRummyHumanPlayer extends GameHumanPlayer implements View.OnClick
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.instructions:
+                /**
+                 External Citation
+                 Date: 4 December 2020
+                 Problem: Did not know how to get a pop up window.
+                 Resource: https://medium.com/@evanbishop/popupwindow-in-android-tutorial-6e5a18f49cc7
+                 Solution: We used the code from the example, added in some of our own to align with our code.
+                 */
+                PopUpClass popUpClass = new PopUpClass();
+                popUpClass.showPopupWindow(view);
+                break;
             case R.id.groupButton:
                 if (discardOn) {
                     break;
