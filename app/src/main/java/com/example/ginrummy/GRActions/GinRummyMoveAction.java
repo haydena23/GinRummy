@@ -5,7 +5,8 @@ import com.example.game.GameFramework.actionMessage.GameAction;
 
 public class GinRummyMoveAction extends GameAction {
     /**
-     * constructor for GameAction
+     * Constructor automatically given due to extending move action,
+     * which defines who sent that action. This is a general class
      *
      * @param player the player who created the action
      */

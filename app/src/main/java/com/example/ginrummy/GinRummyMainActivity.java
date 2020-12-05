@@ -4,22 +4,18 @@
  *                             Adds the players, and creates the local game
  *
  * Status of the game: As of this commit, the game runs one round.
- * In this round, the player can do all necessary actions to complete
- * this round that is in the original Gin Rummy, including
- * drawing from discard, discarding cards, grouping cards, knocking,
- * and finally ginning.
+ * Therefore, an actual, full run of a Gin Rummy game can't be done.
  *
- * The bugs are as follows: Grouping the same card twice,
- * and attempting to group a card with itself.
- *
- * The following are what we
- * need to implement : Correct values for each card, the quit button,
- * multiple rounds, a Smart AI, and a vertical screen layout.
- *
+ * The bugs are as follows:
+ * Vertical Screen layout, playerType Name described below.
  * For the playerTypes.add(new GamePlayerType(_______)) I can't
- * use capital letters because of a resource error. This is an unknown bug
- * that we couldn't figure out
+ *  * use capital letters because of a resource error. This is an unknown bug
+ *  * that we couldn't figure out
  *
+ * The following are what we are missing :
+ * Quit/Reset Button, Multiple Rounds, Smart AI,
+ * A message on the ScoreView, highlighting cards when grouped
+ * and an instruction button.
  *
  * @author Jarren Calizo, Tony Hayden, Aron Manalang, Audrey Sauter
  * @version 25 Nov 2020
@@ -38,7 +34,7 @@ import java.util.ArrayList;
 
 public class GinRummyMainActivity extends GameMainActivity {
 
-    //Instance variable
+    //Instance variable/s
     public static final int PORT_NUMBER = 8585;
 
     /**
@@ -48,9 +44,10 @@ public class GinRummyMainActivity extends GameMainActivity {
     @Override
     public GameConfig createDefaultConfig() {
         // Define the allowed player types
+        // This method came from the SlapJack code, but slightly altered for our game.
         ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
 
-        playerTypes.add(new GamePlayerType("human player (player1)") {
+        playerTypes.add(new GamePlayerType("human player") {
             public GamePlayer createPlayer(String name) {
                 return new GinRummyHumanPlayer(name, R.layout.activity_main);
             }});
@@ -59,7 +56,6 @@ public class GinRummyMainActivity extends GameMainActivity {
                 return new GinRummyComputerPlayer(name, false);
             }
         });
-        //Que?
         playerTypes.add(new GamePlayerType("computer player (smart)") {
             public GamePlayer createPlayer(String name) {
                 return new GinRummyComputerPlayer(name, true);
