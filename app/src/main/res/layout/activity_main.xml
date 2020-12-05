@@ -35,7 +35,7 @@
                     android:layout_weight="1"
                     android:background="#000000"
                     android:gravity="center_horizontal|center_vertical"
-                    android:text="Stoopid AI"
+                    android:text="Dumb AI"
                     android:textColor="#FFFFFF"
                     android:textSize="40sp" />
             </LinearLayout>
@@ -210,16 +210,17 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/quitButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Quit" />
-
-                <Button
                     android:id="@+id/knockButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Knock" />
+
+                <Button
+                    android:id="@+id/instructions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Instructions"
+                    android:textSize="10dp" />
 
             </LinearLayout>
         </LinearLayout>
